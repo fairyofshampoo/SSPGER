@@ -12,6 +12,6 @@ import java.util.List;
  * @author miche
  */
 public interface IProfessor {
-    int registrar(Professor profesor) throws SQLException;
-    List <Professor> getProfesorList() throws SQLException;
+    int registrar(Professor professor) throws SQLException;
+    List <Professor> getProfessorList() throws SQLException;
 }

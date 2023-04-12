@@ -14,12 +14,12 @@ import java.util.List;
 public class ProfessorDAO implements IProfessor{
 
     @Override
-    public int registrar(Professor profesor) throws SQLException {
+    public int registrar(Professor professor) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Professor> getProfesorList() throws SQLException {
+    public List<Professor> getProfessorList() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
