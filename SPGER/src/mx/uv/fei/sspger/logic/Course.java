@@ -2,7 +2,7 @@ package mx.uv.fei.sspger.logic;
 
 
 public class Course {
-    private String courseName;
+    private String name;
     private String nrc;
     private int section;
     private String state;
@@ -10,8 +10,8 @@ public class Course {
     
     public Course () {}
     
-    public void setCourseName (String courseName){
-        this.courseName = courseName;
+    public void setName (String name){
+        this.name = name;
     }
     
     public void setNrc (String nrc){
@@ -30,8 +30,8 @@ public class Course {
         this.block = block;
     }
     
-    public String getCourseName () {
-        return this.courseName;
+    public String getName () {
+        return this.name;
     }
     
     public String getNrc () {

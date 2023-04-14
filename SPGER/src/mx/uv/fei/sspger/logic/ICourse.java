@@ -4,10 +4,12 @@
  */
 package mx.uv.fei.sspger.logic;
 
-/**
- *
- * @author mario
- */
+
+import java.sql.SQLException;
+import java.util.List;
+
 public interface ICourse {
-    
+    int registerCourse (Course course, int idSchollarYear, String idCourse) throws SQLException; 
+    List<Course> getCoursesPerState(String state) throws SQLException;
+    List<Course> getAllCourses () throws SQLException;
 }
