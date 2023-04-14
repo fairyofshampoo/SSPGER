@@ -3,7 +3,11 @@ package mx.uv.fei.sspger.logic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
 
 /**
@@ -31,8 +35,45 @@ public class AcademicBodyDAO implements IAcademicBody {
     }
 
     @Override
-    public AcademicBody getAcademicBody() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public AcademicBody getAcademicBody(String id) throws SQLException {
+        String query = "SELECT * FROM cuerpo_academico WHERE idCuerpoAcademico = ?";
+        DataBaseManager dataBaseManager = new DataBaseManager();
+        Connection connection = dataBaseManager.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        
+        AcademicBody academicBody = new AcademicBody();
+        
+        preparedStatement.setString(1, id);
+        ResultSet academicBodyResult = preparedStatement.executeQuery();
+        academicBodyResult.next();
+        
+        academicBody.setId(academicBodyResult.getString("idCuerpoAcademico"));
+        academicBody.setName(academicBodyResult.getString("nombre"));
+        
+        dataBaseManager.closeConnection();
+        
+        return academicBody;
     }
     
+    @Override
+    public List<AcademicBody> getAllAcademicBody() throws SQLException{
+        String query = "SELECT * FROM cuerpo_academico";
+        DataBaseManager dataBaseManager = new DataBaseManager();
+        Connection connection = dataBaseManager.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet academicBodyResult = statement.executeQuery(query);
+        List<AcademicBody> academicBodyList = new ArrayList<>();
+
+        while(academicBodyResult.next()){
+            AcademicBody academicBody = new AcademicBody();
+            
+            academicBody.setId(academicBodyResult.getString("idCuerpoAcademico"));
+            academicBody.setName(academicBodyResult.getString("nombre"));
+            academicBodyList.add(academicBody);
+        }
+        
+        dataBaseManager.closeConnection();
+        
+        return academicBodyList;
+    }
 }
