@@ -14,7 +14,7 @@ import java.util.List;
 public class ProfessorDAO implements IProfessor{
 
     @Override
-    public int registrar(Professor professor) throws SQLException {
+    public int registerProfessor(Professor professor) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

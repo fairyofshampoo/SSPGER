@@ -11,7 +11,8 @@ import java.util.List;
  *
  * @author miche
  */
-public interface IProfessor {
-    int registerProfessor(Professor professor) throws SQLException;
-    List <Professor> getProfessorList() throws SQLException;
+public interface IAccessAccount {
+    int addAccessAccount(AccessAccount accessAccount, String idUsuarioProfesor, String idUsuarioEstudiante) throws SQLException;
+    AccessAccount getAccessAccount() throws SQLException;
+    List <AccessAccount> getAllAccessAccounts() throws SQLException;
 }

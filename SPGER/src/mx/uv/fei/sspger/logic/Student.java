@@ -9,19 +9,12 @@ package mx.uv.fei.sspger.logic;
  * @author miche
  */
 public class Student {
-    private String institutionalEMail;
     private String name;
     private String lastName;
     private String registrationTag;
     
     public Student(){
         
-    }
-    public String getInstitutionalEMail(){
-        return institutionalEMail;
-    }
-    public void setInstitutionalEMail(String institutionalEMail){
-        this.institutionalEMail = institutionalEMail;
     }
     public String getName(){
         return name;
