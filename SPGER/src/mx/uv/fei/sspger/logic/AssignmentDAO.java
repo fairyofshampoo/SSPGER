@@ -17,27 +17,30 @@ import mx.uv.fei.sspger.dataaccess.DataBaseManager;
 public class AssignmentDAO implements IAssingment{
     
     @Override
-    public int registerAssignment(Assignment assignment, String personalNumber) throws SQLException{
+    public int registerAssignment(Assignment assignment, String idProfessor) throws SQLException{
         int result;
-        String query = "insert into asignacion(titulo, fechaLimiteEntrega, fechaPublicacion, descripcion, idUsuarioProfesor)"
-                + "values (? , ? , ? , ? , ?)";
+        String query = "insert into asignacion(titulo, fechaInicia, fechaFin, fechaPublicacion, descripcion, idUsuarioProfesor)"
+                + "values (? , ? , ? , ? , ?, ?)";
         DataBaseManager dataBaseManager = new DataBaseManager();
         Connection connection = dataBaseManager.getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         
         statement.setString(1, assignment.getTitle());
-        statement.setTimestamp(2,assignment.getDeadline());
-        statement.setTimestamp(3, assignment.getPublicationDate());
-        statement.setString(4, assignment.getDescription());
-        statement.setString(5, personalNumber);
+        statement.setTimestamp(2,assignment.getStartDate());
+        statement.setTimestamp(3, assignment.getDeadline());
+        statement.setTimestamp(4, assignment.getPublicationDate());
+        statement.setString(5, assignment.getDescription());
+        statement.setString(6, idProfessor);
         
         result = statement.executeUpdate();
         
+        dataBaseManager.closeConnection(); 
         return result;
     }
 
     @Override
     public List<Assignment> getAssignmentsPerProyect() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("Hola");
+        return null;
     }
 }
