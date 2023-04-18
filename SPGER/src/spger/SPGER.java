@@ -22,7 +22,7 @@ public class SPGER {
      */
     public static void main(String[] args) {
         AccessAccount account = new AccessAccount();
-        account.setInstitutionalEMail("oalonso@uv.mx");
+        account.setEMail("oalonso@uv.mx");
         account.setPassword("Miri0301");
         account.setPrivileges(1);
 
@@ -45,7 +45,7 @@ public class SPGER {
             accessAccountList = accessAccountDAO.getAllAccessAccounts();
 
             for(int i = 0 ; i < accessAccountList.size() ; i++){
-               System.out.println(accessAccountList.get(i).getInstitutionalEMail());
+               System.out.println(accessAccountList.get(i).getEMail());
             }
         }catch(SQLException accessAcountRegisterError){
             System.out.println("Error al obtener todas las cuentas de acceso");

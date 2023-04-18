@@ -8,7 +8,7 @@ package mx.uv.fei.sspger.logic;
  *
  * @author miche
  */
-public class Professor {
+public class Professor extends User{
     private String honorificTitle;
     private String personalNumber;
     

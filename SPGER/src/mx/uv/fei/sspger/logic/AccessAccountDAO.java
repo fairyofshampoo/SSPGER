@@ -27,7 +27,7 @@ public class AccessAccountDAO implements IAccessAccount{
         Connection connection = dataBaseManager.getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         
-        statement.setString(1, accessAccount.getInstitutionalEMail());
+        statement.setString(1, accessAccount.getEMail());
         statement.setString(2, accessAccount.getPassword());
         statement.setInt(3, accessAccount.getPrivileges());
         
@@ -50,7 +50,7 @@ public class AccessAccountDAO implements IAccessAccount{
         ResultSet accountResult = statement.executeQuery(query);
         
         AccessAccount account = new AccessAccount();
-        account.setInstitutionalEMail(accountResult.getString("correo_institucional"));
+        account.setEMail(accountResult.getString("correo_institucional"));
         account.setPassword(accountResult.getString("password"));
         account.setPrivileges(accountResult.getInt("privilegios"));
         
@@ -71,7 +71,7 @@ public class AccessAccountDAO implements IAccessAccount{
         
         while(accountResult.next()){
             AccessAccount account = new AccessAccount();
-            account.setInstitutionalEMail(accountResult.getString("correo_institucional"));
+            account.setEMail(accountResult.getString("correo_institucional"));
             account.setPassword(accountResult.getString("password"));
             account.setPrivileges(accountResult.getInt("privilegios"));
             accountList.add(account);

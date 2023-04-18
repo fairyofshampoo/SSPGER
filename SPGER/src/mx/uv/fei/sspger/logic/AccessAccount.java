@@ -9,18 +9,18 @@ package mx.uv.fei.sspger.logic;
  * @author miche
  */
 public class AccessAccount {
-    private String institutionalEMail;
+    private String email;
     private String password;
     private int privileges;
     
     public AccessAccount(){
         
     }
-    public String getInstitutionalEMail(){
-        return institutionalEMail;
+    public String getEMail(){
+        return email;
     }
-    public void setInstitutionalEMail(String email){
-        this.institutionalEMail = email;
+    public void setEMail(String email){
+        this.email = email;
     }
     public String getPassword(){
         return password;
@@ -33,5 +33,12 @@ public class AccessAccount {
     }
     public void setPrivileges(int privileges){
         this.privileges = privileges;
+    }
+    public boolean equals(AccessAccount accessAccount){
+        boolean result = false;
+        if (accessAccount.getEMail().equals(this.getEMail())){
+            result = true;
+        }  
+        return result;
     }
 }

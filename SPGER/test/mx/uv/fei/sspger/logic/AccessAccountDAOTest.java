@@ -45,7 +45,7 @@ public class AccessAccountDAOTest {
     public void testAddAccessAccount() throws SQLException {
         System.out.println("addAccessAccount");
         AccessAccount accessAccount = new AccessAccount();
-        accessAccount.setInstitutionalEMail("oalonso@uv.mx");
+        accessAccount.setEMail("oalonso@uv.mx");
         accessAccount.setPassword("Miri0301");
         accessAccount.setPrivileges(1);
         AccessAccountDAO instance = new AccessAccountDAO();
