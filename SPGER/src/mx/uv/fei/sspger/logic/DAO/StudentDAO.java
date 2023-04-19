@@ -2,24 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package mx.uv.fei.sspger.logic;
+package mx.uv.fei.sspger.logic.DAO;
 
 import java.sql.SQLException;
 import java.util.List;
+import mx.uv.fei.sspger.logic.contracts.IStudent;
+import mx.uv.fei.sspger.logic.Student;
 
 /**
  *
  * @author miche
  */
-public class ProfessorDAO implements IProfessor{
+public class StudentDAO implements IStudent{
 
     @Override
-    public int registerProfessor(Professor professor) throws SQLException {
+    public int registrar(Student estudiante) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Professor> getProfessorList() throws SQLException {
+    public List<Student> getEstudianteList() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

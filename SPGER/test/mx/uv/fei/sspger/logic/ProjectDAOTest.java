@@ -4,6 +4,7 @@
  */
 package mx.uv.fei.sspger.logic;
 
+import mx.uv.fei.sspger.logic.DAO.ProjectDAO;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
