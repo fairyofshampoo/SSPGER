@@ -38,16 +38,14 @@ public class AccessAccount {
     public void setPrivileges(int privileges){
         this.privileges = privileges;
     }
-    public boolean equals(AccessAccount accessAccount){
-        boolean result = false;
-        if (accessAccount.getEMail().equals(this.getEMail())){
-            result = true;
-        }  
-        return result;
-    }
-    public boolean equalsList(List <AccessAccount> accessAccountTestList){
-        boolean result = false;
-        int sizeAccessAccountTest;
-        return result;
+    
+    @Override
+    public boolean equals(Object object){
+        if (object instanceof AccessAccount){
+            AccessAccount other = (AccessAccount)object;
+            return this.email.equals(other.getEMail());
+        }else{
+            return false;
+        }
     }
 }
