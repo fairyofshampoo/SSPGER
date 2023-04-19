@@ -5,6 +5,7 @@
 package mx.uv.fei.sspger.logic.DAO;
 
 
+import mx.uv.fei.sspger.logic.AccessAccount;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
