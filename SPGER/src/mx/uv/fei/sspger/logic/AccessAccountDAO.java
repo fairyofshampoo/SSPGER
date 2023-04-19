@@ -4,6 +4,7 @@
  */
 package mx.uv.fei.sspger.logic;
 
+
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

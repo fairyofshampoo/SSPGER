@@ -4,6 +4,10 @@
  */
 package mx.uv.fei.sspger.logic;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author miche
@@ -39,6 +43,11 @@ public class AccessAccount {
         if (accessAccount.getEMail().equals(this.getEMail())){
             result = true;
         }  
+        return result;
+    }
+    public boolean equalsList(List <AccessAccount> accessAccountTestList){
+        boolean result = false;
+        int sizeAccessAccountTest;
         return result;
     }
 }
