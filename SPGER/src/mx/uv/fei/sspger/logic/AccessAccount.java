@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mx.uv.fei.sspger.logic;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author miche
- */
+
 public class AccessAccount {
     private String email;
     private String password;
@@ -41,11 +34,11 @@ public class AccessAccount {
     
     @Override
     public boolean equals(Object object){
-        if (object instanceof AccessAccount){
-            AccessAccount other = (AccessAccount)object;
-            return this.email.equals(other.getEMail());
-        }else{
+        if(object == null || (object.getClass() != this.getClass())){
             return false;
         }
+        final AccessAccount other = (AccessAccount)object;
+        return (this.email == null ? other.email == null: this.email.equals(other.email));
     }
 }
+   

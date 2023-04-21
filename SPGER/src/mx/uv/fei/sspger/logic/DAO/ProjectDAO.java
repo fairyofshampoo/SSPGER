@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mx.uv.fei.sspger.logic.DAO;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,10 +12,7 @@ import mx.uv.fei.sspger.dataaccess.DataBaseManager;
 import mx.uv.fei.sspger.logic.contracts.IProject;
 import mx.uv.fei.sspger.logic.Project;
 
-/**
- *
- * @author miche
- */
+
 public class ProjectDAO implements IProject{
 
     @Override

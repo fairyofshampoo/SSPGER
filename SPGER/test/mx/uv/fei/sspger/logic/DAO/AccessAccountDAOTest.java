@@ -1,49 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package mx.uv.fei.sspger.logic.DAO;
 
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import java.sql.SQLException;
-import mx.uv.fei.sspger.logic.AccessAccount;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import java.util.ArrayList;
+import static org.junit.Assert.*;
+import mx.uv.fei.sspger.logic.*;
 
-/**
- *
- * @author miche
- */
+
 public class AccessAccountDAOTest {
     
     public AccessAccountDAOTest() {
     }
     
-    @BeforeAll
+    @BeforeClass
     public static void setUpClass() {
     }
     
-    @AfterAll
+    @AfterClass
     public static void tearDownClass() {
     }
     
-    @BeforeEach
+    @Before
     public void setUp() {
     }
-    
-    @AfterEach
+   
+    @After
     public void tearDown() {
     }
 
-    /**
-     * Test of addAccessAccount method, of class AccessAccountDAO.
-     */
     @Test
-    public void testAddAccessAccount() throws Exception {
+    public void testSuccessfulAddAccessAccount() throws Exception {
         System.out.println("addAccessAccount");
         
         AccessAccount accessAccount = new AccessAccount();
@@ -54,43 +44,77 @@ public class AccessAccountDAOTest {
         
         AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
         
-        int expResult = 0;
+        int expResult = 1;
         int result = accessAccountDAO.addAccessAccount(accessAccount);
         
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of getAccessAccount method, of class AccessAccountDAO.
-     */
     @Test
-    public void testGetAccessAccount() throws Exception {
+    public void testSuccessfulGetAccessAccount() throws Exception {
         System.out.println("getAccessAccount");
         String email = "angesanchez@uv.mx";
         AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
+        AccessAccount accessAccountTest = accessAccountDAO.getAccessAccount(email);
         AccessAccount accessAccount = new AccessAccount();
         
         accessAccount.setEMail("angesanchez@uv.mx");
         accessAccount.setPassword("Miri0301");
         accessAccount.setPrivileges(1);
         
-        boolean expResult = true;
-        boolean result = accessAccount == accessAccountDAO.getAccessAccount(email);
+        AccessAccount expResult = accessAccount;
+        AccessAccount result = accessAccountTest;
         assertEquals(expResult, result);
     }
-
-    /**
-     * Test of getAllAccessAccounts method, of class AccessAccountDAO.
-     */
     @Test
-    public void testGetAllAccessAccounts() throws Exception {
+    public void testSuccessfulGetAllAccessAccounts() throws Exception {
         System.out.println("getAllAccessAccounts");
-        AccessAccountDAO instance = new AccessAccountDAO();
-        List<AccessAccount> expResult = null;
-        List<AccessAccount> result = instance.getAllAccessAccounts();
+        AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
+        
+        AccessAccount accessAccount1 = new AccessAccount();
+        accessAccount1.setEMail("angesanchez@uv.mx");
+        
+        AccessAccount accessAccount2 = new AccessAccount();
+        accessAccount2.setEMail("Asd@uv.mx");
+        
+        AccessAccount accessAccount3 = new AccessAccount();
+        accessAccount3.setEMail("oalonso@uv.mx");
+        
+        AccessAccount accessAccount4 = new AccessAccount();
+        accessAccount4.setEMail("miau@uv.mx");
+
+        List<AccessAccount> expResult = new ArrayList<>();
+        expResult.add(accessAccount1);
+        expResult.add(accessAccount2);
+        expResult.add(accessAccount3);
+        
+        List<AccessAccount> result = accessAccountDAO.getAllAccessAccounts();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    @Test
+    public void testSuccessfulUpdateAccessAccount() throws Exception {
+        System.out.println("updateAccessAccount");
+        String email = "oalonso@uv.mx";
+        AccessAccount accessAccount = new AccessAccount();
+        AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
+        
+        accessAccount.setEMail("oscar_alonso@uv.mx");
+        accessAccount.setPassword("P4SsW0RD");
+        
+        int expResult = 1;
+        int result = accessAccountDAO.updateAccessAccount(email, accessAccount);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testSuccessfulDeleteAccessAccount() throws Exception {
+        System.out.println("deleteAccessAccount");
+        String email = "oscar_alonso@uv.mx";
+        AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
+        int expResult = 1;
+        int result = accessAccountDAO.deleteAccessAccount(email);
+        assertEquals(expResult, result);
     }
     
 }
