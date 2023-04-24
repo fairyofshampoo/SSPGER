@@ -1,5 +1,6 @@
 package mx.uv.fei.sspger.dataaccess;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,14 +14,23 @@ import java.util.logging.Logger;
 
 
 public class DataBaseManager {
-    private Connection connection;
+    /* The atribute and methods are static because for managing the exception 
+    of a transaction we need access to the connection to make a rollback 
+    in the catch block, and we also need the connection for the finally 
+    block to close it.
+    */
+    
+    private static Connection connection;
 
-    public Connection getConnection() throws SQLException {
-        connect();
+    public static Connection getConnection() throws SQLException {
+        if(connection == null || connection.isClosed()){
+            connect();
+        }
+        
         return connection;
     }
 
-    private void connect() throws SQLException {
+    private static void connect() throws SQLException {
         try {
             FileInputStream configFile = new FileInputStream(new File("src/mx/uv/fei/sspger/dataaccess/databaseconfig.txt"));
             Properties properties = new Properties();
@@ -31,13 +41,15 @@ public class DataBaseManager {
             String password = properties.getProperty("password");
             connection = DriverManager.getConnection(name, user, password);
         } catch (FileNotFoundException fileNotFoundException) {
-            System.out.println(fileNotFoundException.getMessage());
+            //LOGGER
+            throw new SQLException("No se pudo acceder a la base de datos.");
         } catch (IOException iOException){
-            System.out.println(iOException.getMessage());
+            //LOGGER
+            throw new SQLException("Hubo un error en el sistema.");
         }
     }
 
-    public void closeConnection() {
+    public static void closeConnection() {
         if (connection != null) {
             try {
                 if (!connection.isClosed()) {

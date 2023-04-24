@@ -2,6 +2,7 @@ package mx.uv.fei.sspger.logic;
 
 
 public class Course {
+    private String courseId;
     private String name;
     private String nrc;
     private int section;
@@ -9,6 +10,14 @@ public class Course {
     private int block;
     
     public Course () {}
+    
+    public void manualSetOfCourseId(String courseId){
+        this.courseId = courseId;
+    }
+    
+    public void setCourseId(int semesterId){
+        this.courseId = createCourseId(semesterId);
+    }
     
     public void setName (String name){
         this.name = name;
@@ -30,6 +39,10 @@ public class Course {
         this.block = block;
     }
     
+    public String getCourseId(){
+        return this.courseId;
+    }
+    
     public String getName () {
         return this.name;
     }
@@ -48,5 +61,18 @@ public class Course {
     
     public int getBlock () {
         return this.block;
+    }
+    
+    public String createCourseId(int semesterId){
+        return name.substring(0, 3) + section + semesterId;
+    }
+    
+    @Override
+    public boolean equals(Object object){
+        if(object == null || (object.getClass() != this.getClass())){
+            return false;
+        }
+        final Course other = (Course)object;
+        return (this.courseId == null ? other.courseId == null: this.courseId.equals(other.courseId));
     }
 }

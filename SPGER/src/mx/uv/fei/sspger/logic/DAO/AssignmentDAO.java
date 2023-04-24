@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package mx.uv.fei.sspger.logic;
+package mx.uv.fei.sspger.logic.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +12,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
+import mx.uv.fei.sspger.logic.Assignment;
+import mx.uv.fei.sspger.logic.contracts.IAssingment;
 
 /**
  *
