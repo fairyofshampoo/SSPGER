@@ -1,6 +1,7 @@
 package mx.uv.fei.sspger.GUI.controllers;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -10,6 +11,9 @@ import java.util.List;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,20 +23,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import mx.uv.fei.sspger.GUI.DialogGenerator;
-import mx.uv.fei.sspger.GUI.TableStudentsPerCourse;
 import mx.uv.fei.sspger.GUI.AlertMessage;
 import mx.uv.fei.sspger.GUI.ComboBoxProfessor;
+import mx.uv.fei.sspger.GUI.MainApplication;
 import mx.uv.fei.sspger.logic.DAO.CourseDAO;
 import mx.uv.fei.sspger.logic.DAO.StudentDAO;
 import mx.uv.fei.sspger.logic.EnrollToCourse;
 import mx.uv.fei.sspger.logic.Student;
 import mx.uv.fei.sspger.logic.Course;
+import mx.uv.fei.sspger.logic.CourseName;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
 import mx.uv.fei.sspger.logic.DAO.SemesterDAO;
 import mx.uv.fei.sspger.logic.Professor;
@@ -42,24 +49,38 @@ import mx.uv.fei.sspger.logic.Status;
 
 public class AddCourseController implements Initializable {
     
-    private CourseStates courseState = CourseStates.AVAILABLE;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final CourseName GUIDED_PROYECT = CourseName.GUIDED_PROYECT;
+    private final CourseName RECEPCIONAL_EXPERIENCE = CourseName.RECEPCIONAL_EXPERIENCE;
+    private final CourseStates COURSES_STATES = CourseStates.AVAILABLE;
+    private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     
     @FXML
     private Button cancelBtn;
 
     @FXML
-    private TableColumn<TableStudentsPerCourse, String> studentName;
+    private TableColumn<TableStudentsPerCourse, String> tblCStudentName;
     
     @FXML
-    private TableColumn<TableStudentsPerCourse, String> registrationTag;
+    private TableColumn<TableStudentsPerCourse, String> tblCRegistrationTag;
     
     @FXML
-    private TableColumn<TableStudentsPerCourse, CheckBox> checkBox;
+    private TableColumn<TableStudentsPerCourse, CheckBox> tblCCheckBox;
     
     @FXML
-    private TableView<TableStudentsPerCourse> studentsTableView;
+    private TableView<TableStudentsPerCourse> tblVwStudents;
 
+    @FXML
+    private Label lblInvalidNrc;
+
+    @FXML
+    private Label lblInvalidSection;
+
+    @FXML
+    private Label lblInvalidSemester;
+
+    @FXML
+    private Label lblInvalidBlock;
+    
     @FXML
     private TextField txtBlock;
 
@@ -82,103 +103,63 @@ public class AddCourseController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbxCourseName.setItems(FXCollections.observableArrayList("Experiencia recepcional", "Proyecto guiado"));
-        cbxCourseName.getSelectionModel().select("Experiencia recepcional");
+        cbxCourseName.setItems(FXCollections.observableArrayList(RECEPCIONAL_EXPERIENCE.getCourseName(), GUIDED_PROYECT.getCourseName()));
+        cbxCourseName.getSelectionModel().select(RECEPCIONAL_EXPERIENCE.getCourseName());
         
+        setRestrictionsForGraphicElements();
         setStudentTable();
         setCbxProfessor();
         setCbxSemester();
     }
-
-    @FXML
-    private void cancelCourseAddition(ActionEvent actionEvent){
-        if (isConfirmedExit()){
-            Stage stage = (Stage) cancelBtn.getScene().getWindow();
-            stage.close();
-        }
+    
+    private void setRestrictionsForGraphicElements() {
+        UnaryOperator <TextFormatter.Change> sectionAndBlockLenght = change ->{
+            if(change.getControlNewText().matches("\\d{0,1}")){
+                return change;
+            } else{
+                return null;
+            }
+        };
+        
+        UnaryOperator <TextFormatter.Change> nrcLenght = change ->{
+            if(change.getControlNewText().matches("\\d{0,5}")){
+                return change;
+            } else{
+                return null;
+            }
+        };
+        
+        txtBlock.setTextFormatter(new TextFormatter<>(sectionAndBlockLenght));
+        txtSection.setTextFormatter(new TextFormatter<>(sectionAndBlockLenght));
+        txtNrc.setTextFormatter(new TextFormatter<>(nrcLenght));
     }
     
-    @FXML
-    private void addCourse(ActionEvent actionEvent){
-        
-        CourseDAO courseDao = new CourseDAO();
-        Course course = new Course();
-        
-        Semester semester = getSemester();
-        
-        course.setName(cbxCourseName.getValue());
-        course.setBlock(Integer.parseInt(txtBlock.getText()));
-        course.setSection(Integer.parseInt(txtSection.getText()));
-        course.setNrc(txtNrc.getText());
-        course.setState(courseState.getCourseState());
-        course.setCourseId(semester.getSemesterId());
+    private void setStudentTable(){
+        StudentDAO studentDao = new StudentDAO();
+        List<Student> availableStudents = new ArrayList<>();
         
         try{
-            if(courseDao.registerCourse(course, semester.getSemesterId()) == 1){
+            availableStudents = studentDao.getAvailableStudents();
+        } catch (SQLException Ex) {
                 DialogGenerator.getDialog(new AlertMessage (
-                    "Curso registrado con éxito.", 
-                    Status.SUCCESS));
-                registerStudents(courseDao, course);
-                setProfessor(courseDao, course);
-            } else {
-                DialogGenerator.getDialog(new AlertMessage (
-                    "No fue posible añadir el curso",
-                    Status.WARNING));
-            }
-        }catch (SQLException SqlException){
-            DialogGenerator.getDialog(new AlertMessage (
-                "Hubo un problema al registrar el sistema",
+                "Error en la conexion al sistema.",
                 Status.FATAL));
         }
-    }
-    
-    private void registerStudents(CourseDAO courseDao, Course course) {
-        EnrollToCourse enrollToCourse = new EnrollToCourse();
-        
-        for(int counter = 0; counter < studentsTableView.getItems().size(); counter++){
-          
-            if(studentsTableView.getItems().get(counter).getCheckBox().isSelected()){
-                int studentId = Integer.parseInt(studentsTableView.getItems().get(counter).getCheckBox().getText());
 
-                enrollToCourse.setStudentId(studentId);
-                enrollToCourse.setCourseId(course.getCourseId());
-
-                try{
-                    if(courseDao.enrollStudentToCourse(enrollToCourse) > 1){
-                        //TODO
-                    } else {
-                        String message = "No fue posible añadir al usuario" + studentsTableView.getItems().get(counter).getStudentName();
-                        DialogGenerator.getDialog(new AlertMessage (
-                        message,
-                        Status.WARNING));
-                    }
-                    }catch (SQLException SqlException){
-                    DialogGenerator.getDialog(new AlertMessage (
-                        "Error en la conexion al sistema al ingresar estudiantes.",
-                        Status.FATAL));
-                }
-            }
-        }
-    }
-    
-    private void setProfessor (CourseDAO courseDao, Course course) {
-        ComboBoxProfessor selectedItem = (ComboBoxProfessor) cbxProfessor.getSelectionModel().getSelectedItem();
-        int professorId = selectedItem.getProfessorId();
-        
-        try{
-            courseDao.enrollProfessorToCourse(professorId, course);
-        }catch (SQLException SqlException){
-            DialogGenerator.getDialog(new AlertMessage (
-                "Hubo un problema al registrar el profesor al curso",
-                Status.FATAL));
+        for(int quantityOfStudents = 0; quantityOfStudents < availableStudents.size(); quantityOfStudents++){
+            CheckBox checkBoxTable = new CheckBox ("" + (availableStudents.get(quantityOfStudents).getId()));
+            String studentFullName = availableStudents.get(quantityOfStudents).getName() + " " +
+                    availableStudents.get(quantityOfStudents).getLastName();
+            
+            list.add(new TableStudentsPerCourse (
+                    availableStudents.get(quantityOfStudents).getRegistrationTag(), 
+                    studentFullName, checkBoxTable));
         }
         
-    }
-    
-    private boolean isConfirmedExit() {
-        Optional<ButtonType> response = DialogGenerator.getConfirmationDialog(
-                "¿Deseas salir de agregar curso?");
-        return (response.get() == DialogGenerator.BUTTON_YES);
+        tblVwStudents.setItems(list);
+        tblCRegistrationTag.setCellValueFactory(new PropertyValueFactory<TableStudentsPerCourse, String>("registrationTag"));
+        tblCStudentName.setCellValueFactory(new PropertyValueFactory<TableStudentsPerCourse, String>("studentName"));
+        tblCCheckBox.setCellValueFactory(new PropertyValueFactory<TableStudentsPerCourse, CheckBox>("checkBox"));   
     }
     
     private void setCbxProfessor(){
@@ -220,13 +201,99 @@ public class AddCourseController implements Initializable {
         for(Semester semester : semesterList){
             Date semesterStart = new Date(semester.getStartDate().getTime());
             Date semesterEnd = new Date(semester.getDeadline().getTime());
-            String semesterDate = dateFormat.format(semesterStart) + " / " + dateFormat.format(semesterEnd);
+            String semesterDate = DATE_FORMAT.format(semesterStart) + " / " + DATE_FORMAT.format(semesterEnd);
             semesterDateObservableList.add(semesterDate);
         }
         
         cbxSemester.setItems(semesterDateObservableList);
     }
+
+    @FXML
+    private void cancelCourseAddition(ActionEvent actionEvent) throws IOException{
+        if (isConfirmedExit()){
+            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/CourseManagement");
+        }
+    }
     
+    private boolean isConfirmedExit() {
+        Optional<ButtonType> response = DialogGenerator.getConfirmationDialog(
+                "¿Deseas salir de agregar curso?");
+        return (response.get() == DialogGenerator.BUTTON_YES);
+    }
+    
+    @FXML
+    private void addCourse(ActionEvent actionEvent) throws IOException{
+        if(validateFields()){
+            CourseDAO courseDao = new CourseDAO();
+            Course course = new Course();
+            Semester semester = getSemester();
+            
+            setCourse(course, semester);
+            
+            ViewCourseController.courseId = course.getCourseId();
+            
+            try{
+                registerCourse(semester, course, courseDao);
+                
+                MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ViewCourse");
+                
+            }catch (SQLException sqlException){
+                DialogGenerator.getDialog(new AlertMessage (
+                    "Hubo un problema al registrar el sistema",
+                    Status.FATAL));
+                Logger.getLogger(AddCourseController.class.getName()).log(Level.SEVERE, null, sqlException);
+            }
+        }
+    }
+    
+    private void registerCourse(Semester semester, Course course, CourseDAO courseDao) throws SQLException{
+        if(course.equals(courseDao.getCourseByID(course.getCourseId()))){
+            DialogGenerator.getDialog(new AlertMessage (
+                "El curso ya existe en el sistema.", 
+                Status.WARNING));
+        } else {
+            List <EnrollToCourse> studentsToRegister = studentsList(courseDao, course);
+            int professorId = getProfessor();
+                   
+            courseDao.registerCourseTransaction(professorId, course, studentsToRegister, semester.getSemesterId());
+                    
+            DialogGenerator.getDialog(new AlertMessage (
+                "Se ha registrado el curso al sistema.",
+                Status.SUCCESS));
+        }
+    }
+    
+    private List<EnrollToCourse> studentsList(CourseDAO courseDao, Course course) {
+        List<EnrollToCourse> enrollToCourseList = new ArrayList<>();
+
+        for(int counter = 0; counter < tblVwStudents.getItems().size(); counter++){
+          
+            if(tblVwStudents.getItems().get(counter).getCheckBox().isSelected()){
+                EnrollToCourse enrollToCourse = new EnrollToCourse();
+                int studentId = Integer.parseInt(tblVwStudents.getItems().get(counter).getCheckBox().getText());
+                enrollToCourse.setStudentId(studentId);
+                enrollToCourse.setCourseId(course.getCourseId());
+  
+                enrollToCourseList.add(enrollToCourse);
+            }
+        }
+        
+        return enrollToCourseList;
+    }
+    
+    private int getProfessor () {
+        int professorId;
+        
+        if(cbxProfessor.getSelectionModel().isEmpty()){
+            professorId = 0;
+        }else{
+            ComboBoxProfessor selectedItem = (ComboBoxProfessor) cbxProfessor.getSelectionModel().getSelectedItem();
+            professorId = selectedItem.getProfessorId();
+        }
+        
+        return professorId;
+    }
+      
     private Semester getSemester() {
         Semester semester = new Semester();
         SemesterDAO semesterDao = new SemesterDAO();
@@ -234,7 +301,7 @@ public class AddCourseController implements Initializable {
         String subStringStartDate = startDate.substring(0, 10);
         
         try{
-            Date date = dateFormat.parse(subStringStartDate);
+            Date date = DATE_FORMAT.parse(subStringStartDate);
             java.sql.Date sqlDate= new java.sql.Date(date.getTime());
             semester.setStartDate(sqlDate);
         } catch (ParseException parseException){
@@ -253,27 +320,34 @@ public class AddCourseController implements Initializable {
         
         return semester;
     }
-     
-    private void setStudentTable(){
-        StudentDAO studentDao = new StudentDAO();
-        List<Student> availableStudents = new ArrayList<>();
-        
-        try{
-            availableStudents = studentDao.getAvailableStudents();
-        } catch (SQLException Ex) {
-                DialogGenerator.getDialog(new AlertMessage (
-                "Error en la conexion al sistema.",
-                Status.FATAL));
-        }
 
-        for(int quantityOfStudents = 0; quantityOfStudents < availableStudents.size(); quantityOfStudents++){
-            CheckBox checkBoxTable = new CheckBox ("" + (availableStudents.get(quantityOfStudents).getId()));
-            list.add(new TableStudentsPerCourse (availableStudents.get(quantityOfStudents).getRegistrationTag(), availableStudents.get(quantityOfStudents).getName(), checkBoxTable));
+    private boolean validateFields() {
+        boolean result = true;
+        if(FieldValidation.isNullOrEmptyTxtField(txtBlock)){
+            result = false;
+            lblInvalidBlock.setVisible(true);
         }
-        
-        studentsTableView.setItems(list);
-        registrationTag.setCellValueFactory(new PropertyValueFactory<TableStudentsPerCourse, String>("registrationTag"));
-        studentName.setCellValueFactory(new PropertyValueFactory<TableStudentsPerCourse, String>("studentName"));
-        checkBox.setCellValueFactory(new PropertyValueFactory<TableStudentsPerCourse, CheckBox>("checkBox"));   
+        if(FieldValidation.isNullOrEmptyTxtField(txtSection)){
+            result = false;
+            lblInvalidSection.setVisible(true);
+        }
+        if(FieldValidation.isNullOrEmptyTxtField(txtNrc)){
+            result = false;
+            lblInvalidNrc.setVisible(true);
+        }
+        if(cbxSemester.getSelectionModel().isEmpty()){
+            result = false;
+            lblInvalidSemester.setVisible(true);
+        }
+        return result;
+    }
+
+    private void setCourse(Course course, Semester semester) {
+        course.setName(cbxCourseName.getValue());
+        course.setBlock(Integer.parseInt(txtBlock.getText()));
+        course.setSection(Integer.parseInt(txtSection.getText()));
+        course.setNrc(txtNrc.getText());
+        course.setState(COURSES_STATES.getCourseState());
+        course.setCourseId(semester.getSemesterId());
     }
 }

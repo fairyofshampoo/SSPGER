@@ -6,8 +6,9 @@ import java.util.List;
 import mx.uv.fei.sspger.logic.Student;
 
 public interface IStudent {
-    int registrar(Student estudiante) throws SQLException;
+    int register(Student student) throws SQLException;
     List <Student> getStudentList() throws SQLException;
     List <Student> getAvailableStudents() throws SQLException;
     List <Student> getStudentsPerCourse (String courseId) throws SQLException;
+    List<Student> getAvailableStudentsNotInCourse(String courseId) throws SQLException;
 }

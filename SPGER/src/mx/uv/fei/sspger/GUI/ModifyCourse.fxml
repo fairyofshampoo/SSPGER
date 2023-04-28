@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="801.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.AddCourseController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="801.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.ModifyCourseController">
    <children>
       <Pane layoutX="-3.0" prefHeight="44.0" prefWidth="803.0" style="-fx-background-color: #C4C2C2;" />
-      <Label layoutX="78.0" layoutY="70.0" text="Añadir curso">
+      <Label layoutX="60.0" layoutY="57.0" text="Modificar curso">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -60,12 +60,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="cancelBtn" layoutX="624.0" layoutY="539.0" mnemonicParsing="false" onAction="#cancelCourseAddition" prefHeight="35.0" prefWidth="120.0" text="Cancelar">
+      <Button fx:id="cancelBtn" layoutX="624.0" layoutY="539.0" mnemonicParsing="false" onAction="#cancelCourseModification" prefHeight="35.0" prefWidth="120.0" text="Cancelar">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button layoutX="50.0" layoutY="539.0" mnemonicParsing="false" onAction="#addCourse" prefHeight="35.0" prefWidth="120.0" text="Añadir">
+      <Button layoutX="50.0" layoutY="539.0" mnemonicParsing="false" onAction="#updateCourse" prefHeight="36.0" prefWidth="150.0" text="Realizar cambios">
          <font>
             <Font size="16.0" />
          </font>
@@ -76,10 +76,10 @@
          </font>
       </Label>
       <ComboBox fx:id="cbxSemester" layoutX="604.0" layoutY="354.0" prefWidth="150.0" />
+      <Pane layoutX="60.0" layoutY="105.0" prefHeight="5.0" prefWidth="743.0" style="-fx-background-color: #C4C2C2;" />
       <Label fx:id="lblInvalidBlock" layoutX="236.0" layoutY="185.0" text="Bloque invalido" textFill="RED" visible="false" />
       <Label fx:id="lblInvalidSection" layoutX="430.0" layoutY="185.0" text="Sección invalida" textFill="RED" visible="false" />
       <Label fx:id="lblInvalidNrc" layoutX="611.0" layoutY="185.0" text="NRC invalido" textFill="RED" visible="false" />
-      <Label fx:id="lblInvalidSemester" layoutX="604.0" layoutY="386.0" text="Campo obligatorio" textFill="RED" visible="false" />
-      <Pane layoutX="78.0" layoutY="105.0" prefHeight="3.0" prefWidth="722.0" style="-fx-background-color: #C4C2C2;" />
+      <Label fx:id="lblInvalidSemester" layoutX="606.0" layoutY="387.0" prefHeight="17.0" prefWidth="149.0" text="Campo obligatorio" textFill="RED" visible="false" />
    </children>
 </AnchorPane>

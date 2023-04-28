@@ -4,10 +4,7 @@
  */
 package mx.uv.fei.sspger.logic;
 
-/**
- *
- * @author mario
- */
+
 public enum CourseStates{
     
     AVAILABLE("Disponible"), 

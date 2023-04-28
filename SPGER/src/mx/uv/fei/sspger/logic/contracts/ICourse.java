@@ -16,7 +16,11 @@ public interface ICourse {
     List<Course> getAllCourses () throws SQLException;
     Course getCourseByID (String id) throws SQLException;
     int modifyCourse (Course course, int idSemester, int professorId) throws SQLException;
+    int modifyCourseWithoutProfessor(Course course, int idSemester) throws SQLException;
     int enrollStudentToCourse (EnrollToCourse enrollToCourse) throws SQLException;
+    List<EnrollToCourse> getEnrollId(String idCourse) throws SQLException;
     int expellStudentFromCourse (EnrollToCourse expellFromCourse) throws SQLException;
     int enrollProfessorToCourse (int professorId, Course course) throws SQLException;
+    void registerCourseTransaction(int professorId, Course course, List<EnrollToCourse> studentsList, int idSemester) throws SQLException;
+    void modifyCourseTransaction(int professorId, Course course, List<EnrollToCourse> studentsList, List<EnrollToCourse> studentsToExpell) throws SQLException;
 }

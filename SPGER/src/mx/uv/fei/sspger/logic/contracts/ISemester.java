@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface ISemester {
     Semester getSemesterPerStartDate (Semester semester) throws SQLException;
+    Semester getSemesterPerId (int semesterId) throws SQLException;
     List<Semester> getAvailableSemesters () throws SQLException;
 }

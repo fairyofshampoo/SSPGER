@@ -8,11 +8,21 @@ public class Course {
     private int section;
     private String state;
     private int block;
+    private int semesterId;
+    private int professorId;
     
     public Course () {}
     
     public void manualSetOfCourseId(String courseId){
         this.courseId = courseId;
+    }
+
+    public int getProfessorId() {
+        return professorId;
+    }
+
+    public void setProfessorId(int professorId) {
+        this.professorId = professorId;
     }
     
     public void setCourseId(int semesterId){
@@ -64,15 +74,26 @@ public class Course {
     }
     
     public String createCourseId(int semesterId){
-        return name.substring(0, 3) + section + semesterId;
+        return name.substring(0, 3) + section + block +semesterId;
+    }
+    
+    public int getSemesterId() {
+        return semesterId;
+    }
+
+    public void setSemesterId(int semesterId) {
+        this.semesterId = semesterId;
     }
     
     @Override
     public boolean equals(Object object){
+        if(object == this){
+            return true;
+        }
         if(object == null || (object.getClass() != this.getClass())){
             return false;
         }
         final Course other = (Course)object;
-        return (this.courseId == null ? other.courseId == null: this.courseId.equals(other.courseId));
+         return this.courseId.equals(other.courseId);
     }
 }

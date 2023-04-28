@@ -25,9 +25,8 @@ public class AssignmentDAO implements IAssingment{
     public int registerAssignment (Assignment assignment, String idProfessor, int idProject) throws SQLException {
         int result;
         String query = "INSERT INTO asignacion(idUsuarioProfesor, titulo, fechaInicia, fechaFin, fechaPublicacion, descripcion, idAnteproyecto) values (?,?,?,?,?,?,?)";
-        DataBaseManager dataBaseManager = new DataBaseManager();
-        Connection connection = dataBaseManager.getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
         
         statement.setString(1, idProfessor);
         statement.setString(2, assignment.getTitle());
@@ -39,7 +38,7 @@ public class AssignmentDAO implements IAssingment{
 
         result = statement.executeUpdate();
         
-        dataBaseManager.closeConnection();
+        DataBaseManager.closeConnection();
         
         return result;
     }
@@ -48,9 +47,8 @@ public class AssignmentDAO implements IAssingment{
     @Override
     public List<Assignment> getAssignmentsPerProject(int idProject) throws SQLException {
         String query = "Select * From asignacion Where idAnteproyecto= ?";
-        DataBaseManager dataBaseManager = new DataBaseManager();
-        Connection connection = dataBaseManager.getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
         
         statement.setInt(1, 1);
         
@@ -67,7 +65,7 @@ public class AssignmentDAO implements IAssingment{
             assignment.setDescription(assignmentResult.getString("descripcion"));
             assignmentList.add(assignment);
         } 
-        dataBaseManager.closeConnection();
+        DataBaseManager.closeConnection();
         
         return assignmentList;
     }

@@ -1,9 +1,6 @@
 package mx.uv.fei.sspger.logic;
 
-/**
- *
- * @author mario
- */
+
 public enum Status {
     
     SUCCESS("100"),

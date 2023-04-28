@@ -56,4 +56,26 @@ public class SemesterDAO implements ISemester{
         return semesterList;
     }
 
+    @Override
+    public Semester getSemesterPerId(int semesterId) throws SQLException{
+        String query = "SELECT * FROM periodo_escolar WHERE idPeriodoEscolar = ?";
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+        
+        statement.setInt(1, semesterId);
+        
+        ResultSet semesterResult = statement.executeQuery();
+        
+        Semester semester = new Semester();
+        
+        semesterResult.next();
+        
+        semester.setSemesterId(semesterResult.getInt("idPeriodoEscolar"));
+        semester.setStartDate(semesterResult.getDate("fechaInicio"));
+        semester.setDeadline(semesterResult.getDate("fechaFin"));
+        
+        DataBaseManager.closeConnection();
+        
+        return semester;
+    }
 }

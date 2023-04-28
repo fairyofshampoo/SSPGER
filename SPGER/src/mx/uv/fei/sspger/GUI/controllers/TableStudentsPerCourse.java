@@ -1,4 +1,4 @@
-package mx.uv.fei.sspger.GUI;
+package mx.uv.fei.sspger.GUI.controllers;
 
 
 import javafx.scene.control.CheckBox;
@@ -8,12 +8,19 @@ public class TableStudentsPerCourse {
     
     String registrationTag;
     String studentName;
+    String studentEmail;
     CheckBox checkBox;
 
     public TableStudentsPerCourse(String registrationTag, String studentName, CheckBox checkBox) {
         this.registrationTag = registrationTag;
         this.studentName = studentName;
         this.checkBox = checkBox;
+    }
+    
+    public TableStudentsPerCourse(String registrationTag, String studentName, String studentEmail){
+        this.registrationTag = registrationTag;
+        this.studentName = studentName;
+        this.studentEmail = studentEmail;
     }
     
     public String getRegistrationTag() {
@@ -38,5 +45,13 @@ public class TableStudentsPerCourse {
 
     public void setCheckBox(CheckBox checkBox) {
         this.checkBox = checkBox;
+    }
+
+    public String getStudentEmail() {
+        return studentEmail;
+    }
+
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
     }
 }

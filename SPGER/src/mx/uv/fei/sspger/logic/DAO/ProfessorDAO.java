@@ -51,6 +51,7 @@ public class ProfessorDAO implements IProfessor{
         professor.setLastName(professorResult.getString("apellido"));
         professor.setPersonalNumber(professorResult.getString("numPersonal"));
         professor.setHonorificTitle(professorResult.getString("honorifico"));
+        professor.setId(professorResult.getInt("idUsuarioProfesor"));
         
         DataBaseManager.closeConnection();
 
@@ -73,6 +74,7 @@ public class ProfessorDAO implements IProfessor{
             professor.setLastName(professorResult.getString("apellido"));
             professor.setPersonalNumber(professorResult.getString("numPersonal"));
             professor.setHonorificTitle(professorResult.getString("honorifico"));
+            professor.setId(professorResult.getInt("idUsuarioProfesor"));
             professorList.add(professor);
         }
         
@@ -120,7 +122,28 @@ public class ProfessorDAO implements IProfessor{
 
     @Override
     public Professor getProfessorByCourse(String courseId) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String query = "SELECT * FROM profesor INNER JOIN sspger.curso"
+                + " ON profesor.idUsuarioProfesor = curso.idUsuarioProfesor"
+                + " WHERE idCurso = ?";
+
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+
+        statement.setString(1, courseId);
+
+        ResultSet professorResult = statement.executeQuery();
+        professorResult.next();
+        
+        Professor professor = new Professor();
+        professor.setEMail(professorResult.getString("correo"));
+        professor.setName(professorResult.getString("nombre"));
+        professor.setLastName(professorResult.getString("apellido"));
+        professor.setPersonalNumber(professorResult.getString("numPersonal"));
+        professor.setHonorificTitle(professorResult.getString("honorifico"));
+        
+        DataBaseManager.closeConnection();
+
+        return professor;
     }
 
     @Override

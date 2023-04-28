@@ -30,4 +30,15 @@ public class EnrollToCourse {
         this.studentId = studentId;
     }
     
+    @Override
+    public boolean equals(Object object){
+        if(object == this){
+            return true;
+        }
+        if(object == null || (object.getClass() != this.getClass())){
+            return false;
+        }
+        final EnrollToCourse other = (EnrollToCourse)object;
+         return this.courseId.equals(other.courseId) && this.studentId == (other.studentId);
+    }
 }
