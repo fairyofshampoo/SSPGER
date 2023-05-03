@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.DirectorProjectsManagerController">
+    <children>
+      <Pane prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <TextField fx:id="txtSearchBar" layoutX="103.0" layoutY="98.0" prefHeight="25.0" prefWidth="227.0" promptText="Buscar por nombre...." />
+            <Label fx:id="lblUsers" layoutX="103.0" layoutY="63.0" prefHeight="35.0" prefWidth="227.0" text="Mis anteproyectos">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnAddProject" layoutX="640.0" layoutY="68.0" mnemonicParsing="false" onAction="#addProjectButtonClicked" text="Añadir Anteproyecto">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Pane layoutY="43.0" prefHeight="559.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;">
+               <children>
+                  <ImageView fx:id="imgHome" fitHeight="62.0" fitWidth="37.0" layoutX="23.0" layoutY="31.0" onMouseClicked="#homeClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/25694.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgAddCourses" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/addCourse.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgProjects" fitHeight="62.0" fitWidth="37.0" layoutX="22.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/project.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgAddAcademicBody" fitHeight="62.0" fitWidth="37.0" layoutX="21.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/academicBody.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <ImageView fx:id="imgSearchBar" fitHeight="19.0" fitWidth="14.0" layoutX="309.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/searchIcon.png" />
+               </image>
+            </ImageView>
+            <ChoiceBox layoutX="363.0" layoutY="97.0" prefHeight="25.0" prefWidth="227.0" />
+            <Pane layoutX="103.0" layoutY="148.0" prefHeight="427.0" prefWidth="659.0">
+               <children>
+                  <TableView fx:id="tblProjects" prefHeight="427.0" prefWidth="659.0">
+                    <columns>
+                      <TableColumn fx:id="tblCProjectId" prefWidth="60.79998779296875" text="Id" />
+                      <TableColumn fx:id="tblCProjectTitle" prefWidth="228.0" text="Titulo" />
+                        <TableColumn fx:id="tblCDirectorName" minWidth="0.0" prefWidth="176.00006103515625" text="Director" />
+                        <TableColumn fx:id="tblCProjectStatus" prefWidth="192.79998779296875" text="Estado" />
+                    </columns>
+                  </TableView>
+               </children></Pane>
+            <Label layoutX="364.0" layoutY="75.0" text="Mostrar:" textFill="#818080" />
+         </children>
+      </Pane>
+      <Pane layoutY="-2.0" prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
+         <children>
+            <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

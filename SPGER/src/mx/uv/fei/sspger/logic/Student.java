@@ -1,44 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mx.uv.fei.sspger.logic;
 
-/**
- *
- * @author miche
- */
-public class Student {
-    private String institutionalEMail;
-    private String name;
-    private String lastName;
+
+public class Student extends User{
+    
     private String registrationTag;
+    private int id;
     
     public Student(){
         
     }
-    public String getInstitutionalEMail(){
-        return institutionalEMail;
+
+    public int getId() {
+        return id;
     }
-    public void setInstitutionalEMail(String institutionalEMail){
-        this.institutionalEMail = institutionalEMail;
+
+    public void setId(int id) {
+        this.id = id;
     }
-    public String getName(){
-        return name;
-    }
-    public void setName(String name){
-        this.name = name;
-    }
-    public String getlastName(){
-        return lastName;
-    }
-    public void setLastName(String lastName){
-        this.lastName = lastName;
-    }
+ 
     public String getRegistrationTag(){
         return registrationTag;
     }
+    
     public void setRegistrationTag(String registrationTag){
         this.registrationTag = registrationTag;
+    }
+    
+    @Override
+    public boolean equals(Object object){
+        if(object == null || (object.getClass() != this.getClass())){
+            return false;
+        }
+        final Student other = (Student)object;
+        return (this.registrationTag == null ? other.registrationTag == null: this.registrationTag.equals(other.registrationTag));
     }
 }

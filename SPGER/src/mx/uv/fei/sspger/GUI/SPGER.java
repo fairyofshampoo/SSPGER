@@ -1,20 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package mx.uv.fei.sspger.GUI;
 
-/**
- *
- * @author fabin
- */
-public class SPGER {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+import java.io.IOException;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+
+public class SPGER extends Application{
+    
+    private static Scene scene;
+    
+    public static void main (String[] args){
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage stage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("HomeAdministration.fxml"));
+        
+        scene = new Scene (root);
+        
+        stage.setScene(scene);
+        stage.show();
+    }
+
+     public static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+    
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(SPGER.class.getResource(fxml));
+        return fxmlLoader.load();
     }
     
 }
