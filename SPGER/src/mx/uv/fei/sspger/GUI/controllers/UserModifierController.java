@@ -1,4 +1,4 @@
-package mx.uv.fei.sspger.GUI;
+package mx.uv.fei.sspger.GUI.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

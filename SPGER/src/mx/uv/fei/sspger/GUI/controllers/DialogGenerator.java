@@ -1,5 +1,6 @@
-package mx.uv.fei.sspger.GUI;
+package mx.uv.fei.sspger.GUI.controllers;
 
+import mx.uv.fei.sspger.GUI.controllers.AlertMessage;
 import java.util.Optional;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;

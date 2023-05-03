@@ -11,19 +11,29 @@ import javafx.stage.Stage;
 
 public class SPGER extends Application{
     
+    private static Scene scene;
+    
+    public static void main (String[] args){
+        launch(args);
+    }
+    
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("UsersManager.fxml"));
-        Scene scene = new Scene(root);
+        Parent root = FXMLLoader.load(getClass().getResource("HomeAdministration.fxml"));
+        
+        scene = new Scene (root);
+        
         stage.setScene(scene);
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-        
+     public static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
     }
+    
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(SPGER.class.getResource(fxml));
+        return fxmlLoader.load();
     }
+    
+}

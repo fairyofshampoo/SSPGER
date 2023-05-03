@@ -6,7 +6,7 @@ public enum HonorificTitles {
     LICENCIADO("Lic."),
     INGENIERO("Ing");
     
-    private String displayName;
+    private final String displayName;
     
     HonorificTitles(String displayName) {
         this.displayName = displayName;

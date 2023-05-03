@@ -41,6 +41,7 @@ public class AccessAccountDAOTest {
         accessAccount.setEMail("oalonso@uv.mx");
         accessAccount.setPassword("Miri0301");
         accessAccount.setPrivileges(1);
+        accessAccount.setUserStatus(1);
         
         AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
         
@@ -61,6 +62,7 @@ public class AccessAccountDAOTest {
         accessAccount.setEMail("angesanchez@uv.mx");
         accessAccount.setPassword("Miri0301");
         accessAccount.setPrivileges(1);
+        accessAccount.setUserStatus(1);
         
         AccessAccount expResult = accessAccount;
         AccessAccount result = accessAccountTest;
@@ -114,6 +116,55 @@ public class AccessAccountDAOTest {
         AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
         int expResult = 1;
         int result = accessAccountDAO.deleteAccessAccount(email);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testDisableAccessAccount() throws Exception{
+        System.out.println("disableAccessAccount");
+        
+        String email = "oscar_alonso@uv.mx";
+        
+        AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
+        
+        int userStatus = 0;
+        
+        int expResult = 1;
+        int result = accessAccountDAO.disableAccessAccount(email);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testgetAllActiveAccounts() throws Exception{
+        System.out.println("getAllActiveAccounts");
+        AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
+        
+        AccessAccount accessAccount1 = new AccessAccount();
+        accessAccount1.setEMail("angesanchez@uv.mx");
+        
+        AccessAccount accessAccount2 = new AccessAccount();
+        accessAccount2.setEMail("Asd@uv.mx");
+
+        List<AccessAccount> expResult = new ArrayList<>();
+        expResult.add(accessAccount1);
+        expResult.add(accessAccount2);
+        
+        List<AccessAccount> result = accessAccountDAO.getAllActiveAccounts();
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testgetAllDisabledAccounts() throws Exception{
+        System.out.println("getAllDisabledAccounts");
+        AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
+        
+        AccessAccount accessAccount1 = new AccessAccount();
+        accessAccount1.setEMail("oscar_alonso@uv.mx");
+
+        List<AccessAccount> expResult = new ArrayList<>();
+        expResult.add(accessAccount1);
+        
+        List<AccessAccount> result = accessAccountDAO.getAllDisabledAccounts();
         assertEquals(expResult, result);
     }
     

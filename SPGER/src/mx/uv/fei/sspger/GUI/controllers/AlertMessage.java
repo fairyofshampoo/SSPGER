@@ -1,4 +1,4 @@
-package mx.uv.fei.sspger.GUI;
+package mx.uv.fei.sspger.GUI.controllers;
 
 import mx.uv.fei.sspger.logic.Status;
 

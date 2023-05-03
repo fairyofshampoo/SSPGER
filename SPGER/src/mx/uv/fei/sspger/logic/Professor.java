@@ -41,4 +41,9 @@ public class Professor extends User{
         final Professor other = (Professor)object;
         return (this.personalNumber == null ? other.personalNumber == null: this.personalNumber.equals(other.personalNumber));
     }
+    
+    @Override
+    public String toString(){
+        return " ";
+    }
 }

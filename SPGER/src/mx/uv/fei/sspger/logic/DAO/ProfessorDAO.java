@@ -13,13 +13,21 @@ import mx.uv.fei.sspger.logic.Professor;
 
 
 public class ProfessorDAO implements IProfessor{
-
+    private final String ADD_PROFESSOR_QUERY = "insert into profesor(correo, "
+            + "nombre, apellido, numPersonal, honorifico) values(?,?,?,?,?)";
+    private final String GET_PROFESSOR_QUERY = "SELECT * FROM profesor WHERE "
+            + "correo = ?";
+    private final String GET_ALL_PROFESSORS_QUERY = "SELECT * FROM profesor";
+    private final String UPDATE_PROFESSOR_QUERY = "UPDATE profesor SET correo ="
+            + " ?, nombre = ?, apellido = ?, numPersonal = ?, honorifico = "
+            + "? WHERE correo = ?";
+            
     @Override
     public int addProfessor(Professor professor) throws SQLException {
-    int result;
-        String query = "insert into profesor(correo, nombre, apellido, numPersonal, honorifico) values(?,?,?,?,?)";
+    int resultProfessor;
         DataBaseManager.getConnection();
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+        PreparedStatement statement = DataBaseManager.getConnection().
+                prepareStatement(ADD_PROFESSOR_QUERY);
         
         statement.setString(1, professor.getEMail());
         statement.setString(2, professor.getName());
@@ -27,18 +35,18 @@ public class ProfessorDAO implements IProfessor{
         statement.setString(4, professor.getPersonalNumber());
         statement.setString(5, professor.getHonorificTitle());
         
-        result = statement.executeUpdate();
+        resultProfessor = statement.executeUpdate();
         
         DataBaseManager.closeConnection();
         
-        return result;
+        return resultProfessor;
     }
 
     @Override
     public Professor getProfessor(String email) throws SQLException {
-        String query = "SELECT * FROM profesor WHERE correo = ?";
         DataBaseManager.getConnection();
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+        PreparedStatement statement = DataBaseManager.getConnection().
+                prepareStatement(GET_PROFESSOR_QUERY);
 
         statement.setString(1,email);
 
@@ -49,8 +57,10 @@ public class ProfessorDAO implements IProfessor{
         professor.setEMail(professorResult.getString("correo"));
         professor.setName(professorResult.getString("nombre"));
         professor.setLastName(professorResult.getString("apellido"));
-        professor.setPersonalNumber(professorResult.getString("numPersonal"));
-        professor.setHonorificTitle(professorResult.getString("honorifico"));
+        professor.setPersonalNumber(professorResult.getString(
+                "numPersonal"));
+        professor.setHonorificTitle(professorResult.getString(
+                "honorifico"));
         professor.setId(professorResult.getInt("idUsuarioProfesor"));
         
         DataBaseManager.closeConnection();
@@ -60,10 +70,10 @@ public class ProfessorDAO implements IProfessor{
 
     @Override
     public List<Professor> getAllProfessors() throws SQLException {
-        String query = "SELECT * FROM profesor";
         DataBaseManager.getConnection();
         Statement statement = DataBaseManager.getConnection().createStatement();
-        ResultSet professorResult = statement.executeQuery(query);
+        ResultSet professorResult = statement.executeQuery(
+                GET_ALL_PROFESSORS_QUERY);
         
         List<Professor> professorList = new ArrayList<>();
         
@@ -71,9 +81,12 @@ public class ProfessorDAO implements IProfessor{
             Professor professor = new Professor();
             professor.setEMail(professorResult.getString("correo"));
             professor.setName(professorResult.getString("nombre"));
-            professor.setLastName(professorResult.getString("apellido"));
-            professor.setPersonalNumber(professorResult.getString("numPersonal"));
-            professor.setHonorificTitle(professorResult.getString("honorifico"));
+            professor.setLastName(professorResult.getString(
+                    "apellido"));
+            professor.setPersonalNumber(professorResult.getString(
+                    "numPersonal"));
+            professor.setHonorificTitle(professorResult.getString(
+                    "honorifico"));
             professor.setId(professorResult.getInt("idUsuarioProfesor"));
             professorList.add(professor);
         }
@@ -85,10 +98,10 @@ public class ProfessorDAO implements IProfessor{
 
     @Override
     public int updateProfessor(String email, Professor professor) throws SQLException {
-        int result;
-        String query = "UPDATE profesor SET correo = ?, nombre = ?, apellido = ?, numPersonal = ?, honorifico = ? WHERE correo = ?";
+        int resultProfessor;
         DataBaseManager.getConnection();
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);       
+        PreparedStatement statement = DataBaseManager.getConnection().
+                prepareStatement(UPDATE_PROFESSOR_QUERY);       
         
         statement.setString(1, professor.getEMail());
         statement.setString(2, professor.getName());
@@ -97,27 +110,28 @@ public class ProfessorDAO implements IProfessor{
         statement.setString(5, professor.getHonorificTitle());
         statement.setString(6, email);
         
-        result = statement.executeUpdate();
+        resultProfessor = statement.executeUpdate();
         
         DataBaseManager.closeConnection();
         
-        return result;
+        return resultProfessor;
     }
 
     @Override
     public int deleteProfessor(String email) throws SQLException {
-        int result;
+        int resultProfessor;
         String query = "DELETE FROM profesor WHERE correo = ?";
         DataBaseManager.getConnection();
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+        PreparedStatement statement = DataBaseManager.getConnection().
+                prepareStatement(query);
         
         statement.setString(1, email);
         
-        result = statement.executeUpdate();
+        resultProfessor = statement.executeUpdate();
         
         DataBaseManager.closeConnection();
         
-        return result;
+        return resultProfessor;
     }
     
 }
