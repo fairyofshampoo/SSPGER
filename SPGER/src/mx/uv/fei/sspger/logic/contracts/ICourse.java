@@ -12,6 +12,7 @@ import mx.uv.fei.sspger.logic.EnrollToCourse;
 
 public interface ICourse {
     int registerCourse (Course course, int idSchollarYear) throws SQLException; 
+    List<Course> getCoursesPerProfessor(int ProfessorId) throws SQLException;
     List<Course> getCoursesPerState(String state) throws SQLException;
     List<Course> getAllCourses () throws SQLException;
     Course getCourseByID (String id) throws SQLException;

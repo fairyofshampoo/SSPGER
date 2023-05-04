@@ -1,5 +1,6 @@
 package mx.uv.fei.sspger.GUI.controllers;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -44,6 +45,7 @@ import mx.uv.fei.sspger.logic.Professor;
 import mx.uv.fei.sspger.logic.Semester;
 import mx.uv.fei.sspger.logic.Status;
 import mx.uv.fei.sspger.logic.Student;
+
 
 public class ModifyCourseController implements Initializable{
 
@@ -221,7 +223,7 @@ public class ModifyCourseController implements Initializable{
             courseProfessor = professorDao.getProfessorByCourse(courseId);
         } catch (SQLException SqlException){
             DialogGenerator.getDialog(new AlertMessage (
-                "Error en la conexion al sistema setProff.",
+                "Error en la conexion al sistema.",
                 Status.FATAL));
         }
         
@@ -249,7 +251,7 @@ public class ModifyCourseController implements Initializable{
             semesterList = semesterDao.getAvailableSemesters();
         } catch (SQLException SqlException){
                 DialogGenerator.getDialog(new AlertMessage (
-                "Error en la conexion al sistema set semester.",
+                "Error en la conexion al sistema.",
                 Status.FATAL));
         }
         

@@ -29,7 +29,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import mx.uv.fei.sspger.GUI.DialogGenerator;
 import mx.uv.fei.sspger.GUI.AlertMessage;
 import mx.uv.fei.sspger.GUI.ComboBoxProfessor;

@@ -1,12 +1,19 @@
 package mx.uv.fei.sspger.GUI;
 
 
+import mx.uv.fei.sspger.GUI.controllers.ModifyAssignmentController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mx.uv.fei.sspger.GUI.controllers.ProfessorCourseManagerController;
+import mx.uv.fei.sspger.GUI.controllers.RegisterAssignmentController;
+import mx.uv.fei.sspger.logic.Assignment;
+import mx.uv.fei.sspger.logic.DAO.AssignmentDAO;
+import mx.uv.fei.sspger.logic.Professor;
+import mx.uv.fei.sspger.logic.Project;
 
 
 public class MainApplication extends Application{
@@ -19,7 +26,34 @@ public class MainApplication extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("AddCourse.fxml"));
+        
+        Professor professor = new Professor();
+        Project project = new Project();
+        Assignment assignment = new Assignment();
+        AssignmentDAO assignmentDao = new AssignmentDAO();
+        
+                
+        project.setIdProject(1);
+        project.setName("Control Estadístico de Procesos en el desarrollo de");
+        
+        professor.setId(1);    
+        
+        RegisterAssignmentController.professor = professor;
+        RegisterAssignmentController.project = project;
+        
+        ModifyAssignmentController.assignment = assignment;
+        ModifyAssignmentController.professor = professor;
+        ModifyAssignmentController.project = project;
+        
+        //Parent root = FXMLLoader.load(getClass().getResource("modifyAssignment.fxml"));
+        
+        //Parent root = FXMLLoader.load(getClass().getResource("RegisterAssignment.fxml"));
+        
+        ProfessorCourseManagerController.professorId = professor.getId();
+        
+        Parent root = FXMLLoader.load(getClass().getResource("ProfessorCourseManager.fxml"));
+        
+        //Parent root = FXMLLoader.load(getClass().getResource("AddCourse.fxml"));
         
         scene = new Scene (root);
         

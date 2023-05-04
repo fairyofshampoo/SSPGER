@@ -16,8 +16,7 @@ import mx.uv.fei.sspger.logic.contracts.ICourse;
 
 
 public class CourseDAO implements ICourse{
-    
-    
+
     @Override
     public int registerCourse(Course course, int idSemester) throws SQLException {
         int result;
@@ -291,5 +290,34 @@ public class CourseDAO implements ICourse{
         } finally {
             DataBaseManager.closeConnection();
         }    
+    }
+
+    @Override
+    public List<Course> getCoursesPerProfessor(int professorId) throws SQLException {
+        String query = "SELECT * FROM curso WHERE idUsuarioProfesor = ?";
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+        
+        statement.setInt(1, professorId);
+        
+        ResultSet coursesResult = statement.executeQuery();
+        List<Course> coursesList = new ArrayList<>();
+        
+        while(coursesResult.next()){
+            Course course = new Course();
+            
+            course.manualSetOfCourseId("idCurso");
+            course.setName(coursesResult.getString("nombre"));
+            course.setNrc(coursesResult.getString("nrc"));
+            course.setSection(coursesResult.getInt("seccion"));
+            course.setState(coursesResult.getString("estado"));
+            course.setBlock(coursesResult.getInt("bloque"));
+            course.setSemesterId(coursesResult.getInt("idPeriodoEscolar"));
+            course.setProfessorId(coursesResult.getInt("idUsuarioProfesor"));
+            coursesList.add(course);
+        } 
+        DataBaseManager.closeConnection();
+        
+        return coursesList;
     }
 }

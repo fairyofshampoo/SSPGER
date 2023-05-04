@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" onMouseClicked="#openProfessorCourseView" prefHeight="127.0" prefWidth="274.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.CourseCardController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f3f6f8" height="123.0" layoutX="5.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" width="270.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
+      <Pane layoutX="23.0" layoutY="33.0" prefHeight="4.0" prefWidth="228.0" style="-fx-background-color: #000000;" />
+      <Label fx:id="lblCourseTitle" alignment="CENTER" layoutX="1.0" layoutY="6.0" prefHeight="27.0" prefWidth="274.0" text="Experiencia recepcional" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblNrc" layoutX="33.0" layoutY="46.0" prefHeight="17.0" prefWidth="101.0" text="NRC:" />
+      <Label fx:id="lblSection" layoutX="147.0" layoutY="46.0" prefHeight="17.0" prefWidth="101.0" text="Sección:" />
+      <Label fx:id="lblBlock" layoutX="33.0" layoutY="64.0" prefHeight="17.0" prefWidth="101.0" text="Bloque:" />
+      <Label fx:id="lblSemester" layoutX="32.0" layoutY="88.0" prefHeight="17.0" prefWidth="211.0" text="Periodo:" wrapText="true" />
+   </children>
+</AnchorPane>

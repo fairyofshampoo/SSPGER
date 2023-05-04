@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="mx.uv.fei.sspger.GUI.controllers.ProfessorCourseViewController">
+   <children>
+      <ImageView fitHeight="51.0" fitWidth="39.0" layoutX="21.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/returnIcon.png" />
+         </image>
+      </ImageView>
+      <Pane prefHeight="51.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;" />
+   </children>
+</AnchorPane>

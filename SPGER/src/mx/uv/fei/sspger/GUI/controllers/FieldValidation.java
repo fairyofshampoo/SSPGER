@@ -1,6 +1,7 @@
 package mx.uv.fei.sspger.GUI.controllers;
 
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
@@ -22,6 +23,10 @@ public class FieldValidation {
         }
         
         return validPassword;
+    }
+    
+    public static boolean doesNotExceedLenghtTxtArea(TextArea textArea, int maximumLength){
+        return textArea.getText().length() > maximumLength; 
     }
     
     public static boolean isNullOrEmptyTxtField(TextField textField) {
