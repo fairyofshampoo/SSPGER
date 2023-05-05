@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" onMouseClicked="#openProfessorCourseView" prefHeight="127.0" prefWidth="274.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.CourseCardController">
+<AnchorPane id="AnchorPane" fx:id="apCourseCard" onMouseClicked="#openProfessorCourseView" onMouseEntered="#mouseEnteredCourseArea" onMouseExited="#mouseExitedCourseArea" prefHeight="127.0" prefWidth="274.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.CourseCardController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f3f6f8" height="123.0" layoutX="5.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" width="270.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
       <Pane layoutX="23.0" layoutY="33.0" prefHeight="4.0" prefWidth="228.0" style="-fx-background-color: #000000;" />

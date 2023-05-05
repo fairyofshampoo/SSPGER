@@ -8,6 +8,7 @@ package mx.uv.fei.sspger.logic;
 public enum CourseStates{
     
     AVAILABLE("Disponible"), 
+    ENDED("Finalizado"),
     UNAVAILABLE("No disponible");
 
     private final String courseState;

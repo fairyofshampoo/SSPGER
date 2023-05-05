@@ -272,8 +272,8 @@ public class ModifyCourseController implements Initializable{
         
         try{
             semester = semesterDao.getSemesterPerId(semesterId);
-        } catch (SQLException SqlException){
-            //LOGGER
+        } catch (SQLException sqlException){
+            Logger.getLogger(ModifyCourseController.class.getName()).log(Level.SEVERE, null, sqlException);
         }
        
         Date semesterStart = new Date(semester.getStartDate().getTime());

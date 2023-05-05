@@ -1,14 +1,20 @@
 package mx.uv.fei.sspger.GUI.controllers;
 
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import mx.uv.fei.sspger.GUI.AlertMessage;
 import mx.uv.fei.sspger.GUI.DialogGenerator;
+import mx.uv.fei.sspger.GUI.MainApplication;
 import mx.uv.fei.sspger.logic.Course;
 import mx.uv.fei.sspger.logic.DAO.SemesterDAO;
 import mx.uv.fei.sspger.logic.Semester;
@@ -18,7 +24,10 @@ import mx.uv.fei.sspger.logic.Status;
 public class CourseCardController {
     
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    private String courseId;
+    private Course courseCard;
+    
+    @FXML
+    private AnchorPane apCourseCard;
     
     @FXML
     private Label lblCourseTitle;
@@ -37,11 +46,26 @@ public class CourseCardController {
     
     @FXML
     void openProfessorCourseView(MouseEvent event) {
-        
+        try {
+            ProfessorCourseViewController.course = courseCard;
+            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ProfessorCourseView");
+        } catch (IOException ex) {
+            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @FXML
+    void mouseEnteredCourseArea(MouseEvent event) {
+        apCourseCard.setCursor(Cursor.HAND);
+    }
+
+    @FXML
+    void mouseExitedCourseArea(MouseEvent event) {
+        apCourseCard.setCursor(Cursor.DEFAULT);
     }
     
     public void setCourseData(Course course){
-        courseId = course.getCourseId();
+        courseCard = course;
         lblCourseTitle.setText(course.getName());
         lblNrc.setText("NRC: " + course.getNrc());
         lblSection.setText("Sección: " + course.getSection());

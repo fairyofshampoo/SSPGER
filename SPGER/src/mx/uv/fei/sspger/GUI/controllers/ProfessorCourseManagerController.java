@@ -13,8 +13,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import mx.uv.fei.sspger.logic.Course;
@@ -23,9 +26,11 @@ import mx.uv.fei.sspger.logic.DAO.CourseDAO;
 
 public class ProfessorCourseManagerController implements Initializable {
     public static int professorId;
+    private int column = 0;
+    private int row = 0;
     
     @FXML
-    private ComboBox<?> cbxCourseFilter;
+    private ComboBox<String> cbxCourseFilter;
 
     @FXML
     private ImageView imgAcademy;
@@ -42,11 +47,10 @@ public class ProfessorCourseManagerController implements Initializable {
     @FXML
     private GridPane gpCourseTable;
     
-    int column = 0;
-    int row = 0;
     
-    @Override//Pensarlo hacer con un GRIDPANEL, NO SE TE OLVIDE, MEJORARA EL COMO SE MUESTRAN LOS DATOS.
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         List<Course> professorCourses = getProfessorCourses();
         try{
             for (int card = 0; card < professorCourses.size(); card++){
@@ -68,7 +72,7 @@ public class ProfessorCourseManagerController implements Initializable {
         } catch (IOException ioException){
             Logger.getLogger(ProfessorCourseManagerController.class.getName()).log(Level.SEVERE, null, ioException);
         }
-        
+              
     }    
     
     private List<Course> getProfessorCourses (){

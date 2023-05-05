@@ -306,7 +306,7 @@ public class CourseDAO implements ICourse{
         while(coursesResult.next()){
             Course course = new Course();
             
-            course.manualSetOfCourseId("idCurso");
+            course.manualSetOfCourseId(coursesResult.getString("idCurso"));
             course.setName(coursesResult.getString("nombre"));
             course.setNrc(coursesResult.getString("nrc"));
             course.setSection(coursesResult.getInt("seccion"));
