@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="mx.uv.fei.sspger.GUI.controllers.ProjectsAcademicBodyViewController">
+    <children>
+      <Pane prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <Label fx:id="lblUsers" layoutX="103.0" layoutY="63.0" prefHeight="35.0" prefWidth="227.0" text="Anteproyectos">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnGenerateReport" layoutX="384.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#generateReport" prefHeight="25.0" prefWidth="114.0" text="Generar Reporte">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Pane layoutY="43.0" prefHeight="559.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;">
+               <children>
+                  <ImageView fx:id="imgHome" fitHeight="62.0" fitWidth="37.0" layoutX="23.0" layoutY="31.0" onMouseClicked="#homeClicked" opacity="0.46" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/25694.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgCourses" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="91.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/addCourse.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgProjects" fitHeight="62.0" fitWidth="37.0" layoutX="22.0" layoutY="153.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/btnMyProject.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgAcademicBody" fitHeight="62.0" fitWidth="37.0" layoutX="21.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/academicBody.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <ChoiceBox fx:id="cbxProjectsFilter" layoutX="547.0" layoutY="81.0" prefHeight="25.0" prefWidth="227.0" />
+            <Label layoutX="547.0" layoutY="62.0" text="Mostrar:" textFill="#818080" />
+         </children>
+      </Pane>
+      <Pane layoutY="-2.0" prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
+         <children>
+            <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 
 
 public class LoginController implements Initializable {
@@ -40,7 +41,29 @@ public class LoginController implements Initializable {
 
     @FXML
     void logIn(ActionEvent event) {
+        String password = txtPassword.getText();
+        String email = txtEMail.getText();
+    }
+    
+    @FXML
+    void typingEMail(KeyEvent event) {
+        lblWrongEMail.setVisible(false);
+    }
 
+    @FXML
+    void typingPassword(KeyEvent event) {
+        lblWrongPassword.setVisible(false);
+    }
+    
+    void isEmptyField(){
+        if (FieldValidation.isNullOrEmptyTxtField(txtEMail)){
+            lblWrongEMail.setVisible(true);
+            lblWrongEMail.setText("Campo de correo vacío");
+        }
+        if(FieldValidation.isNullOrEmptyTxtField(txtPassword)){
+            lblWrongPassword.setVisible(true);
+            lblWrongPassword.setText("Campo de contraseña vacío");
+        }
     }
     
     void determinateUserType(){
@@ -54,9 +77,12 @@ public class LoginController implements Initializable {
         
     }
     
-    public void displayImages(){
+    private void displayImages(){
         
         imgLogin.setImage(ImagesSetter.getLoginImage());
+        
+    }
+    private void isAnyUserAvailable(){
         
     }
 

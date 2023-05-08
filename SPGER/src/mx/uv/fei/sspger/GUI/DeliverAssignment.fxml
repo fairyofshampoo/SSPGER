@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.DeliverAssignmentController">
+    <children>
+      <Pane prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
+               <children>
+                  <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label fx:id="lblAsignmentTitle" layoutX="98.0" layoutY="64.0" prefHeight="35.0" prefWidth="362.0" text="Titulo asignación">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Line endX="531.800048828125" layoutX="225.0" layoutY="111.0" startX="-148.20001220703125" stroke="#a6a6a6" />
+            <Label fx:id="lblDescriptionAsignment" layoutX="98.0" layoutY="125.0" prefHeight="17.0" prefWidth="130.0" text="Descripción">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Line endX="582.199951171875" layoutX="177.0" layoutY="266.0" startX="-100.0" stroke="#a6a6a6" />
+            <Label layoutX="98.0" layoutY="270.0" prefHeight="17.0" prefWidth="130.0" text="Entrega">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="14.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/btnBack.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="ntxtDescription" layoutX="98.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ullamcorper massa tortor, ac pretium lectus ornare at. Donec non enim posuere, bibendum sem sed, facilisis dui. In at libero eu nisl interdum venenatis non congue mauris." wrappingWidth="385.15582275390625">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Label layoutX="537.0" layoutY="132.0" prefHeight="17.0" prefWidth="56.0" text="Estado:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="537.0" layoutY="155.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de publicación:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="537.0" layoutY="192.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de inicio:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="537.0" layoutY="228.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de fin:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="txtSubmission" layoutX="98.0" layoutY="315.0" prefHeight="164.0" prefWidth="547.0" promptText="Inserte descripción de su entrega..." />
+            <Button fx:id="btnAddSubmission" layoutX="98.0" layoutY="501.0" mnemonicParsing="false" onAction="#addSubmission" text="Realizar entrega" />
+            <Button fx:id="btnAddFile" layoutX="647.0" layoutY="501.0" mnemonicParsing="false" onAction="#uploadFile" text="Subir archivo" />
+            <Label fx:id="lblState" layoutX="591.0" layoutY="132.0" prefHeight="17.0" prefWidth="92.0" text="Disponible" />
+            <Label fx:id="lblPublicationDate" layoutX="537.0" layoutY="172.0" prefHeight="17.0" prefWidth="114.0" text="28/02/2023 00:00" />
+            <Label fx:id="lblStartDate" layoutX="537.0" layoutY="209.0" prefHeight="17.0" prefWidth="130.0" text="01/03/2023 00:00" />
+            <Label fx:id="lblEndDate" layoutX="537.0" layoutY="245.0" prefHeight="17.0" prefWidth="136.0" text="15/03/2023 23:59" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

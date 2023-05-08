@@ -33,10 +33,10 @@ public class UsersCardController{
     @FXML
     private Pane pnUsersCard;
     
-    public static int idUser;
+    private int idUser;
     
     public void setUserStudentData(Student student){
-        lblFullNameUser.setText(student.getName() + student.getLastName());
+        lblFullNameUser.setText(student.getName() + " " + student.getLastName());
         lblEMail.setText(student.getEMail());
         lblUserType.setText("Estudiante");
         lblTagOrNumber.setText(student.getRegistrationTag());

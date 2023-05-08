@@ -16,6 +16,9 @@ import mx.uv.fei.sspger.logic.contracts.IUserManager;
  */
 public class UserManagerDAO implements IUserManager{
     
+    
+    private final String LOGIN_QUERY = "SELECT * FROM cuenta_acceso WHERE "
+            + "correo_institucional = ? AND password= SHA1(?)";
     private final String ADD_ACCESS_ACCOUNT_QUERY = "insert into cuenta_acceso"
             + "(correo_institucional, (SHA2(password)), privilegios, estado) values"
             + "(?,?,?,?)";
@@ -33,6 +36,12 @@ public class UserManagerDAO implements IUserManager{
             + "profesor.idUsuarioProfesor FROM cuenta_acceso INNER JOIN "
             + "profesor ON cuenta_acceso.correo_institucional = "
             + "profesor.correo WHERE cuenta_acceso.estado = 0";
+    
+    @Override
+    public int login(String email, String password) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
     @Override
     public int professorAdditionTransaction(Professor professorAccount) throws SQLException {
     int response = -1;
@@ -120,5 +129,6 @@ public class UserManagerDAO implements IUserManager{
     public int studentAdditionTransaction() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     
 }

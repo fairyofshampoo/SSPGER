@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.AccessAccount;
 import mx.uv.fei.sspger.logic.DAO.AccessAccountDAO;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
@@ -191,16 +192,8 @@ public class UserRegisterController implements Initializable {
     
     @FXML
     void cancelButtonClick(ActionEvent event){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mx/uv/fei/sspger/GUI/UsersManager.fxml"));
-        Parent root;
         try {
-            root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-            Stage myStage = (Stage) this.btnCancel.getScene().getWindow();
-            myStage.close();
-            
+            SPGER.setRoot("/mx/uv/fei/sspger/GUI/UsersManager.fxml");
         } catch (IOException ex) {
             Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }

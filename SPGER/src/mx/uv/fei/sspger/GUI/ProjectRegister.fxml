@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="758.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.ProjectRegisterController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.ProjectRegisterController">
     <children>
-      <ScrollPane prefHeight="758.0" prefWidth="800.0">
+      <ScrollPane prefHeight="600.0" prefWidth="800.0">
          <content>
-            <Pane prefHeight="826.0" prefWidth="800.0">
+            <Pane prefHeight="1393.0" prefWidth="800.0">
                <children>
                   <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #ddead1;">
                      <children>
@@ -33,87 +33,54 @@
                      </font>
                   </Label>
                   <Label fx:id="lblInstruction" layoutX="42.0" layoutY="95.0" prefHeight="17.0" prefWidth="234.0" text="Ingrese la información del anteproyecto" />
-                  <TextField fx:id="txtPladeaProjectTitle" layoutX="26.0" layoutY="125.0" prefHeight="25.0" prefWidth="278.0" promptText="Título del proyecto de investigación VINCULACIÓN/PLADEA-FEI" style="-fx-border-color: #CADEED;">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtProjectModality" layoutX="28.0" layoutY="164.0" prefHeight="25.0" prefWidth="271.0" promptText="Modalidad del Trabajo Recepcional" style="-fx-border-color: #CADEED;">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtReceptionalWorkName" layoutX="327.0" layoutY="164.0" prefHeight="25.0" prefWidth="210.0" promptText="Nombre del Trabajo Recepcional" style="-fx-border-color: #CADEED;">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </TextField>
-                  <Button fx:id="btnAccept" layoutX="155.0" layoutY="790.0" mnemonicParsing="false" onAction="#acceptButtonClick" prefHeight="25.0" prefWidth="104.0" text="Postular" />
-                  <Button fx:id="btnCancel" layoutX="390.0" layoutY="790.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="104.0" text="Cancelar" />
-                  <TextField fx:id="txtInvestigationLine" layoutX="327.0" layoutY="123.0" prefHeight="25.0" prefWidth="136.0" promptText="Línea de Investigación" style="-fx-border-color: #CADEED;">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextArea fx:id="txtProjectRequeriments" layoutX="25.0" layoutY="204.0" prefHeight="51.0" prefWidth="514.0" promptText="Inserte requisitos del proyecto" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;">
+                  <TextField fx:id="txtPladeaProjectTitle" layoutX="26.0" layoutY="125.0" prefHeight="27.0" prefWidth="473.0" promptText="Título del proyecto de investigación VINCULACIÓN/PLADEA-FEI" style="-fx-border-color: #CADEED;" />
+                  <TextField fx:id="txtReceptionalWorkName" layoutX="25.0" layoutY="165.0" prefHeight="27.0" prefWidth="476.0" promptText="Nombre del Trabajo Recepcional" style="-fx-border-color: #CADEED;" />
+                  <Button fx:id="btnAccept" layoutX="148.0" layoutY="1254.0" mnemonicParsing="false" onAction="#acceptButtonClick" prefHeight="25.0" prefWidth="104.0" text="Postular" />
+                  <Button fx:id="btnCancel" layoutX="383.0" layoutY="1254.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="104.0" text="Cancelar" />
+                  <TextField fx:id="txtInvestigationLine" layoutX="558.0" layoutY="158.0" prefHeight="27.0" prefWidth="209.0" promptText="Línea de Investigación" style="-fx-border-color: #CADEED;" />
+                  <TextArea fx:id="txtProjectRequeriments" layoutX="13.0" layoutY="208.0" prefHeight="151.0" prefWidth="527.0" promptText="Inserte requisitos del proyecto" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;">
                      <font>
                         <Font size="9.0" />
                      </font>
                   </TextArea>
-                  <TextArea fx:id="txtProyectDescription" layoutX="27.0" layoutY="270.0" prefHeight="101.0" prefWidth="249.0" promptText="Descripción de proyecto de investigación" style="-fx-background-color: #FFFFFF;">
+                  <TextArea fx:id="txtProyectDescription" layoutX="15.0" layoutY="374.0" prefHeight="223.0" prefWidth="249.0" promptText="Descripción de proyecto de investigación" style="-fx-background-color: #FFFFFF;">
                      <font>
                         <Font size="9.0" />
                      </font>
                   </TextArea>
-                  <TextArea fx:id="txtReceptionalWorkDescription" layoutX="286.0" layoutY="270.0" prefHeight="101.0" prefWidth="259.0" promptText="Descripción de trabajo recepcional" style="-fx-background-color: #FFFFFF;">
+                  <TextArea fx:id="txtReceptionalWorkDescription" layoutX="286.0" layoutY="377.0" prefHeight="220.0" prefWidth="259.0" promptText="Descripción de trabajo recepcional" style="-fx-background-color: #FFFFFF;">
                      <font>
                         <Font size="9.0" />
                      </font>
                   </TextArea>
-                  <TextArea fx:id="txtExpectedResults" layoutX="27.0" layoutY="384.0" prefHeight="35.0" prefWidth="520.0" promptText="Inserte resultados esperados" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;">
+                  <TextArea fx:id="txtExpectedResults" layoutX="41.0" layoutY="613.0" prefHeight="167.0" prefWidth="696.0" promptText="Inserte resultados esperados" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;" />
+                  <TextArea fx:id="txtBibliography" layoutX="38.0" layoutY="805.0" prefHeight="158.0" prefWidth="702.0" promptText="Bibliografía" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;" />
+                  <Label layoutX="563.0" layoutY="424.0" prefHeight="43.0" prefWidth="150.0" text="Seleccione LGAC que alimenta" textFill="#666666" wrapText="true">
                      <font>
-                        <Font size="9.0" />
-                     </font>
-                  </TextArea>
-                  <TextArea fx:id="txtBibliography" layoutX="27.0" layoutY="438.0" prefHeight="95.0" prefWidth="520.0" promptText="Bibliografía" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </TextArea>
-                  <Label layoutX="575.0" layoutY="111.0" prefHeight="17.0" prefWidth="150.0" text="Seleccione LGAC que alimenta" textFill="#666666">
-                     <font>
-                        <Font name="System Bold" size="9.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="cbxAcademicBody" layoutX="576.0" layoutY="301.0" prefWidth="150.0" style="-fx-background-color: #ddead1;" />
-                  <Label layoutX="576.0" layoutY="280.0" prefHeight="17.0" prefWidth="150.0" text="Cuerpo académico" textFill="#666666">
+                  <ChoiceBox fx:id="cbxAcademicBody" layoutX="586.0" layoutY="317.0" prefWidth="150.0" style="-fx-background-color: #ddead1;" />
+                  <Label layoutX="586.0" layoutY="296.0" prefHeight="17.0" prefWidth="150.0" text="Cuerpo académico" textFill="#666666">
                      <font>
-                        <Font name="System Bold" size="9.0" />
+                        <Font name="System Bold" size="11.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtPartcipantsNumber" layoutX="565.0" layoutY="400.0" prefHeight="25.0" prefWidth="169.0" promptText="Número de Alumnos Participantes" style="-fx-border-color: #CADEED;">
+                  <TextField fx:id="txtPartcipantsNumber" layoutX="559.0" layoutY="120.0" prefHeight="27.0" prefWidth="208.0" promptText="Número de Alumnos Participantes" style="-fx-border-color: #CADEED;" />
+                  <TextArea fx:id="txtNotes" layoutX="563.0" layoutY="992.0" prefHeight="286.0" prefWidth="199.0" promptText="Notas" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;" />
+                  <ChoiceBox fx:id="cbxDuration" layoutX="587.0" layoutY="387.0" prefWidth="150.0" style="-fx-background-color: #ddead1;" />
+                  <Label layoutX="587.0" layoutY="363.0" prefHeight="17.0" prefWidth="150.0" text="Duración en meses" textFill="#666666">
                      <font>
-                        <Font size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextArea fx:id="txtNotes" layoutX="567.0" layoutY="443.0" prefHeight="238.0" prefWidth="169.0" promptText="Notas" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </TextArea>
-                  <ChoiceBox fx:id="cbxDuration" layoutX="577.0" layoutY="357.0" prefWidth="150.0" style="-fx-background-color: #ddead1;" />
-                  <Label layoutX="577.0" layoutY="336.0" prefHeight="17.0" prefWidth="150.0" text="Duración en meses" textFill="#666666">
-                     <font>
-                        <Font name="System Bold" size="9.0" />
+                        <Font name="System Bold" size="11.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tblLGAC" layoutX="576.0" layoutY="136.0" prefHeight="124.0" prefWidth="174.0" style="-fx-border-color: #5F84A2;">
+                  <TableView fx:id="tblLGAC" layoutX="558.0" layoutY="473.0" prefHeight="124.0" prefWidth="174.0" style="-fx-border-color: #5F84A2;">
                     <columns>
                       <TableColumn fx:id="tblCIdLGAC" prefWidth="44.0" style="-fx-background-color: #CADEED;" text="LGAC" />
                       <TableColumn fx:id="tblCNameLGAC" prefWidth="310.93328857421875" style="-fx-background-color: #CADEED;" text="Nombre" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="tblProfessors" layoutX="35.0" layoutY="570.0" prefHeight="200.0" prefWidth="503.0">
+                  <TableView fx:id="tblProfessors" layoutX="28.0" layoutY="1034.0" prefHeight="200.0" prefWidth="503.0">
                     <columns>
                         <TableColumn fx:id="tblCProfessorName" prefWidth="172.79995346069336" style="-fx-background-color: #CADEED;" text="Nombre" />
                         <TableColumn fx:id="tblCProfessorEMail" minWidth="0.0" prefWidth="172.80006408691406" style="-fx-background-color: #b7d0e1;" text="Email" />
@@ -121,9 +88,15 @@
                       <TableColumn fx:id="tblCCodirector" prefWidth="91.20001220703125" style="-fx-background-color: #b7d0e1;" text="Codirector" />
                     </columns>
                   </TableView>
-                  <Label layoutX="34.0" layoutY="545.0" prefHeight="17.0" prefWidth="517.0" text="Selecciona un director responsable del anteproyecto y sus correspondientes codirectores colaboradores">
+                  <Label layoutX="29.0" layoutY="992.0" prefHeight="35.0" prefWidth="505.0" text="Selecciona un director responsable del anteproyecto y sus correspondientes codirectores colaboradores" wrapText="true">
                      <font>
-                        <Font name="System Bold" size="10.0" />
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cbxModality" layoutX="587.0" layoutY="253.0" prefWidth="150.0" style="-fx-background-color: #ddead1;" />
+                  <Label layoutX="587.0" layoutY="208.0" prefHeight="37.0" prefWidth="150.0" text="Modalidad de trabajo recepcional" textFill="#666666" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
                      </font>
                   </Label>
                </children>

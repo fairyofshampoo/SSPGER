@@ -9,15 +9,11 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import mx.uv.fei.sspger.GUI.SPGER;
 
 
@@ -61,16 +57,8 @@ public class UsersManagerController implements Initializable {
     
     @FXML
     void homeClicked(MouseEvent mouseEvent){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mx/uv/fei/sspger/GUI/HomeAdministration.fxml"));
-        Parent root;
         try {
-            root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-            Stage myStage = (Stage) this.imgHome.getScene().getWindow();
-            myStage.close();
-            
+            SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeAdministration.fxml");
         } catch (IOException ex) {
             Logger.getLogger(UsersManagerController.class.getName()).log(Level.SEVERE, null, ex);
         }

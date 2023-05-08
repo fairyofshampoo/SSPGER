@@ -26,7 +26,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 import mx.uv.fei.sspger.logic.AcademicBody;
 import mx.uv.fei.sspger.logic.DAO.AcademicBodyDAO;
 import mx.uv.fei.sspger.logic.DAO.LgacDAO;

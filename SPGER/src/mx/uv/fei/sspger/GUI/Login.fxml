@@ -25,11 +25,11 @@
                   <Image url="@resources/login.jpg" />
                </image>
             </ImageView>
-            <PasswordField fx:id="txtPassword" layoutX="427.0" layoutY="350.0" prefHeight="30.0" prefWidth="325.0">
+            <PasswordField fx:id="txtPassword" layoutX="427.0" layoutY="350.0" onKeyTyped="#typingPassword" prefHeight="30.0" prefWidth="325.0">
                <font>
                   <Font size="14.0" />
                </font></PasswordField>
-            <TextField fx:id="txtEMail" layoutX="427.0" layoutY="222.0" prefHeight="30.0" prefWidth="325.0">
+            <TextField fx:id="txtEMail" layoutX="427.0" layoutY="222.0" onKeyTyped="#typingEMail" prefHeight="30.0" prefWidth="325.0">
                <font>
                   <Font size="14.0" />
                </font></TextField>
@@ -53,6 +53,8 @@
                   <Font size="15.0" />
                </font></Button>
             <Separator layoutX="383.0" layoutY="75.0" orientation="VERTICAL" prefHeight="473.0" prefWidth="8.0" />
+            <Label fx:id="lblWrongEMail" layoutX="428.0" layoutY="261.0" prefHeight="17.0" prefWidth="325.0" text="No se encuentra usuario con ese correo" textFill="RED" visible="false" />
+            <Label fx:id="lblWrongPassword" layoutX="427.0" layoutY="391.0" prefHeight="17.0" prefWidth="325.0" text="Contraseña incorrecta" textFill="RED" visible="false" />
          </children>
       </Pane>
       <Pane layoutY="-1.0" prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #ddead1;">

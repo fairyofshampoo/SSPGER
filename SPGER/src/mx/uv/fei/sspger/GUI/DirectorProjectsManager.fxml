@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.DirectorProjectsManagerController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.DirectorProjectsManagerController">
     <children>
       <Pane prefHeight="600.0" prefWidth="800.0">
          <children>
@@ -41,7 +41,7 @@
                   </ImageView>
                   <ImageView fx:id="imgProjects" fitHeight="62.0" fitWidth="37.0" layoutX="22.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@resources/project.png" />
+                        <Image url="@resources/btnMyProject.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="imgAddAcademicBody" fitHeight="62.0" fitWidth="37.0" layoutX="21.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">

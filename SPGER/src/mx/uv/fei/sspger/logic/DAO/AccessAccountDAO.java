@@ -15,7 +15,7 @@ import mx.uv.fei.sspger.logic.contracts.IAccessAccount;
 public class AccessAccountDAO implements IAccessAccount{
     private final String ADD_ACCESS_ACCOUNT_QUERY = "insert into cuenta_acceso"
             + "(correo_institucional, password, privilegios, estado) values"
-            + "(?,?,?,?)";
+            + "(?, sha1(?),?,?)";
     private final String GET_ACCESS_ACCOUNT_QUERY = "SELECT * FROM "
             + "cuenta_acceso WHERE correo_institucional = ?";
     private final String GET_ALL_ACCESS_ACCOUNT = "SELECT * FROM cuenta_acceso";
@@ -61,7 +61,7 @@ public class AccessAccountDAO implements IAccessAccount{
         AccessAccount account = new AccessAccount();
         account.setEMail(accountResult.getString(
                 "correo_institucional"));
-        account.setPassword(accountResult.getString("password"));
+        account.setPassword(accountResult.getString("SHA1(password)"));
         account.setPrivileges(accountResult.getInt("privilegios"));
         account.setUserStatus(accountResult.getInt("estado"));
         
@@ -82,7 +82,7 @@ public class AccessAccountDAO implements IAccessAccount{
             AccessAccount account = new AccessAccount();
             account.setEMail(accountResult.getString(
                     "correo_institucional"));
-            account.setPassword(accountResult.getString("password"));
+            account.setPassword(accountResult.getString("SHA1(password)"));
             account.setPrivileges(accountResult.getInt(
                     "privilegios"));
             account.setUserStatus(accountResult.getInt("estado"));
@@ -159,7 +159,7 @@ public class AccessAccountDAO implements IAccessAccount{
             AccessAccount account = new AccessAccount();
             account.setEMail(accountResult.getString(
                     "correo_institucional"));
-            account.setPassword(accountResult.getString("password"));
+            account.setPassword(accountResult.getString("SHA1(password)"));
             account.setPrivileges(accountResult.getInt(
                     "privilegios"));
             account.setUserStatus(accountResult.getInt("estado"));
@@ -173,7 +173,7 @@ public class AccessAccountDAO implements IAccessAccount{
 
     @Override
     public List<AccessAccount> getAllDisabledAccounts() throws SQLException {
-    String query = "SELECT * FROM cuenta_acceso WHERE estado = 0";
+    String query = "SELECT correo_institucional, estado FROM cuenta_acceso WHERE estado = 0";
         DataBaseManager.getConnection();
         Statement statement = DataBaseManager.getConnection().createStatement();
         ResultSet accountResult = statement.executeQuery(query);
@@ -184,9 +184,6 @@ public class AccessAccountDAO implements IAccessAccount{
             AccessAccount account = new AccessAccount();
             account.setEMail(accountResult.getString(
                     "correo_institucional"));
-            account.setPassword(accountResult.getString("password"));
-            account.setPrivileges(accountResult.getInt(
-                    "privilegios"));
             account.setUserStatus(accountResult.getInt("estado"));
             accountList.add(account);
         }

@@ -68,7 +68,7 @@
             </Label>
             <TextField fx:id="txtIdUser" layoutX="414.0" layoutY="316.0" prefHeight="25.0" prefWidth="259.0" />
             <Button fx:id="btnAccept" layoutX="197.0" layoutY="484.0" mnemonicParsing="false" onAction="#acceptButtonClick" prefHeight="25.0" prefWidth="104.0" text="Aceptar" />
-            <Button fx:id="btnCancel" layoutX="464.0" layoutY="484.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Cancelar" />
+            <Button fx:id="btnCancel" layoutX="464.0" layoutY="484.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="104.0" text="Cancelar" />
             <ChoiceBox fx:id="cbxHonorificTitle" layoutX="414.0" layoutY="254.0" prefWidth="150.0" />
             <ChoiceBox fx:id="cbxUserType" layoutX="414.0" layoutY="189.0" onMouseClicked="#userTypeChoiceSelector" prefWidth="150.0" />
          </children>
