@@ -16,10 +16,10 @@
    <children>
       <ImageView fx:id="imgReturn" fitHeight="51.0" fitWidth="39.0" layoutX="21.0" layoutY="62.0" onMouseClicked="#goBack" onMouseEntered="#mouseEnteredBackButtonArea" onMouseExited="#mouseExitedBackButtonArea" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@resources/returnIcon.png" />
+            <Image url="@resources/btnBack.png" />
          </image>
       </ImageView>
-      <Pane prefHeight="51.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;" />
+      <Pane prefHeight="51.0" prefWidth="812.0" style="-fx-background-color: #C4C2C2;" />
       <ScrollPane layoutX="90.0" layoutY="185.0" prefHeight="402.0" prefWidth="639.0">
          <content>
             <GridPane fx:id="gpCourseStudents" prefHeight="207.0" prefWidth="612.0">

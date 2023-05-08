@@ -4,8 +4,6 @@ package mx.uv.fei.sspger.logic.DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;

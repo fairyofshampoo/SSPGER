@@ -320,4 +320,34 @@ public class CourseDAO implements ICourse{
         
         return coursesList;
     }
+    
+    @Override
+    public List<Course> getCoursesPerStateAndProfessor(String state, int professorId) throws SQLException {
+        String query = "SELECT * FROM curso WHERE estado = ? AND idUsuarioProfesor = ?";
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+        
+        statement.setString(1, state);
+        statement.setInt(2, professorId);
+        
+        ResultSet coursesResult = statement.executeQuery();
+        List<Course> coursesList = new ArrayList<>();
+        
+        while(coursesResult.next()){
+            Course course = new Course();
+            
+            course.manualSetOfCourseId(coursesResult.getString("idCurso"));
+            course.setName(coursesResult.getString("nombre"));
+            course.setNrc(coursesResult.getString("nrc"));
+            course.setSection(coursesResult.getInt("seccion"));
+            course.setState(coursesResult.getString("estado"));
+            course.setBlock(coursesResult.getInt("bloque"));
+            course.setSemesterId(coursesResult.getInt("idPeriodoEscolar"));
+            course.setProfessorId(coursesResult.getInt("idUsuarioProfesor"));
+            coursesList.add(course);
+        } 
+        DataBaseManager.closeConnection();
+        
+        return coursesList;
+    }
 }

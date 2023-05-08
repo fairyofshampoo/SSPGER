@@ -11,11 +11,14 @@ import java.util.List;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
 import mx.uv.fei.sspger.logic.contracts.IProject;
 import mx.uv.fei.sspger.logic.Project;
+import mx.uv.fei.sspger.logic.Student;
 
 
 public class ProjectDAO implements IProject{
     private final String ADD_PROJECT_QUERY = "insert into anteproyecto(idLGAC, idCuerpoAcademico, nombreProyecto, descripcion, resultadosEsperados, duracionAproximada, notas, requisitos, bibliografiaRecomendada) values(?,?,?,?,?,?,?,?,?)";
     private final String GET_ALL_PROJECTS_QUERY = "SELECT * FROM anteproyecto";
+    private final String GET_STUDENT_PROJECT = "SELECT idAnteproyecto, nombreProyecto FROM estudiante_anteproyecto NATURAL JOIN anteproyecto WHERE idEstudianteAnteproyecto = ?";
+    
     @Override
     public int addProject(Project project, String idCuerpoAcademico, String idLgac) throws SQLException {
     int result;
@@ -43,9 +46,8 @@ public class ProjectDAO implements IProject{
 
     @Override
     public List<Project> getAllProjects() throws SQLException {
-        DataBaseManager dataBaseManager = new DataBaseManager();
-        Connection connection = dataBaseManager.getConnection();
-        Statement statement = connection.createStatement();
+        DataBaseManager.getConnection();
+        Statement statement = DataBaseManager.getConnection().createStatement();
         ResultSet projectResult = statement.executeQuery(GET_ALL_PROJECTS_QUERY);
         
         List<Project> projectList = new ArrayList<>();
@@ -66,7 +68,7 @@ public class ProjectDAO implements IProject{
             projectList.add(project);
         }
         
-        dataBaseManager.closeConnection();
+        DataBaseManager.closeConnection();
         
         return projectList;
     }
@@ -86,4 +88,24 @@ public class ProjectDAO implements IProject{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    @Override
+    public Project getProjectByStudent(int studentId) throws SQLException{
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_STUDENT_PROJECT);
+        
+        statement.setInt(1, studentId);
+        
+        Project project = new Project();
+        
+        ResultSet projectResult = statement.executeQuery();
+
+        if(projectResult.next()){
+            project.setName(projectResult.getString("nombreProyecto"));
+            project.setIdProject(projectResult.getInt("idAnteproyecto"));
+        }
+        
+        DataBaseManager.closeConnection();
+        
+        return project;
+    }
 }

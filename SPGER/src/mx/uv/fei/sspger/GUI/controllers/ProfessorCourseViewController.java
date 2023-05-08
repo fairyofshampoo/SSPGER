@@ -78,7 +78,7 @@ public class ProfessorCourseViewController implements Initializable {
     }  
     
     private void setGraphicElements(){
-        imgReturn.setImage(ImagesSetter.getReturnImage());
+        imgReturn.setImage(ImagesSetter.getGoBackImage());
         lblBlock.setText("Bloque: " + course.getBlock());
         lblNrc.setText("NRC: " + course.getNrc());
         lblCourseTitle.setText(course.getName());

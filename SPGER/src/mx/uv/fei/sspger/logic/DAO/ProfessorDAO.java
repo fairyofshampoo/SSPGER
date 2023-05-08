@@ -13,6 +13,14 @@ import mx.uv.fei.sspger.logic.Professor;
 
 
 public class ProfessorDAO implements IProfessor{
+    
+    private final String GET_DIRECTOR_BY_PROJECT = "SELECT * FROM profesor_anteproyecto NATURAL JOIN profesor"
+            + " WHERE profesor_anteproyecto.idAnteproyecto = ?"
+            + " AND rol = 'Director'";
+    
+    private final String GET_COODIRECTORS_BY_PROJECT = "SELECT * FROM profesor_anteproyecto NATURAL JOIN profesor"
+            + " WHERE profesor_anteproyecto.idAnteproyecto = ?"
+            + " AND rol = 'Coodirector'";
 
     @Override
     public int addProfessor(Professor professor) throws SQLException {
@@ -122,7 +130,7 @@ public class ProfessorDAO implements IProfessor{
 
     @Override
     public Professor getProfessorByCourse(String courseId) throws SQLException {
-        String query = "SELECT * FROM profesor INNER JOIN sspger.curso"
+        String query = "SELECT * FROM profesor INNER JOIN curso"
                 + " ON profesor.idUsuarioProfesor = curso.idUsuarioProfesor"
                 + " WHERE idCurso = ?";
 
@@ -147,8 +155,51 @@ public class ProfessorDAO implements IProfessor{
     }
 
     @Override
-    public Professor getProfessorByProyect(int proyectId) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Professor getDirectorByProject(int projectId) throws SQLException {
+        DataBaseManager.getConnection();
+        Professor professor = new Professor();
+        
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_DIRECTOR_BY_PROJECT);
+        
+        statement.setInt(1, projectId);
+        
+        ResultSet professorResult = statement.executeQuery();
+        
+        if(professorResult.next()){
+        professor.setEMail(professorResult.getString("correo"));
+        professor.setName(professorResult.getString("nombre"));
+        professor.setLastName(professorResult.getString("apellido"));
+        professor.setPersonalNumber(professorResult.getString("numPersonal"));
+        professor.setHonorificTitle(professorResult.getString("honorifico"));      
+        }
+     
+        return professor;
+    }
+    
+    @Override
+    public List<Professor> getCoodirectorByProject (int projectId) throws SQLException {
+        DataBaseManager.getConnection();
+        List<Professor> coodirectors = new ArrayList<>();
+        
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_COODIRECTORS_BY_PROJECT);
+        
+        statement.setInt(1, projectId);
+        
+        ResultSet professorResult = statement.executeQuery();
+
+        while(professorResult.next()){
+        Professor professor = new Professor();
+        
+        professor.setEMail(professorResult.getString("correo"));
+        professor.setName(professorResult.getString("nombre"));
+        professor.setLastName(professorResult.getString("apellido"));
+        professor.setPersonalNumber(professorResult.getString("numPersonal"));
+        professor.setHonorificTitle(professorResult.getString("honorifico"));   
+        
+        coodirectors.add(professor);
+        }
+                    
+        return coodirectors;
     }
 
 

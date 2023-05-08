@@ -72,6 +72,6 @@
          </font>
       </Label>
       <Pane layoutX="126.0" layoutY="134.0" prefHeight="5.0" prefWidth="680.0" style="-fx-background-color: #C4C2C2;" />
-      <ComboBox fx:id="cbxCourseFilter" layoutX="595.0" layoutY="88.0" prefWidth="150.0" promptText="Filtro de curso" />
+      <ComboBox fx:id="cbxCourseFilter" layoutX="595.0" layoutY="88.0" onAction="#filterCourses" prefWidth="150.0" promptText="Filtro de curso" />
    </children>
 </AnchorPane>

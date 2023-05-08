@@ -11,4 +11,5 @@ public interface IProject {
     List <Project> getAllProjects() throws SQLException;
     int updateProject (int idProject, Project project) throws SQLException;
     int deleteProject (int idProject) throws SQLException;
+    Project getProjectByStudent(int studentId) throws SQLException;
 }
