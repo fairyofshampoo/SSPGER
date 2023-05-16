@@ -29,8 +29,8 @@ import javafx.stage.Stage;
 import mx.uv.fei.sspger.logic.AcademicBody;
 import mx.uv.fei.sspger.logic.DAO.AcademicBodyDAO;
 import mx.uv.fei.sspger.logic.DAO.LgacDAO;
+import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
 import mx.uv.fei.sspger.logic.DAO.ProjectDAO;
-import mx.uv.fei.sspger.logic.DAO.UserManagerDAO;
 import mx.uv.fei.sspger.logic.Lgac;
 import mx.uv.fei.sspger.logic.Professor;
 import mx.uv.fei.sspger.logic.Project;
@@ -114,6 +114,8 @@ public class ProjectRegisterController implements Initializable {
 
     @FXML
     private TextField txtReceptionalWorkName;
+    
+    private final int ACTIVE_STATUS = 1;
 
     @FXML
     void acceptButtonClick(ActionEvent event) {
@@ -145,8 +147,8 @@ public class ProjectRegisterController implements Initializable {
     
     void fillProfessorsTable(){
         try {
-            UserManagerDAO professorUserDAO = new UserManagerDAO();
-            List<Professor> professorList = professorUserDAO.getActiveProfessors();
+            ProfessorDAO professorUserDAO = new ProfessorDAO();
+            List<Professor> professorList = professorUserDAO.getProfessorsByStatus(ACTIVE_STATUS);
             for (int i =0; i< professorList.size(); i++){
                 Professor professor = professorList.get(i);
                 CheckBox cbkDirector = new CheckBox("" + professorList.get(i));
@@ -226,6 +228,5 @@ public class ProjectRegisterController implements Initializable {
         fillLgacTable();
         setAcademicBodyComboBox();
         setDurationComboBox();
-    }    
-    
+    }
 }

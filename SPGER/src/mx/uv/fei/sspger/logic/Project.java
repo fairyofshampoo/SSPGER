@@ -5,18 +5,38 @@ public class Project {
     private int idProject;
     private String idLGAC;
     private String idAcademicBody;
-    private String idReceptionalWork;
     private String name;
     private String description;
     private String expectedResults;
     private int duration;
+    private int spaces;
+    private String modality;
     private String notes;
     private String requeriments;
     private String bibliography;
     private String status;
+    private ReceptionalWork receptionalWork;
+    private Lgac lgac;
+    private Professor professor;
     
     public Project(){
         
+    }
+    
+    public int getSpaces() {
+        return spaces;
+    }
+
+    public void setSpaces(int spaces) {
+        this.spaces = spaces;
+    }
+
+    public String getModality() {
+        return modality;
+    }
+
+    public void setModality(String modality) {
+        this.modality = modality;
     }
 
     public int getIdProject() {
@@ -41,14 +61,6 @@ public class Project {
 
     public void setIdAcademicBody(String idAcademicBody) {
         this.idAcademicBody = idAcademicBody;
-    }
-
-    public String getIdReceptionalWork() {
-        return idReceptionalWork;
-    }
-
-    public void setIdReceptionalWork(String idReceptionalWork) {
-        this.idReceptionalWork = idReceptionalWork;
     }
 
     public String getName() {
@@ -115,15 +127,37 @@ public class Project {
         this.status = status;
     }
     
-    @Override
+    public ReceptionalWork getReceptionalWork(){
+        return receptionalWork;
+    }
+    
+    public void setReceptionalWork(ReceptionalWork receptionalWork){
+        this.receptionalWork = receptionalWork;
+    }
+    
+    public Lgac getLgac() {
+        return lgac;
+    }
+
+    public void setLgac(Lgac lgac) {
+        this.lgac = lgac;
+    }
+    
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }    
+
     public boolean equals(Object object){
         if((object == null) || (object.getClass() != this.getClass())) {
             return false;
         } 
        final Project otherProject = (Project) object;
        
-       return(this.idLGAC == null? otherProject.idLGAC == null : this.idLGAC.equals(otherProject.idLGAC)) 
-           && (this.idAcademicBody == null? otherProject.idAcademicBody == null : this.idAcademicBody.equals(otherProject.idAcademicBody))
+       return (this.idAcademicBody == null? otherProject.idAcademicBody == null : this.idAcademicBody.equals(otherProject.idAcademicBody))
            && (this.name == null? otherProject.name == null : this.name.equals(otherProject.name))
            && (this.description == null? otherProject.description == null : this.description.equals(otherProject.description))
            && (this.expectedResults == null? otherProject.expectedResults == null : this.expectedResults.equals(otherProject.expectedResults))
@@ -131,7 +165,7 @@ public class Project {
            && (this.notes == null? otherProject.notes == null : this.notes.equals(otherProject.notes))
            && (this.requeriments == null? otherProject.requeriments == null : this.requeriments.equals(otherProject.requeriments))
            && (this.bibliography == null? otherProject.bibliography == null : this.bibliography.equals(otherProject.bibliography))
-           && (this.status == null? otherProject.status == null : this.status.equals(otherProject.status));      
+           && (this.status == null? otherProject.status == null : this.status.equals(otherProject.status))
+           && (this.spaces == otherProject.spaces)&& (this.modality == null? otherProject.modality == null : this.modality.equals(otherProject.modality));
     }
-
 }

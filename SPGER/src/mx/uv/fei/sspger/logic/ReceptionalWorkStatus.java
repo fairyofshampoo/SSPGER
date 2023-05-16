@@ -1,14 +1,13 @@
 package mx.uv.fei.sspger.logic;
 
 
-public enum ProjectStatus {
-    VALIDATED("VALIDADO"),
-    PROPOSED("PROPUESTO"),
-    ASSIGNED("ASIGNADO"),
-    REJECTED("RECHAZADO");
+public enum ReceptionalWorkStatus {
+    CONCLUDED("CONCLUIDO"),
+    ABANDONED("ABANDONADO"),
+    ACTIVE("VIGENTE");
     private String displayName;
 
-    ProjectStatus(String displayName) {
+    ReceptionalWorkStatus(String displayName) {
         this.displayName = displayName;
     }
 

@@ -1,4 +1,4 @@
-package mx.uv.fei.sspger.GUI.controllers;
+/*package mx.uv.fei.sspger.GUI.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,8 +11,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.net.URL;
 import javax.swing.JOptionPane;
-import mx.uv.fei.sspger.logic.AccessAccount;
-import mx.uv.fei.sspger.logic.DAO.AccessAccountDAO;
+import mx.uv.fei.sspger.logic.User;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
 import mx.uv.fei.sspger.logic.DAO.StudentDAO;
 import mx.uv.fei.sspger.logic.UserTypes;
@@ -94,10 +93,6 @@ public class UserModifierController implements Initializable {
                         student.setPassword(txtPassword.getText());
                         student.setRegistrationTag(txtIdUser.getText());
                         
-                        AccessAccount accessAccount = new AccessAccount();
-                        accessAccount.setEMail(txtEMail.getText());
-                        accessAccount.setPassword(txtPassword.getText());
-                        
                         if(accessAccountDAO.updateAccessAccount(txtEMail.getText(), accessAccount) == 1){
                             StudentDAO studentDAO = new StudentDAO();
                             if(studentDAO.updateStudent(txtEMail.getText(), student) == 1){
@@ -119,7 +114,7 @@ public class UserModifierController implements Initializable {
                         professor.setPersonalNumber(txtIdUser.getText());
                         professor.setHonorificTitle(cbxHonorificTitle.getValue());
                         
-                        AccessAccount accessAccount = new AccessAccount();
+                        User accessAccount = new User();
                         accessAccount.setEMail(txtEMail.getText());
                         accessAccount.setPassword(txtPassword.getText());
                         
@@ -183,5 +178,5 @@ public class UserModifierController implements Initializable {
     }    
     
 }
-
+*/
 

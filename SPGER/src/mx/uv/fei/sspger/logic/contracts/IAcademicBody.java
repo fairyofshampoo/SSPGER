@@ -1,8 +1,10 @@
-package mx.uv.fei.sspger.logic;
+package mx.uv.fei.sspger.logic.contracts;
 
 
 import java.sql.SQLException;
 import java.util.List;
+import mx.uv.fei.sspger.logic.AcademicBody;
+import mx.uv.fei.sspger.logic.AcademicBodyMember;
 
 
 public interface IAcademicBody {

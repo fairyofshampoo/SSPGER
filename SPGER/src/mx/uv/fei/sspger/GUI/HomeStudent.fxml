@@ -40,7 +40,7 @@
                         <Image url="@resources/btnMyProject.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imgProjects" fitHeight="62.0" fitWidth="37.0" layoutX="22.0" layoutY="153.0" onMouseClicked="#usersManagerClicked" opacity="0.46" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgProjects" fitHeight="62.0" fitWidth="37.0" layoutX="22.0" layoutY="153.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@resources/btnProjects.png" />
                      </image>
@@ -68,7 +68,7 @@
                   </AnchorPane>
                </content>
             </ScrollPane>
-            <Label fx:id="lblSeeMyProject" layoutX="664.0" layoutY="360.0" onMouseClicked="#allUsersClicked" prefHeight="17.0" prefWidth="61.0" text="Ver todo" underline="true">
+            <Label fx:id="lblSeeMyProject" layoutX="664.0" layoutY="360.0" prefHeight="17.0" prefWidth="61.0" text="Ver todo" underline="true">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

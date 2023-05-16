@@ -21,13 +21,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import mx.uv.fei.sspger.GUI.SPGER;
-import mx.uv.fei.sspger.logic.AccessAccount;
-import mx.uv.fei.sspger.logic.DAO.AccessAccountDAO;
+import mx.uv.fei.sspger.logic.User;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
 import mx.uv.fei.sspger.logic.DAO.StudentDAO;
 import mx.uv.fei.sspger.logic.UserTypes;
 import mx.uv.fei.sspger.logic.HonorificTitles;
 import mx.uv.fei.sspger.logic.Professor;
+import mx.uv.fei.sspger.logic.Status;
 import mx.uv.fei.sspger.logic.Student;
 
 
@@ -114,7 +114,7 @@ public class UserRegisterController implements Initializable {
     
     private void professorRegister(){
         Professor professor = new Professor();
-        AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
+        ProfessorDAO professorDAO = new ProfessorDAO();
         
         try{
             professor.setEMail(txtEMail.getText());
@@ -123,18 +123,15 @@ public class UserRegisterController implements Initializable {
             professor.setPassword(txtPassword.getText());
             professor.setPersonalNumber(txtIdUser.getText());
             professor.setHonorificTitle(cbxHonorificTitle.getValue());
+            professor.setEMail(txtEMail.getText());
+            professor.setPassword(txtPassword.getText());
+            professor.setStatus(1);
+            professor.setIsAdmin(0);
                         
-            AccessAccount accessAccount = new AccessAccount();
-            accessAccount.setEMail(txtEMail.getText());
-            accessAccount.setPassword(txtPassword.getText());
-            accessAccount.setUserStatus(1);
-                        
-            if(accessAccountDAO.addAccessAccount(accessAccount) == 1){
-                ProfessorDAO professorDAO = new ProfessorDAO();
-                if(professorDAO.addProfessor(professor) == 1){
-                    JOptionPane.showMessageDialog(null, "Profesor Registrado con éxito",
-                    "Registro exitoso", JOptionPane.INFORMATION_MESSAGE); 
-                }
+            if(professorDAO.addProfessorTransaction(professor) == 1){
+                DialogGenerator.getDialog(new AlertMessage (
+                "Profesor registrado con éxito",
+                Status.SUCCESS));
             }
         } catch (SQLException ex){
             Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,23 +141,19 @@ public class UserRegisterController implements Initializable {
     private void studentRegister(){
         try {
             Student student = new Student();
-            AccessAccountDAO accessAccountDAO = new AccessAccountDAO();
+            StudentDAO accessAccountDAO = new StudentDAO();
             student.setEMail(txtEMail.getText());
             student.setName(txtName.getText());
             student.setLastName(txtLastName.getText());
             student.setPassword(txtPassword.getText());
             student.setRegistrationTag(txtIdUser.getText());
+            student.setEMail(txtEMail.getText());
+            student.setPassword(txtPassword.getText());
                         
-            AccessAccount accessAccount = new AccessAccount();
-            accessAccount.setEMail(txtEMail.getText());
-            accessAccount.setPassword(txtPassword.getText());
-                        
-            if(accessAccountDAO.addAccessAccount(accessAccount) == 1){
-                StudentDAO studentDAO = new StudentDAO();
-                if(studentDAO.addStudent(student) == 1){
-                    JOptionPane.showMessageDialog(null, "Estudiante Registrado con éxito",
-                            "Registro exitoso", JOptionPane.INFORMATION_MESSAGE); 
-                }
+            if(accessAccountDAO.addStudentTransaction(student) == 1){
+                DialogGenerator.getDialog(new AlertMessage (
+                "Estudiante registrado con éxito",
+                Status.SUCCESS));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);

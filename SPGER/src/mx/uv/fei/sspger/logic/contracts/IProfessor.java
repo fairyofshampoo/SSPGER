@@ -7,9 +7,10 @@ import mx.uv.fei.sspger.logic.Professor;
 
 
 public interface IProfessor {
-    int addProfessor(Professor professor) throws SQLException;
+    int addProfessorTransaction(Professor professor) throws SQLException;
     Professor getProfessor(String email) throws SQLException;
     List <Professor> getAllProfessors() throws SQLException;
-    int updateProfessor (String email, Professor professor) throws SQLException;
-    int deleteProfessor (String email) throws SQLException;
+    List <Professor> getProfessorsByStatus(int status) throws SQLException;
+    int updateProfessorTransaction (String email, Professor professor) throws SQLException;
+    int changeProfessorStatus (String email, int status) throws SQLException;
 }

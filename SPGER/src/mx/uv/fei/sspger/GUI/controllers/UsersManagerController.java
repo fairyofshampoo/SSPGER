@@ -58,7 +58,7 @@ public class UsersManagerController implements Initializable {
     @FXML
     void homeClicked(MouseEvent mouseEvent){
         try {
-            SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeAdministration.fxml");
+            SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeProfessor.fxml");
         } catch (IOException ex) {
             Logger.getLogger(UsersManagerController.class.getName()).log(Level.SEVERE, null, ex);
         }

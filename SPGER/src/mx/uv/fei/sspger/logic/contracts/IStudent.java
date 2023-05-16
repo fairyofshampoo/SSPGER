@@ -7,10 +7,11 @@ import mx.uv.fei.sspger.logic.Student;
 
 
 public interface IStudent {
-    int addStudent(Student student) throws SQLException;
-    Student getStudent(String registrationTag) throws SQLException;
+    int addStudentTransaction(Student student) throws SQLException;
+    Student getStudent(String email) throws SQLException;
     List <Student> getAllStudents() throws SQLException;
-    int updateStudent (String registrationTag, Student student) throws SQLException;
-    int deleteStudent (String registrationTag) throws SQLException;
+    List <Student> getStudentsByStatus(int status) throws SQLException;
+    int updateStudentTransaction (String email, Student student) throws SQLException;
+    int changeStudentStatus (String registrationTag, int status) throws SQLException;
     
 }

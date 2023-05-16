@@ -10,7 +10,7 @@ import java.util.List;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
 import mx.uv.fei.sspger.logic.AcademicBody;
 import mx.uv.fei.sspger.logic.AcademicBodyMember;
-import mx.uv.fei.sspger.logic.IAcademicBody;
+import mx.uv.fei.sspger.logic.contracts.IAcademicBody;
 
 
 public class AcademicBodyDAO implements IAcademicBody {

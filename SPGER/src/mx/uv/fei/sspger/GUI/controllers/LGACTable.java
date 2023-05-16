@@ -4,8 +4,8 @@ import javafx.scene.control.CheckBox;
 
 
 public class LGACTable {
-    String nameLGAC;
-    CheckBox cbkLGAC;
+    private String nameLGAC;
+    private CheckBox cbkLGAC;
 
     public LGACTable(String nameLGAC, CheckBox cbxLGAC) {
         this.nameLGAC = nameLGAC;

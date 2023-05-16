@@ -32,6 +32,12 @@ public class Student extends User{
             return false;
         }
         final Student other = (Student)object;
-        return (this.registrationTag == null ? other.registrationTag == null: this.registrationTag.equals(other.registrationTag));
+        return (this.registrationTag == null ? other.registrationTag == null: this.registrationTag.equals(other.registrationTag)) &&
+                (this.id == other.id) &&
+                (this.email == null ? other.email == null: this.email.equals(other.email)) &&
+                (this.password == null ? other.password == null: this.password.equals(other.password)) &&
+                (this.name == null ? other.name == null: this.name.equals(other.name)) &&
+                (this.lastName == null ? other.lastName == null: this.lastName.equals(other.lastName)) &&
+                (this.status == other.status);
     }
 }

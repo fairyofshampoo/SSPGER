@@ -27,7 +27,7 @@ import mx.uv.fei.sspger.logic.Submission;
 
 
 public class DeliverAssignmentController implements Initializable {
-    final String FINAL_PATH ="C:\\Users\\miche\\OneDrive - Universidad Veracruzana\\Cuarto semestre\\Principios de Construcción de Software\\SPGER\\SPGER\\src\\mx\\uv\\fei\\sspger\\GUI\\resources\\files\\";
+    final String FINAL_PATH ="user.dir";
     final int SUBSTRING_START = 1;
     private DeliverableFile deliverableFile;
     
@@ -85,7 +85,6 @@ public class DeliverAssignmentController implements Initializable {
             String fileName = submissionFile.getName();
             String fileExtension = fileName.substring(fileName.lastIndexOf(".")+ SUBSTRING_START, fileName.length());
             DeliverableFile deliverableFile = new DeliverableFile();
-            DeliverableFileDAO deliverableFileDAO = new DeliverableFileDAO();
             
             try {
                 Files.copy(sourcePath, finalPath);

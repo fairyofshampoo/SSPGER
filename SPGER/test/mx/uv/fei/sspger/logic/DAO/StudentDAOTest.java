@@ -46,7 +46,7 @@ public class StudentDAOTest {
         StudentDAO studentDAO = new StudentDAO();
         
         int expResult = 1;
-        int result = studentDAO.addStudent(student);
+        int result = studentDAO.addStudentTransaction(student);
         
         assertEquals(expResult, result);
     }
@@ -104,18 +104,9 @@ public class StudentDAOTest {
         student.setRegistrationTag("ZS2020");
         
         int expResult = 1;
-        int result = studentDAO.updateStudent(email, student);
+        int result = studentDAO.updateStudentTransaction(email, student);
         assertEquals(expResult, result);
     }
 
-    @Test
-    public void testDeleteStudent() throws Exception {
-        System.out.println("deleteStudent");
-        String email = "miau@uv.mx";
-        StudentDAO studentDAO = new StudentDAO();
-        int expResult = 1;
-        int result = studentDAO.deleteStudent(email);
-        assertEquals(expResult, result);
-    }
     
 }
