@@ -2,8 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,124 +12,106 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.SubmissionConcludedDetailsController">
     <children>
-      <ScrollPane prefHeight="600.0" prefWidth="800.0">
-         <content>
-            <Pane prefHeight="800.0" prefWidth="800.0">
+      <Pane prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
                <children>
-                  <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
-                     <children>
-                        <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <Label fx:id="lblAssignmentTitle" layoutX="98.0" layoutY="64.0" prefHeight="35.0" prefWidth="362.0" text="Titulo asignación">
+                  <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Line endX="531.800048828125" layoutX="225.0" layoutY="111.0" startX="-148.20001220703125" stroke="#a6a6a6" />
-                  <Label fx:id="lblDescriptionAssignment" layoutX="98.0" layoutY="125.0" prefHeight="17.0" prefWidth="130.0" text="Descripción">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Line endX="582.199951171875" layoutX="177.0" layoutY="266.0" startX="-100.0" stroke="#a6a6a6" />
-                  <Label layoutX="98.0" layoutY="270.0" prefHeight="17.0" prefWidth="130.0" text="Entrega">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="14.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@resources/btnBack.png" />
-                     </image>
-                  </ImageView>
-                  <Text fx:id="ntxtDescriptionAssignment" layoutX="98.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ullamcorper massa tortor, ac pretium lectus ornare at. Donec non enim posuere, bibendum sem sed, facilisis dui. In at libero eu nisl interdum venenatis non congue mauris." wrappingWidth="385.15582275390625">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Label layoutX="537.0" layoutY="132.0" prefHeight="17.0" prefWidth="56.0" text="Estado:">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="537.0" layoutY="155.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de publicación:">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="537.0" layoutY="192.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de inicio:">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="537.0" layoutY="228.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de fin:">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="btnAddFeedback" layoutX="98.0" layoutY="427.0" mnemonicParsing="false" text="Evaluar entrega" />
-                  <Label fx:id="lblState" layoutX="591.0" layoutY="132.0" prefHeight="17.0" prefWidth="92.0" text="Concluido" />
-                  <Label fx:id="lblPublicationDate" layoutX="537.0" layoutY="172.0" prefHeight="17.0" prefWidth="114.0" text="28/02/2023 00:00" />
-                  <Label fx:id="lblStartDate" layoutX="537.0" layoutY="209.0" prefHeight="17.0" prefWidth="130.0" text="01/03/2023 00:00" />
-                  <Label fx:id="lblEndDate" layoutX="537.0" layoutY="245.0" prefHeight="17.0" prefWidth="136.0" text="15/03/2023 23:59" />
-                  <Label layoutX="537.0" layoutY="300.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de entrega:">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblDeliveryDate" layoutX="537.0" layoutY="317.0" prefHeight="17.0" prefWidth="114.0" text="28/02/2023 00:00" />
-                  <ImageView fx:id="imgPdfFile" fitHeight="25.0" fitWidth="27.0" layoutX="532.0" layoutY="389.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@resources/pdf_file.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="lblFileTitle" layoutX="562.0" layoutY="392.0" text="Título del archivo" underline="true">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imgDownload" fitHeight="22.0" fitWidth="16.0" layoutX="686.0" layoutY="394.0" onMouseClicked="#downloadImageClicked" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@resources/download.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="98.0" layoutY="300.0" prefHeight="17.0" prefWidth="136.0" text="Descripción entrega">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="ntxtDescriptionSubmission" layoutX="98.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ullamcorper massa tortor, ac pretium lectus ornare at. Donec non enim posuere, bibendum sem sed, facilisis dui. In at libero eu nisl interdum venenatis non congue mauris." wrappingWidth="385.15582275390625">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Label layoutX="534.0" layoutY="365.0" prefHeight="17.0" prefWidth="136.0" text="Archivo de entrega:">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Line endX="582.199951171875" layoutX="177.0" layoutY="480.0" startX="-100.0" stroke="#a6a6a6" />
-                  <Label disable="true" layoutX="95.0" layoutY="493.0" prefHeight="30.0" prefWidth="194.0" text="Retroalimentación" visible="false">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label disable="true" layoutX="95.0" layoutY="523.0" prefHeight="17.0" prefWidth="136.0" text="Comentario *" visible="false">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <TextArea fx:id="txtFeedbackComment" disable="true" layoutX="96.0" layoutY="546.0" prefHeight="157.0" prefWidth="624.0" promptText="Ingrese un comentario..." visible="false" />
-                  <Button fx:id="btnSendFeedback" disable="true" layoutX="264.0" layoutY="727.0" mnemonicParsing="false" text="Evaluar" visible="false" />
-                  <Button fx:id="btnCancel" cancelButton="true" disable="true" layoutX="429.0" layoutY="727.0" mnemonicParsing="false" text="Cancelar" visible="false" />
                </children>
             </Pane>
-         </content>
-      </ScrollPane>
+            <Label fx:id="lblAssignmentTitle" layoutX="98.0" layoutY="64.0" prefHeight="35.0" prefWidth="362.0" text="Titulo asignación">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Line endX="531.800048828125" layoutX="225.0" layoutY="111.0" startX="-148.20001220703125" stroke="#a6a6a6" />
+            <Label fx:id="lblDescriptionAssignment" layoutX="98.0" layoutY="125.0" prefHeight="17.0" prefWidth="130.0" text="Descripción">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Line endX="582.199951171875" layoutX="177.0" layoutY="279.0" startX="-100.0" stroke="#a6a6a6" />
+            <Label layoutX="98.0" layoutY="297.0" prefHeight="17.0" prefWidth="130.0" text="Entrega">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/btnBack.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="ntxtDescriptionAssignment" layoutX="98.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ullamcorper massa tortor, ac pretium lectus ornare at. Donec non enim posuere, bibendum sem sed, facilisis dui. In at libero eu nisl interdum venenatis non congue mauris." wrappingWidth="385.15582275390625">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Label layoutX="537.0" layoutY="132.0" prefHeight="17.0" prefWidth="56.0" text="Estado:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="537.0" layoutY="155.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de publicación:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="537.0" layoutY="192.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de inicio:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="537.0" layoutY="228.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de fin:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnAddFeedback" layoutX="98.0" layoutY="492.0" mnemonicParsing="false" text="Evaluar entrega" />
+            <Label fx:id="lblState" layoutX="591.0" layoutY="132.0" prefHeight="17.0" prefWidth="92.0" text="Concluido" />
+            <Label fx:id="lblPublicationDate" layoutX="537.0" layoutY="172.0" prefHeight="17.0" prefWidth="114.0" text="28/02/2023 00:00" />
+            <Label fx:id="lblStartDate" layoutX="537.0" layoutY="209.0" prefHeight="17.0" prefWidth="130.0" text="01/03/2023 00:00" />
+            <Label fx:id="lblEndDate" layoutX="537.0" layoutY="245.0" prefHeight="17.0" prefWidth="136.0" text="15/03/2023 23:59" />
+            <Label layoutX="537.0" layoutY="327.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de entrega:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDeliveryDate" layoutX="537.0" layoutY="344.0" prefHeight="17.0" prefWidth="114.0" text="28/02/2023 00:00" />
+            <ImageView fx:id="imgPdfFile" fitHeight="25.0" fitWidth="27.0" layoutX="532.0" layoutY="416.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/pdf_file.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblFileTitle" layoutX="562.0" layoutY="419.0" text="Título del archivo" underline="true">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imgDownload" fitHeight="22.0" fitWidth="16.0" layoutX="686.0" layoutY="421.0" onMouseClicked="#downloadImageClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/download.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="98.0" layoutY="327.0" prefHeight="17.0" prefWidth="136.0" text="Descripción entrega">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Text fx:id="ntxtDescriptionSubmission" layoutX="98.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ullamcorper massa tortor, ac pretium lectus ornare at. Donec non enim posuere, bibendum sem sed, facilisis dui. In at libero eu nisl interdum venenatis non congue mauris." wrappingWidth="385.15582275390625">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Label layoutX="534.0" layoutY="392.0" prefHeight="17.0" prefWidth="136.0" text="Archivo de entrega:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
