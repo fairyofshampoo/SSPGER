@@ -61,6 +61,6 @@ public class Professor extends User{
     
     @Override
     public String toString(){
-        return " ";
+        return honorificTitle + " " + name + " " + lastName;
     }
 }

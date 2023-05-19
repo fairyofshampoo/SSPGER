@@ -27,7 +27,8 @@ import mx.uv.fei.sspger.logic.Submission;
 
 
 public class DeliverAssignmentController implements Initializable {
-    final String FINAL_PATH ="user.dir";
+    final String CURRENT_DIRECTORY = System.getProperty("user.dir");
+    final String FINAL_PATH = CURRENT_DIRECTORY + "\\src\\mx\\uv\\fei\\sspger\\files\\";
     final int SUBSTRING_START = 1;
     private DeliverableFile deliverableFile;
     

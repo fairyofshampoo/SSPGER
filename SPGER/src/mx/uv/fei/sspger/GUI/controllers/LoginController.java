@@ -158,8 +158,7 @@ public class LoginController implements Initializable {
             UserDAO userDAO = new UserDAO();
             if(userDAO.isStudent(email) != ERROR){
                 userType = STUDENT_TYPE.getDisplayName();
-            }
-            if(userDAO.isProfessor(email) != ERROR){
+            } else{
                 userType = PROFESSOR_TYPE.getDisplayName();
             }
         } catch (SQLException ex) {

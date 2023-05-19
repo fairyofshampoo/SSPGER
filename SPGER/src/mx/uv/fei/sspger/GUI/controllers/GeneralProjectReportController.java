@@ -19,11 +19,14 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import mx.uv.fei.sspger.logic.DAO.ProjectDAO;
 import mx.uv.fei.sspger.logic.ProjectStatus;
 import mx.uv.fei.sspger.logic.Status;
@@ -81,49 +84,58 @@ public class GeneralProjectReportController implements Initializable {
     void downloadReport(ActionEvent event) {
         try {
             Document reportDocument = new Document();
+            Stage DirectoryStage = new Stage();
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            File selectedDirectory = directoryChooser.showDialog(DirectoryStage);
+
+            if(selectedDirectory == null){
+                DialogGenerator.getDialog(new AlertMessage (
+                    "No se seleccionó directorio para la descarga",
+                    Status.WARNING));
+            } else {
+                PdfWriter.getInstance(reportDocument, new FileOutputStream(selectedDirectory + "\\ReporteGeneralAnteproyectos.pdf"));
+                reportDocument.open();
             
-            String path = System.getProperty("user.dir");
-            PdfWriter.getInstance(reportDocument, new FileOutputStream(path + "\\reporte.pdf"));
-            reportDocument.open();
+                String reportDate = getReportDate();
+                Font titleFont = new Font();
+                Font subtitleFont = new Font();
             
-            String reportDate = getReportDate();
-            Font titleFont = new Font();
-            Font subtitleFont = new Font();
+                titleFont.setColor(45, 82, 100);
+                titleFont.setSize(20);
+                titleFont.setStyle(Font.BOLD);
+                subtitleFont.setSize(14);
+                subtitleFont.setStyle(Font.BOLD);
             
-            titleFont.setColor(45, 82, 100);
-            titleFont.setSize(20);
-            titleFont.setStyle(Font.BOLD);
-            subtitleFont.setSize(14);
-            subtitleFont.setStyle(Font.BOLD);
+                Paragraph title = new Paragraph("Reporte General de Anteproyectos", titleFont);
+                Paragraph dateLine = new Paragraph("Fecha de generación de reporte: " + reportDate, subtitleFont);
+                Paragraph lgacSubtitle = new Paragraph("Información de las LGAC", subtitleFont);
+                Paragraph modalitiesSubtitle = new Paragraph("Información de las modalidades", subtitleFont);
+                Paragraph directorsSubtitle = new Paragraph("Información de los directores", subtitleFont);
             
-            Paragraph title = new Paragraph("Reporte General de Anteproyectos", titleFont);
-            Paragraph dateLine = new Paragraph("Fecha de generación de reporte: " + reportDate, subtitleFont);
-            Paragraph lgacSubtitle = new Paragraph("Información de las LGAC", subtitleFont);
-            Paragraph modalitiesSubtitle = new Paragraph("Información de las modalidades", subtitleFont);
-            Paragraph directorsSubtitle = new Paragraph("Información de los directores", subtitleFont);
+                reportDocument.add(title);
+                reportDocument.add(Chunk.NEWLINE);
+                reportDocument.add(dateLine);
+                reportDocument.add(Chunk.NEWLINE);
+                reportDocument.add(createProjectTable());
+                reportDocument.add(Chunk.NEWLINE);
+                reportDocument.add(lgacSubtitle);
+                reportDocument.add(Chunk.NEWLINE);
+                reportDocument.add(createLgacTable());
+                reportDocument.add(Chunk.NEWLINE);
+                reportDocument.add(modalitiesSubtitle);
+                reportDocument.add(Chunk.NEWLINE);
+                reportDocument.add(createModalitiesTable());
+                reportDocument.add(Chunk.NEWLINE);
+                reportDocument.add(directorsSubtitle);
+                reportDocument.add(Chunk.NEWLINE);
+                reportDocument.add(createDirectorTable());
             
-            reportDocument.add(title);
-            reportDocument.add(Chunk.NEWLINE);
-            reportDocument.add(dateLine);
-            reportDocument.add(Chunk.NEWLINE);
-            reportDocument.add(createProjectTable());
-            reportDocument.add(Chunk.NEWLINE);
-            reportDocument.add(lgacSubtitle);
-            reportDocument.add(Chunk.NEWLINE);
-            reportDocument.add(createLgacTable());
-            reportDocument.add(Chunk.NEWLINE);
-            reportDocument.add(modalitiesSubtitle);
-            reportDocument.add(Chunk.NEWLINE);
-            reportDocument.add(createModalitiesTable());
-            reportDocument.add(Chunk.NEWLINE);
-            reportDocument.add(directorsSubtitle);
-            reportDocument.add(Chunk.NEWLINE);
-            reportDocument.add(createDirectorTable());
+                reportDocument.close();
+                DialogGenerator.getDialog(new AlertMessage (
+                    "Descarga de reporte exitosa",
+                    Status.SUCCESS));
+            }
             
-            reportDocument.close();
-            DialogGenerator.getDialog(new AlertMessage (
-                "Descarga de reporte exitosa",
-                Status.SUCCESS));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GeneralProjectReportController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
@@ -237,7 +249,12 @@ public class GeneralProjectReportController implements Initializable {
             lblProposedProjects.setText(Integer.toString(projectDAO.getProjectsCountByStatus(PROPOSED_STATUS.getDisplayName())));
             lblLGACMost.setText(projectDAO.getLgacMostUsed().getId() +" " + projectDAO.getLgacMostUsed().getName());
             lblLGACLeast.setText(projectDAO.getLgacLeastUsed().getId() +" " + projectDAO.getLgacLeastUsed().getName());
+            lblModalityMost.setText(projectDAO.getModalityMostUsed());
+            lblModalityLeast.setText(projectDAO.getModalityLeastUsed());
         } catch (SQLException ex) {
+            DialogGenerator.getDialog(new AlertMessage (
+                    "No hay conexión a la base de datos",
+                    Status.FATAL));
             Logger.getLogger(GeneralProjectReportController.class.getName()).log(Level.SEVERE, null, ex);
         }
 

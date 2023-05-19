@@ -57,13 +57,7 @@ public class ProjectRegisterController implements Initializable {
 
     @FXML
     private Label lblTitleSystem;
-
-    @FXML
-    private TableColumn<ProfessorsTable, CheckBox> tblCCodirector;
-
-    @FXML
-    private TableColumn<ProfessorsTable, CheckBox> tblCDirector;
-
+    
     @FXML
     private TableColumn<LGACTable, CheckBox> tblCIdLGAC;
 
@@ -71,16 +65,7 @@ public class ProjectRegisterController implements Initializable {
     private TableColumn<LGACTable, String> tblCNameLGAC;
 
     @FXML
-    private TableColumn<ProfessorsTable, String> tblCProfessorEMail;
-
-    @FXML
-    private TableColumn<ProfessorsTable, String> tblCProfessorName;
-
-    @FXML
     private TableView<LGACTable> tblLGAC;
-
-    @FXML
-    private TableView<ProfessorsTable> tblProfessors;
 
     @FXML
     private TextArea txtBibliography;
@@ -138,42 +123,9 @@ public class ProjectRegisterController implements Initializable {
             Logger.getLogger(ProjectRegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    ObservableList<ProfessorsTable> list1 = FXCollections.observableArrayList();
     ObservableList<LGACTable> list2 = FXCollections.observableArrayList();
     ArrayList<Integer> durationList = new ArrayList<>(List.of(6, 12, 18, 24));
     
-    
-    
-    void fillProfessorsTable(){
-        try {
-            ProfessorDAO professorUserDAO = new ProfessorDAO();
-            List<Professor> professorList = professorUserDAO.getProfessorsByStatus(ACTIVE_STATUS);
-            for (int i =0; i< professorList.size(); i++){
-                Professor professor = professorList.get(i);
-                CheckBox cbkDirector = new CheckBox("" + professorList.get(i));
-                CheckBox cbkCodirector = new CheckBox("" + professorList.get(i));
-                
-                cbkDirector.setOnAction(event -> {
-                if (cbkDirector.isSelected()) {
-                    for (ProfessorsTable director : list1) {
-                        if (director.getCbkDirector() != cbkDirector) {
-                            director.getCbkDirector().setSelected(false);
-                        }
-                    }
-                }
-                });
-                list1.add(new ProfessorsTable(professor.getEMail(), (professor.getHonorificTitle() + " " + professor.getName() + " " + professor.getLastName()), cbkCodirector, cbkDirector));
-            }
-        tblProfessors.setItems(list1);
-        tblCProfessorEMail.setCellValueFactory(new PropertyValueFactory<ProfessorsTable, String>("emailProfessor"));
-        tblCProfessorName.setCellValueFactory(new PropertyValueFactory<ProfessorsTable, String>("nameProfessor"));
-        tblCCodirector.setCellValueFactory(new PropertyValueFactory<ProfessorsTable, CheckBox>("cbkCodirector"));
-        tblCDirector.setCellValueFactory(new PropertyValueFactory<ProfessorsTable, CheckBox>("cbkDirector"));
-        } catch (SQLException ex) {
-            Logger.getLogger(ProjectRegisterController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     void fillLgacTable(){
         try {
@@ -224,7 +176,6 @@ public class ProjectRegisterController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        fillProfessorsTable();
         fillLgacTable();
         setAcademicBodyComboBox();
         setDurationComboBox();

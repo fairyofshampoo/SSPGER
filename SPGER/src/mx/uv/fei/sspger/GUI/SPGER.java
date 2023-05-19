@@ -19,7 +19,7 @@ public class SPGER extends Application{
     
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("GeneralProjectReport.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ProjectRegister.fxml"));
         
         scene = new Scene (root);
         

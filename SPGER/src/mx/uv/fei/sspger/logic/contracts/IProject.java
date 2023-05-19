@@ -3,6 +3,7 @@ package mx.uv.fei.sspger.logic.contracts;
 import java.sql.SQLException;
 import java.util.List;
 import mx.uv.fei.sspger.logic.Lgac;
+import mx.uv.fei.sspger.logic.Professor;
 import mx.uv.fei.sspger.logic.Project;
 
 
@@ -20,4 +21,8 @@ public interface IProject {
     int getProjectsCountByStatus(String projectStatus) throws SQLException;
     Lgac getLgacMostUsed() throws SQLException;
     Lgac getLgacLeastUsed() throws SQLException;
+    String getModalityMostUsed() throws SQLException;
+    String getModalityLeastUsed() throws SQLException;
+    Professor getDirectorNameMostValidatedProjects() throws SQLException;
+    Professor getDirectorNameLeastValidatedProjects() throws SQLException;
 }

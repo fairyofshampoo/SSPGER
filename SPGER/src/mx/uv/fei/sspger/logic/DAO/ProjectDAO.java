@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
 import mx.uv.fei.sspger.logic.Lgac;
+import mx.uv.fei.sspger.logic.Professor;
 import mx.uv.fei.sspger.logic.contracts.IProject;
 import mx.uv.fei.sspger.logic.Project;
 
@@ -21,6 +22,9 @@ public class ProjectDAO implements IProject{
     private final String COUNT_PROJECTS_BY_STATUS = "SELECT COUNT(*) FROM anteproyecto WHERE estadoAnteproyecto = ?";
     private final String MOST_LGAC_USED = "SELECT lgac.idLGAC, lgac.nombre FROM lgac INNER JOIN lgac_anteproyecto ON lgac.idLGAC = lgac_anteproyecto.idlgac GROUP BY lgac.idLGAC, lgac.nombre ORDER BY COUNT(*) DESC LIMIT 1";
     private final String LEAST_LGAC_USED = "SELECT lgac.idLGAC, lgac.nombre FROM lgac INNER JOIN lgac_anteproyecto ON lgac.idLGAC = lgac_anteproyecto.idlgac GROUP BY lgac.idLGAC, lgac.nombre ORDER BY COUNT(*) ASC LIMIT 1";
+    private final String MOST_MODALITY_USED = "SELECT modalidad, COUNT(*) AS count FROM anteproyecto GROUP BY modalidad ORDER BY count DESC LIMIT 1";
+    private final String LEAST_MODALITY_USED = "SELECT modalidad, COUNT(*) AS count FROM anteproyecto GROUP BY modalidad ORDER BY count ASC LIMIT 1";
+    private final String DIRECTOR_MOST_VALIDATED = "";
     private final String STATUS_VALIDATION = "VALIDADO";
     private final String STATUS_STUDENT_POSTULED = "POSTULANTE";
     private final int ERROR_ADDITION = -1;
@@ -285,7 +289,6 @@ public class ProjectDAO implements IProject{
     
     int projectsCount = 0;
     
-    DataBaseManager.getConnection();
     PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(COUNT_PROJECTS_BY_STATUS);
     
     statement.setString(1, projectStatus);
@@ -332,5 +335,47 @@ public class ProjectDAO implements IProject{
         DataBaseManager.closeConnection();
 
         return lgac;
+    }
+
+    @Override
+    public String getModalityMostUsed() throws SQLException {
+    String modality = " ";
+    
+    PreparedStatement modalityStatement = DataBaseManager.getConnection().prepareStatement(MOST_MODALITY_USED);
+    ResultSet resultSet = modalityStatement.executeQuery();
+    
+    if (resultSet.next()) {
+        modality = resultSet.getString("modalidad");
+    }
+    modalityStatement.close();
+    DataBaseManager.closeConnection();
+    
+    return modality;
+    }
+
+    @Override
+    public String getModalityLeastUsed() throws SQLException {
+        String modality = " ";
+    
+        PreparedStatement modalityStatement = DataBaseManager.getConnection().prepareStatement(LEAST_MODALITY_USED);
+        ResultSet resultSet = modalityStatement.executeQuery();
+    
+        if (resultSet.next()) {
+            modality = resultSet.getString("modalidad");
+        }
+        modalityStatement.close();
+        DataBaseManager.closeConnection();
+    
+        return modality;
+    }
+
+    @Override
+    public Professor getDirectorNameMostValidatedProjects() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Professor getDirectorNameLeastValidatedProjects() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

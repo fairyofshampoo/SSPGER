@@ -34,7 +34,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="14.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="28.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@resources/btnBack.png" />
                </image>
@@ -101,13 +101,13 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="98.0" layoutY="463.0" prefHeight="17.0" prefWidth="267.0" text="Director con más anteproyectos concluidos:">
+            <Label layoutX="98.0" layoutY="463.0" prefHeight="17.0" prefWidth="267.0" text="Director con más anteproyectos validados:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
             <Label fx:id="lblDirectorMostProjects" layoutX="382.0" layoutY="463.0" prefHeight="17.0" prefWidth="369.0" text="Ángel Juan Sánchez" />
-            <Label layoutX="98.0" layoutY="489.0" prefHeight="17.0" prefWidth="267.0" text="Director con menos anteproyectos concluidos:">
+            <Label layoutX="98.0" layoutY="489.0" prefHeight="17.0" prefWidth="267.0" text="Director con menos anteproyectos validados:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
