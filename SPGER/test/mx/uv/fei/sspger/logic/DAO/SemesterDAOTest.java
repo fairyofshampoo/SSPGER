@@ -7,6 +7,7 @@ package mx.uv.fei.sspger.logic.DAO;
 import java.util.List;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import mx.uv.fei.sspger.logic.Semester;
 import org.junit.After;
@@ -62,7 +63,6 @@ public class SemesterDAOTest {
         Semester expResult = expectedResult;
         Semester result = instance.getSemesterPerStartDate(semester);
         
-        System.out.println("=======" + result.getSemesterId() + " " + expResult.getSemesterId());
         assertEquals(expResult, result);
     }
 
@@ -72,9 +72,21 @@ public class SemesterDAOTest {
     @Test
     public void testGetAvailableSemesters() throws Exception {
         System.out.println("getAvailableSemesters");
+        
         SemesterDAO instance = new SemesterDAO();
-        List<Semester> expResult = null;
-        List<Semester> result = instance.getAvailableSemesters();
+        Semester semester2 = new Semester();
+        Semester semester3 = new Semester();
+        
+        semester2.setSemesterId(2);
+        semester3.setSemesterId(3);
+        
+        List<Semester> expResult = new ArrayList<>();
+        
+        expResult.add(semester2);
+        expResult.add(semester3);
+        
+        List<Semester> result = instance.getAvailableSemesters();     
+        
         assertEquals(expResult, result);
 
     }
@@ -85,6 +97,7 @@ public class SemesterDAOTest {
     @Test
     public void testGetSemesterPerId() throws Exception {
         System.out.println("getSemesterPerId");
+        
         int semesterId = 2;
         SemesterDAO instance = new SemesterDAO();
         Semester expResult = new Semester();
@@ -92,8 +105,6 @@ public class SemesterDAOTest {
         expResult.setSemesterId(2);
         
         Semester result = instance.getSemesterPerId(2);
-        
-        System.out.println("ayo wtf" + result.getSemesterId() + " " + expResult.getSemesterId());
         
         assertEquals(expResult, result);
     }

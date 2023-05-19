@@ -11,13 +11,12 @@ import java.util.List;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
 import mx.uv.fei.sspger.logic.contracts.IProject;
 import mx.uv.fei.sspger.logic.Project;
-import mx.uv.fei.sspger.logic.Student;
 
 
 public class ProjectDAO implements IProject{
     private final String ADD_PROJECT_QUERY = "insert into anteproyecto(idLGAC, idCuerpoAcademico, nombreProyecto, descripcion, resultadosEsperados, duracionAproximada, notas, requisitos, bibliografiaRecomendada) values(?,?,?,?,?,?,?,?,?)";
     private final String GET_ALL_PROJECTS_QUERY = "SELECT * FROM anteproyecto";
-    private final String GET_STUDENT_PROJECT = "SELECT idAnteproyecto, nombreProyecto FROM estudiante_anteproyecto NATURAL JOIN anteproyecto WHERE idEstudianteAnteproyecto = ?";
+    private final String GET_STUDENT_PROJECT = "SELECT idTrabajo_Recepcional, nombre FROM estudiante_trabajo_recepcional NATURAL JOIN trabajo_recepcional WHERE idEstudiante = ?";
     
     @Override
     public int addProject(Project project, String idCuerpoAcademico, String idLgac) throws SQLException {
@@ -100,8 +99,8 @@ public class ProjectDAO implements IProject{
         ResultSet projectResult = statement.executeQuery();
 
         if(projectResult.next()){
-            project.setName(projectResult.getString("nombreProyecto"));
-            project.setIdProject(projectResult.getInt("idAnteproyecto"));
+            project.setName(projectResult.getString("nombre"));
+            project.setIdProject(projectResult.getInt("idTrabajo_Recepcional"));
         }
         
         DataBaseManager.closeConnection();

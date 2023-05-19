@@ -52,7 +52,6 @@ public class ProfessorCourseManagerController implements Initializable {
         setGraphicElements();
         
         List<Course> professorCourses = getProfessorCourses();
-        gpCourseTable.getChildren().clear();
         try{
             for (int card = 0; card < professorCourses.size(); card++){
                 FXMLLoader fxmlLoader = new FXMLLoader();

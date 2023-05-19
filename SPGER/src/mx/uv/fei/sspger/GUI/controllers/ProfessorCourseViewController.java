@@ -137,7 +137,13 @@ public class ProfessorCourseViewController implements Initializable {
     
     @FXML
     private void generateCourseReport(ActionEvent event) {
-        //TODO
+        CourseReportController.courseId = course.getCourseId();
+        
+        try {
+            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/CourseReport");
+        } catch (IOException ioException){
+            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ioException);
+        }
     }
 
     @FXML
@@ -147,8 +153,8 @@ public class ProfessorCourseViewController implements Initializable {
         
         try {
             MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ProfessorCourseManager");
-        } catch (IOException ex) {
-            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ioException) {
+            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ioException);
         }
     }
 }

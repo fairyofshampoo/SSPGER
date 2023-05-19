@@ -92,17 +92,11 @@ public class CourseDAOTest {
     @Test
     public void testGetCourseByID() throws Exception {
         System.out.println("getCourseByID");
-        String id = "Exp22";
+        String id = "Cur212";
         CourseDAO instance = new CourseDAO();
         
         Course expResult = new Course();
-        expResult.manualSetOfCourseId("Exp22");
-        expResult.setBlock(1);
-        expResult.setName("Experiencia recepcional");
-        expResult.setNrc("1234");
-        expResult.setSection(2);
-        expResult.setState("Disponible");
-        instance.enrollProfessorToCourse(3, expResult);
+        expResult.manualSetOfCourseId("Cur212");
         
         Course result = instance.getCourseByID(id);
         assertEquals(expResult, result);
@@ -116,7 +110,7 @@ public class CourseDAOTest {
         System.out.println("enrollStudentToCourse");
         EnrollToCourse enrollToCourse = new EnrollToCourse();
         enrollToCourse.setStudentId(3);
-        enrollToCourse.setCourseId("CursoPrue21");
+        enrollToCourse.setCourseId("Cur212");
         
         CourseDAO instance = new CourseDAO();
         int expResult = 1;
@@ -127,13 +121,16 @@ public class CourseDAOTest {
     @Test
     public void testExpellStudentFromCourse() throws Exception {
         System.out.println("expellStudentFromCourse");
-        EnrollToCourse expellFromCourse = null;
+        EnrollToCourse expellFromCourse = new EnrollToCourse();
+        
+        expellFromCourse.setCourseId("Cur212");
+        expellFromCourse.setStudentId(3);
+        
         CourseDAO instance = new CourseDAO();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.expellStudentFromCourse(expellFromCourse);
+        
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -159,9 +156,9 @@ public class CourseDAOTest {
     @Test
     public void testEnrollProfessorToCourse() throws Exception {
         System.out.println("enrollProfessorToCourse");
-        int professorId = 3;
+        int professorId = 2;
         Course course = new Course();
-        course.manualSetOfCourseId("Exp42");
+        course.manualSetOfCourseId("Exp212");
         CourseDAO instance = new CourseDAO();
         int expResult = 1;
         int result = instance.enrollProfessorToCourse(professorId, course);

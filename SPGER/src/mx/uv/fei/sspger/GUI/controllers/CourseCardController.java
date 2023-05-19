@@ -49,8 +49,8 @@ public class CourseCardController {
         try {
             ProfessorCourseViewController.course = courseCard;
             MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ProfessorCourseView");
-        } catch (IOException ex) {
-            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ioException) {
+            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ioException);
         }
     }
     

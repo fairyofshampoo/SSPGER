@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package mx.uv.fei.sspger.logic.DAO;
+
 
 import java.util.List;
 import mx.uv.fei.sspger.logic.Professor;
@@ -132,21 +129,6 @@ public class ProfessorDAOTest {
         System.out.println("Numero personal del resultado " + result.getPersonalNumber());
         System.out.println("Numero personal esperado " + expResult.getPersonalNumber());
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getProfessorByProyect method, of class ProfessorDAO.
-     */
-    @Test
-    public void testGetProfessorByProyect() throws Exception {
-        System.out.println("getProfessorByProyect");
-        int proyectId = 0;
-        ProfessorDAO instance = new ProfessorDAO();
-        Professor expResult = null;
-        Professor result = instance.getProfessorByProyect(proyectId);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**

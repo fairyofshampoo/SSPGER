@@ -3,12 +3,15 @@ package mx.uv.fei.sspger.GUI;
 
 import mx.uv.fei.sspger.GUI.controllers.ModifyAssignmentController;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import mx.uv.fei.sspger.GUI.controllers.ProfessorCourseManagerController;
+import mx.uv.fei.sspger.GUI.controllers.ProfessorCourseViewController;
 import mx.uv.fei.sspger.GUI.controllers.RegisterAssignmentController;
 import mx.uv.fei.sspger.logic.Assignment;
 import mx.uv.fei.sspger.logic.DAO.AssignmentDAO;
@@ -65,8 +68,7 @@ public class MainApplication extends Application{
         try{
             scene.setRoot(loadFXML(fxml));
         } catch (IOException ioException){
-            //logger
-            System.out.println(ioException);
+            Logger.getLogger(MainApplication.class.getName()).log(Level.SEVERE, null, ioException);
         }
         
     }

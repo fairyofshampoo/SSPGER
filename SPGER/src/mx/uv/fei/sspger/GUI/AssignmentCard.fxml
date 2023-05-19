@@ -11,8 +11,8 @@
    <children>
       <Pane layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="307.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b9e34" height="164.0" layoutX="-2.0" layoutY="-11.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="308.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="154.0" layoutX="5.0" layoutY="-6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="293.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b9e34" height="169.0" layoutX="-2.0" layoutY="-11.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="308.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="159.0" layoutX="5.0" layoutY="-6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="293.0" />
             <Label fx:id="lblAssignmentTitle" alignment="CENTER" layoutX="-2.0" layoutY="4.0" prefHeight="27.0" prefWidth="300.0" text="Label">
                <font>
                   <Font size="18.0" />
@@ -23,7 +23,7 @@
             <Label fx:id="lblStartDate" layoutX="11.0" layoutY="60.0" text="Fecha inicio:" />
             <Label fx:id="lblDeadline" layoutX="12.0" layoutY="82.0" text="Fecha fin:" />
             <Label fx:id="lblPublicationDate" layoutX="12.0" layoutY="103.0" text="Fecha publicación:" />
-            <Button layoutX="205.0" layoutY="120.0" mnemonicParsing="false" onAction="#viewAssignmentDetails" prefHeight="25.0" prefWidth="85.0" text="Ver detalles" />
+            <Button layoutX="9.0" layoutY="124.0" mnemonicParsing="false" onAction="#viewAssignmentDetails" prefHeight="25.0" prefWidth="85.0" text="Ver detalles" />
          </children>
       </Pane>
    </children>

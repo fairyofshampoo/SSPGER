@@ -11,4 +11,5 @@ public interface IAssingment {
     List<Assignment> getAssignmentsPerProject (int idProject) throws SQLException;
     int deleteAssignment (Assignment assignment) throws SQLException;
     Assignment getAssignmentById (int assignmentId) throws SQLException;
+    int getCountAssignmentPerReceptionalWork (int idReceptionalWork) throws SQLException;
 }

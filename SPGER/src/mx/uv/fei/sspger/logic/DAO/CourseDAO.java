@@ -220,7 +220,7 @@ public class CourseDAO implements ICourse{
     @Override
     public int enrollProfessorToCourse(int professorId, Course course) throws SQLException {
         int result;
-        String query = "UPDATE curso SET idUsuarioProfesor = ? where idCurso = ?";
+        String query = "UPDATE curso SET idUsuarioProfesor = ? WHERE (idCurso = ?)";
         DataBaseManager.getConnection();
 
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
@@ -310,10 +310,8 @@ public class CourseDAO implements ICourse{
             course.setName(coursesResult.getString("nombre"));
             course.setNrc(coursesResult.getString("nrc"));
             course.setSection(coursesResult.getInt("seccion"));
-            course.setState(coursesResult.getString("estado"));
             course.setBlock(coursesResult.getInt("bloque"));
             course.setSemesterId(coursesResult.getInt("idPeriodoEscolar"));
-            course.setProfessorId(coursesResult.getInt("idUsuarioProfesor"));
             coursesList.add(course);
         } 
         DataBaseManager.closeConnection();
@@ -340,10 +338,8 @@ public class CourseDAO implements ICourse{
             course.setName(coursesResult.getString("nombre"));
             course.setNrc(coursesResult.getString("nrc"));
             course.setSection(coursesResult.getInt("seccion"));
-            course.setState(coursesResult.getString("estado"));
             course.setBlock(coursesResult.getInt("bloque"));
             course.setSemesterId(coursesResult.getInt("idPeriodoEscolar"));
-            course.setProfessorId(coursesResult.getInt("idUsuarioProfesor"));
             coursesList.add(course);
         } 
         DataBaseManager.closeConnection();

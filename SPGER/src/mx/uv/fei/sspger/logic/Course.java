@@ -1,5 +1,7 @@
 package mx.uv.fei.sspger.logic;
 
+import java.util.Objects;
+
 
 public class Course {
     private String courseId;
@@ -96,4 +98,12 @@ public class Course {
         final Course other = (Course)object;
          return this.courseId.equals(other.courseId);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 31 * hash + Objects.hashCode(this.courseId);
+        return hash;
+    }
+
 }

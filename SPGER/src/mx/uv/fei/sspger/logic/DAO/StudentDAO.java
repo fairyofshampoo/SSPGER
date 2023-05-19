@@ -13,6 +13,11 @@ import mx.uv.fei.sspger.logic.Student;
 
 
 public class StudentDAO implements IStudent{
+    
+    private final String GET_COURSE_STUDENT = "SELECT * FROM  estudiante NATURAL JOIN cursa " +
+        "INNER JOIN estudiante_trabajo_recepcional ON estudiante_trabajo_recepcional.idEstudiante = idUsuarioEstudiante " +
+        "WHERE idCurso = ?";
+    private final String GET_STUDENT_BY_ID = "SELECT * FROM estudiante WHERE idUsuarioEstudiante = ?";
 
     @Override
     public int register(Student student) throws SQLException {
@@ -24,6 +29,29 @@ public class StudentDAO implements IStudent{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
+    public Student getStudent(int idStudent) throws SQLException {
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_STUDENT_BY_ID);
+
+        statement.setInt(1,idStudent);
+
+        ResultSet studentResult = statement.executeQuery();
+        Student student = new Student();
+        
+        if(studentResult.next()){
+        student.setEMail(studentResult.getString("correo_institucional"));
+        student.setName(studentResult.getString("nombre"));
+        student.setLastName(studentResult.getString("apellido"));
+        student.setRegistrationTag(studentResult.getString("matricula"));
+        student.setId(studentResult.getInt("idUsuarioEstudiante"));
+        }
+        
+        DataBaseManager.closeConnection();
+
+        return student;
+    }
+    
     @Override
     public List<Student> getAvailableStudents() throws SQLException {
         String query = "Select idUsuarioEstudiante, nombre, apellido, matricula From estudiante";

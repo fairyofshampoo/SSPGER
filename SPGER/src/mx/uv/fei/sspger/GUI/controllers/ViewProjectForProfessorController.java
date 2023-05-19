@@ -17,7 +17,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import mx.uv.fei.sspger.GUI.MainApplication;
@@ -25,15 +24,17 @@ import mx.uv.fei.sspger.logic.Assignment;
 import mx.uv.fei.sspger.logic.DAO.AssignmentDAO;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
 import mx.uv.fei.sspger.logic.DAO.ProjectDAO;
+import mx.uv.fei.sspger.logic.DAO.ReceptionalWorkDAO;
 import mx.uv.fei.sspger.logic.Professor;
 import mx.uv.fei.sspger.logic.Project;
+import mx.uv.fei.sspger.logic.ReceptionalWork;
 import mx.uv.fei.sspger.logic.Student;
 
 
 public class ViewProjectForProfessorController implements Initializable {
     
     public static Student student;
-    private Project project;
+    private ReceptionalWork receptionalWork;
     private int column = 0;
     private int row = 0;
     
@@ -53,7 +54,7 @@ public class ViewProjectForProfessorController implements Initializable {
     private Label lblDirector;
 
     @FXML
-    private Label lblProjectName;
+    private Label lblReceptionalWorkName;
 
     @FXML
     private Label lblStudentName;
@@ -68,7 +69,7 @@ public class ViewProjectForProfessorController implements Initializable {
     }   
     
     private void setGraphicElements(){
-        ProjectDAO projectDao = new ProjectDAO();
+        ReceptionalWorkDAO receptionalWorkDAO = new ReceptionalWorkDAO();
         ProfessorDAO professorDao = new ProfessorDAO();
         Professor director = new Professor();
         List<Professor> coodirectors = new ArrayList<>();
@@ -76,9 +77,9 @@ public class ViewProjectForProfessorController implements Initializable {
         String directorName= "Director: ";
         
         try{
-            project = projectDao.getProjectByStudent(student.getId());
-            director = professorDao.getDirectorByProject(project.getIdProject());
-            coodirectors = professorDao.getCoodirectorByProject(project.getIdProject());
+            receptionalWork = receptionalWorkDAO.getActiveReceptionalWorkByStudent(student.getId());
+            director = professorDao.getDirectorByProject(receptionalWork.getIdProject());
+            coodirectors = professorDao.getCoodirectorByProject(receptionalWork.getIdProject());
         } catch (SQLException sqlException) {
             Logger.getLogger(ViewProjectForProfessorController.class.getName()).log(Level.SEVERE, null, sqlException);
         }
@@ -91,7 +92,7 @@ public class ViewProjectForProfessorController implements Initializable {
             coodirectorsName = coodirectorsName + coodirector.getHonorificTitle() + " " + coodirector.getName() + " " + coodirector.getLastName() + " ";
         }
         
-        lblProjectName.setText(project.getName());
+        lblReceptionalWorkName.setText(receptionalWork.getName());
         lblDirector.setText(directorName);
         lblCoodirector.setText(coodirectorsName);
         lblStudentName.setText(student.getName() + " " + student.getLastName());
@@ -117,8 +118,8 @@ public class ViewProjectForProfessorController implements Initializable {
                     row++;
                 }
                 
-                gpAssignmentContainer.add(assignmentCard, column, row);
-                GridPane.setMargin(assignmentCard, new Insets(15));
+                gpAssignmentContainer.add(assignmentCard, column++, row);
+                GridPane.setMargin(assignmentCard, new Insets(10));
             }
         
         } catch (IOException ioException){
@@ -131,7 +132,7 @@ public class ViewProjectForProfessorController implements Initializable {
         List<Assignment> studentAssignments = new ArrayList<>();
         
         try{
-            studentAssignments = assignmentDao.getAssignmentsPerProject(project.getIdProject());
+            studentAssignments = assignmentDao.getAssignmentsPerProject(receptionalWork.getIdReceptionalWork());
         } catch (SQLException sqlException) {
             Logger.getLogger(ViewProjectForProfessorController.class.getName()).log(Level.SEVERE, null, sqlException);
         }
