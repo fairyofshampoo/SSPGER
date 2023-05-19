@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mx.uv.fei.sspger.GUI.controllers.DirectorReceptionalWorkController;
 import mx.uv.fei.sspger.GUI.controllers.ProfessorCourseManagerController;
 import mx.uv.fei.sspger.GUI.controllers.ProfessorCourseViewController;
 import mx.uv.fei.sspger.GUI.controllers.RegisterAssignmentController;
@@ -52,9 +53,11 @@ public class MainApplication extends Application{
         
         //Parent root = FXMLLoader.load(getClass().getResource("RegisterAssignment.fxml"));
         
-        ProfessorCourseManagerController.professorId = professor.getId();
-        
-        Parent root = FXMLLoader.load(getClass().getResource("ProfessorCourseManager.fxml"));
+      // ProfessorCourseManagerController.professorId = professor.getId();
+      //Parent root = FXMLLoader.load(getClass().getResource("ProfessorCourseManager.fxml"));
+      
+        DirectorReceptionalWorkController.idProfessor = professor.getId();
+        Parent root = FXMLLoader.load(getClass().getResource("DirectorReceptionalWork.fxml"));
         
         //Parent root = FXMLLoader.load(getClass().getResource("AddCourse.fxml"));
         

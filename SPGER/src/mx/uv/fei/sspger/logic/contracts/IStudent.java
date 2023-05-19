@@ -11,5 +11,6 @@ public interface IStudent {
     List <Student> getStudentList() throws SQLException;
     List <Student> getAvailableStudents() throws SQLException;
     List <Student> getStudentsPerCourse (String courseId) throws SQLException;
-    List<Student> getAvailableStudentsNotInCourse(String courseId) throws SQLException;
+    List <Student> getAvailableStudentsNotInCourse(String courseId) throws SQLException;
+    List <Student> getStudentPerReceptionalWork(int idRedceptionalWork) throws SQLException;
 }

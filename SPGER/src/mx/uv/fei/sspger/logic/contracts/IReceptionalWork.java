@@ -9,7 +9,9 @@ import java.util.List;
 public interface IReceptionalWork {
     ReceptionalWork getRecepetionalWorkById(int idReceptionalWork) throws SQLException;
     ReceptionalWork getActiveReceptionalWorkByStudent (int idStudent) throws SQLException;
+    ReceptionalWork getReceptionalWorkWithNumberOfStudents (int idReceptionalWork) throws SQLException;
     List<ReceptionalWork> getReceptionalWorksByStudent (int idStudent) throws SQLException;
+    List<ReceptionalWork> getReceptionalWorksByProfessor (int idProfessor) throws SQLException;
     int addReceptionalWork (ReceptionalWork receptionalWork) throws SQLException;
     int modifyReceptionalWork (ReceptionalWork receptionalWork) throws SQLException;
     int changeReceptionalWorkState (String receptionalWorkState) throws SQLException;

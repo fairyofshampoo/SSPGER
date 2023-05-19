@@ -132,7 +132,7 @@ public class ViewProjectForProfessorController implements Initializable {
         List<Assignment> studentAssignments = new ArrayList<>();
         
         try{
-            studentAssignments = assignmentDao.getAssignmentsPerProject(receptionalWork.getIdReceptionalWork());
+            studentAssignments = assignmentDao.getAssignmentsPerReceptionalWork(receptionalWork.getIdReceptionalWork());
         } catch (SQLException sqlException) {
             Logger.getLogger(ViewProjectForProfessorController.class.getName()).log(Level.SEVERE, null, sqlException);
         }

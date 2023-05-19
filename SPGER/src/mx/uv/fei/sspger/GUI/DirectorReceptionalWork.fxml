@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="mx.uv.fei.sspger.GUI.controllers.DirectorReceptionalWorkController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.DirectorReceptionalWorkController">
    <children>
       <Pane layoutY="49.0" prefHeight="567.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;">
          <children>
@@ -63,10 +62,10 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbxReceptionalWorkFilter" layoutX="605.0" layoutY="98.0" onAction="#filterCourses" prefWidth="150.0" promptText="Filtro de trabajos" />
+      <ComboBox fx:id="cbxReceptionalWorkFilter" layoutX="605.0" layoutY="98.0" onAction="#filterReceptionalWorks" prefWidth="150.0" promptText="Filtro de trabajos" />
       <ScrollPane layoutX="116.0" layoutY="141.0" prefHeight="449.0" prefWidth="662.0">
          <content>
-            <GridPane fx:id="gpReceptionalWorks" prefHeight="151.0" prefWidth="661.0">
+            <GridPane fx:id="gpReceptionalWorks" prefHeight="151.0" prefWidth="659.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

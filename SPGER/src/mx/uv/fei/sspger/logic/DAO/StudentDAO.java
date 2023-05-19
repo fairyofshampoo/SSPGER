@@ -14,10 +14,13 @@ import mx.uv.fei.sspger.logic.Student;
 
 public class StudentDAO implements IStudent{
     
-    private final String GET_COURSE_STUDENT = "SELECT * FROM  estudiante NATURAL JOIN cursa " +
-        "INNER JOIN estudiante_trabajo_recepcional ON estudiante_trabajo_recepcional.idEstudiante = idUsuarioEstudiante " +
-        "WHERE idCurso = ?";
+    private final String GET_COURSE_STUDENT = "SELECT * FROM  estudiante NATURAL JOIN cursa "
+            + "INNER JOIN estudiante_trabajo_recepcional ON estudiante_trabajo_recepcional.idEstudiante = idUsuarioEstudiante "
+            + "WHERE idCurso = ?";
     private final String GET_STUDENT_BY_ID = "SELECT * FROM estudiante WHERE idUsuarioEstudiante = ?";
+    private final String GET_STUDENTS_BY_RECEPTIONAL_WORK = "SELECT nombre, apellido, idEstudiante FROM estudiante_trabajo_recepcional "
+            + "INNER JOIN estudiante ON estudiante.idUsuarioEstudiante = estudiante_trabajo_recepcional.idEstudiante WHERE"
+            + " idTrabajoRecepcional = ?";
 
     @Override
     public int register(Student student) throws SQLException {
@@ -40,11 +43,11 @@ public class StudentDAO implements IStudent{
         Student student = new Student();
         
         if(studentResult.next()){
-        student.setEMail(studentResult.getString("correo_institucional"));
-        student.setName(studentResult.getString("nombre"));
-        student.setLastName(studentResult.getString("apellido"));
-        student.setRegistrationTag(studentResult.getString("matricula"));
-        student.setId(studentResult.getInt("idUsuarioEstudiante"));
+            student.setEMail(studentResult.getString("correo_institucional"));
+            student.setName(studentResult.getString("nombre"));
+            student.setLastName(studentResult.getString("apellido"));
+            student.setRegistrationTag(studentResult.getString("matricula"));
+            student.setId(studentResult.getInt("idUsuarioEstudiante"));
         }
         
         DataBaseManager.closeConnection();
@@ -125,6 +128,31 @@ public class StudentDAO implements IStudent{
         } 
         DataBaseManager.closeConnection();
         
+        return studentList;
+    }
+
+    @Override
+    public List<Student> getStudentPerReceptionalWork(int idRedceptionalWork) throws SQLException {
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_STUDENTS_BY_RECEPTIONAL_WORK);
+
+        statement.setInt(1,idRedceptionalWork);
+
+        ResultSet studentResult = statement.executeQuery();
+        List <Student> studentList = new ArrayList <>();
+        
+        while(studentResult.next()){
+            Student student = new Student();
+
+            student.setName(studentResult.getString("nombre"));
+            student.setLastName(studentResult.getString("apellido"));
+            student.setId(studentResult.getInt("idEstudiante"));
+            
+            studentList.add(student);
+        }
+        
+        DataBaseManager.closeConnection();
+
         return studentList;
     }
 }

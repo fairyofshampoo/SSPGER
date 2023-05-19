@@ -11,12 +11,10 @@ import mx.uv.fei.sspger.logic.Assignment;
 import mx.uv.fei.sspger.logic.contracts.IAssingment;
 
 
-
-
 public class AssignmentDAO implements IAssingment{
     
     private final String REGISTER_ASSIGNMENT = "INSERT INTO asignacion(idUsuarioProfesor, titulo, fechaInicia, fechaFin, fechaPublicacion, descripcion, idTrabajoRecepcional) values (?,?,?,?,?,?,?)";
-    private final String GET_ASSIGNMENT_PER_PROJECT = "Select * From asignacion Where idTrabajoRecepcional= ?";
+    private final String GET_ASSIGNMENT_PER_RECEPTIONAL_WORK = "SELECT * FROM asignacion Where idTrabajoRecepcional= ?";
     private final String UPDATE_ASSIGNMENT = "UPDATE asignacion SET titulo = ?, fechaInicia = ?, fechaFin = ?, descripcion = ? WHERE idAsignacion = ?;";
     private final String DELETE_ASSIGNMENT = "DELETE FROM asignacion WHERE idAsignacion = ?";
     private final String GET_ASSIGNMENT_BY_ID = "SELECT * FROM asignacion WHERE idAsignacion = ?";
@@ -46,10 +44,10 @@ public class AssignmentDAO implements IAssingment{
     }
 
     @Override
-    public List<Assignment> getAssignmentsPerProject(int idReceptionWork) throws SQLException {
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_ASSIGNMENT_PER_PROJECT);
+    public List<Assignment> getAssignmentsPerReceptionalWork(int idReceptionalWork) throws SQLException {
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_ASSIGNMENT_PER_RECEPTIONAL_WORK);
         
-        statement.setInt(1, idReceptionWork);
+        statement.setInt(1, idReceptionalWork);
         
         ResultSet assignmentResult = statement.executeQuery();
         List<Assignment> assignmentList = new ArrayList<>();
