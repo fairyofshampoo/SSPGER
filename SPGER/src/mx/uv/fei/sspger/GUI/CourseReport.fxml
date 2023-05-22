@@ -49,7 +49,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button layoutX="38.0" layoutY="548.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="143.0" text="Descargar reporte PDF" />
+            <Button layoutX="38.0" layoutY="548.0" mnemonicParsing="false" onAction="#downloadReport" prefHeight="35.0" prefWidth="143.0" text="Descargar reporte PDF" />
             <Label layoutX="525.0" layoutY="122.0" text="Fecha de generación de reporte:">
                <font>
                   <Font size="14.0" />

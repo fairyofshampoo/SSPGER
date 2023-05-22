@@ -43,7 +43,7 @@ public class MainApplication extends Application{
         professor.setId(1);    
         
         RegisterAssignmentController.professor = professor;
-        RegisterAssignmentController.project = project;
+        RegisterAssignmentController.receptionalWorkId = 3;
         
         ModifyAssignmentController.assignment = assignment;
         ModifyAssignmentController.professor = professor;
@@ -51,13 +51,13 @@ public class MainApplication extends Application{
         
         //Parent root = FXMLLoader.load(getClass().getResource("modifyAssignment.fxml"));
         
-        //Parent root = FXMLLoader.load(getClass().getResource("RegisterAssignment.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("RegisterAssignment.fxml"));
         
-      // ProfessorCourseManagerController.professorId = professor.getId();
-      //Parent root = FXMLLoader.load(getClass().getResource("ProfessorCourseManager.fxml"));
+        //ProfessorCourseManagerController.professorId = professor.getId();
+        //Parent root = FXMLLoader.load(getClass().getResource("ProfessorCourseManager.fxml"));
       
-        DirectorReceptionalWorkController.idProfessor = professor.getId();
-        Parent root = FXMLLoader.load(getClass().getResource("DirectorReceptionalWork.fxml"));
+        //DirectorReceptionalWorkController.idProfessor = professor.getId();
+        //Parent root = FXMLLoader.load(getClass().getResource("DirectorReceptionalWork.fxml"));
         
         //Parent root = FXMLLoader.load(getClass().getResource("AddCourse.fxml"));
         

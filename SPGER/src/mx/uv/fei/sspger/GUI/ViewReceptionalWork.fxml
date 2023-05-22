@@ -14,10 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="mx.uv.fei.sspger.GUI.controllers.ViewReceptionalWorkController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.ViewReceptionalWorkController">
    <children>
-      <ImageView fitHeight="38.0" fitWidth="37.0" layoutX="14.0" layoutY="59.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgGoBack" fitHeight="38.0" fitWidth="37.0" layoutX="14.0" layoutY="59.0" onMouseClicked="#goBack" onMouseEntered="#mouseEnteredGoBackArea" onMouseExited="#mouseExitedGoBackArea" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@resources/btnBack.png" />
          </image>
@@ -29,19 +28,19 @@
          </font>
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#868686" height="5.0" layoutX="60.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="419.0" />
-      <VBox layoutX="60.0" layoutY="145.0" prefHeight="99.0" prefWidth="497.0">
+      <VBox layoutX="60.0" layoutY="145.0" prefHeight="99.0" prefWidth="419.0">
          <children>
-            <Text fx:id="nTextDirectorName" strokeType="OUTSIDE" strokeWidth="0.0" text="Director" wrappingWidth="489.13671875">
+            <Text fx:id="nTextDirectorName" strokeType="OUTSIDE" strokeWidth="0.0" text="Director" wrappingWidth="419.13671875">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fx:id="nTextStudentsName" strokeType="OUTSIDE" strokeWidth="0.0" text="Students" wrappingWidth="496.123046875">
+            <Text fx:id="nTextStudentsName" strokeType="OUTSIDE" strokeWidth="0.0" text="Students" wrappingWidth="417.123046875">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fx:id="nTextCoodirectorsName" strokeType="OUTSIDE" strokeWidth="0.0" text="Codirector" wrappingWidth="492.13671875">
+            <Text fx:id="nTextCoodirectorsName" strokeType="OUTSIDE" strokeWidth="0.0" text="Codirector" wrappingWidth="417.13671875">
                <font>
                   <Font size="14.0" />
                </font>
@@ -49,10 +48,11 @@
          </children>
       </VBox>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#838383" height="5.0" layoutX="60.0" layoutY="243.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="728.0" />
-      <Button layoutX="573.0" layoutY="65.0" mnemonicParsing="false" onAction="#addAssignment" prefHeight="25.0" prefWidth="136.0" text="Agregar asignación" />
-      <Button layoutX="572.0" layoutY="109.0" mnemonicParsing="false" onAction="#createReport" prefHeight="25.0" prefWidth="136.0" text="Generar reporte" />
-      <Button layoutX="573.0" layoutY="151.0" mnemonicParsing="false" onAction="#addSinodal" prefHeight="25.0" prefWidth="136.0" text="Agregar sinodal" />
-      <Button layoutX="573.0" layoutY="194.0" mnemonicParsing="false" onAction="#modifyReceptionalWork" prefHeight="25.0" prefWidth="136.0" text="Modificar T.R." />
+      <Button layoutX="507.0" layoutY="122.0" mnemonicParsing="false" onAction="#addAssignment" prefHeight="25.0" prefWidth="123.0" style="-fx-background-radius: 10px;" text="Programar avance" />
+      <Button layoutX="507.0" layoutY="158.0" mnemonicParsing="false" onAction="#createReport" prefHeight="25.0" prefWidth="123.0" style="-fx-background-radius: 10px;" text="Generar reporte" />
+      <Button layoutX="663.0" layoutY="122.0" mnemonicParsing="false" onAction="#addSinodal" prefHeight="25.0" prefWidth="123.0" style="-fx-background-radius: 10px;" text="Agregar sinodal" />
+      <Button layoutX="663.0" layoutY="158.0" mnemonicParsing="false" onAction="#modifyReceptionalWork" prefHeight="25.0" prefWidth="123.0" style="-fx-background-radius: 10px;" text="Modificar T.R." />
+      <Button layoutX="575.0" layoutY="85.0" mnemonicParsing="false" onAction="#modifyStudents" prefHeight="25.0" prefWidth="137.0" style="-fx-background-radius: 10px;" text="Modificar estudiantes" />
       <Label layoutX="22.0" layoutY="255.0" prefHeight="27.0" prefWidth="117.0" text="Asignaciones">
          <font>
             <Font name="System Bold" size="18.0" />
