@@ -45,31 +45,15 @@ public class LoginController implements Initializable {
     private final int ERROR = -1;
     private final UserTypes PROFESSOR_TYPE = UserTypes.PROFESSOR;
     private final UserTypes STUDENT_TYPE = UserTypes.STUDENT;
-    UserSession userSession = UserSession.getInstance();
+    static UserSession userSession = UserSession.getInstance();
 
     @FXML
     void logIn(MouseEvent event) {
         if(verifyFields()){
-            String password = txtPassword.getText();
-            String email = txtEMail.getText();
             UserDAO userDAO = new UserDAO();
             try {
-                int userExistence = userDAO.login(email, password);
-                if(userExistence == 1){
-                    userSession.setUserType(determinateUserType(email));
-                    int idUser = getUserId(email, userSession.getUserType());
-                    userSession.setUserId(idUser);
-                    if(userSession.getUserType().equals(PROFESSOR_TYPE.getDisplayName())){
-                        userSession.setPrivileges(getProfessorPrivileges(idUser));
-                        displayProfessorView();
-                    } else {
-                        displayStudentView();
-                    }
-                } else {
-                    DialogGenerator.getDialog(new AlertMessage (
-                "Datos de acceso incorrectos.",
-                Status.ERROR));
-                }
+                int userExistence = userDAO.login(txtEMail.getText(), txtPassword.getText());
+                continueLogin(userExistence == 1);
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 DialogGenerator.getDialog(new AlertMessage (
@@ -77,6 +61,16 @@ public class LoginController implements Initializable {
                 Status.FATAL));
             }
             
+        }
+    }
+    
+    private void continueLogin(boolean isLoginCorrect){
+        if(isLoginCorrect){
+            displayView();
+        } else {
+            DialogGenerator.getDialog(new AlertMessage (
+         "Datos de acceso incorrectos.",
+         Status.ERROR));
         }
     }
     
@@ -183,18 +177,23 @@ public class LoginController implements Initializable {
         imgLogin.setImage(ImagesSetter.getLoginImage());
     }
     
-    private void displayStudentView(){
-        try {
-            SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeStudent.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    private void displayProfessorView(){
-        try {
-            SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeProfessor.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+    private void displayView(){
+        userSession.setUserType(determinateUserType(txtEMail.getText()));
+        int idUser = getUserId(txtEMail.getText(), userSession.getUserType());
+        userSession.setUserId(idUser);
+        if(userSession.getUserType().equals(PROFESSOR_TYPE.getDisplayName())){
+            userSession.setPrivileges(getProfessorPrivileges(idUser));
+            try {
+                SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeProfessor.fxml");
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeStudent.fxml");
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     private void isAnyUserAvailable(){

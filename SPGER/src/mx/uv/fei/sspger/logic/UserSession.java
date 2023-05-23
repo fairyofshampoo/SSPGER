@@ -4,11 +4,13 @@ public class UserSession {
     private static UserSession instance;
     private int userId;
     private String userType;
-    private int privileges = 0;
+    private int privileges;
 
-    /*The reason the constructor is private is to prevent it from being 
-    instantiated outside of the class. All this to follow the singleton 
-    design pattern.*/
+    /*
+     * The reason the constructor is private is to prevent it from being 
+     * instantiated outside of the class. All this to follow the singleton 
+     * design pattern.
+    */
     
     private UserSession() {
     }
@@ -18,6 +20,12 @@ public class UserSession {
             instance = new UserSession();
         }
         return instance;
+    }
+    
+    public void cleanUserSession(){
+        userId=0;
+        userType="";
+        privileges=0;
     }
 
     public void setUserId(int userId) {

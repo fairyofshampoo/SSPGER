@@ -40,7 +40,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="63.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@resources/btnBack.png" />
                </image>
@@ -70,11 +70,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="btnAddFeedback" layoutX="98.0" layoutY="492.0" mnemonicParsing="false" text="Evaluar entrega" />
+            <Button fx:id="btnAddFeedback" layoutX="98.0" layoutY="492.0" mnemonicParsing="false" onAction="#addFeedBack" text="Evaluar entrega" />
             <Label fx:id="lblState" layoutX="591.0" layoutY="132.0" prefHeight="17.0" prefWidth="92.0" text="Concluido" />
             <Label fx:id="lblPublicationDate" layoutX="537.0" layoutY="172.0" prefHeight="17.0" prefWidth="114.0" text="28/02/2023 00:00" />
             <Label fx:id="lblStartDate" layoutX="537.0" layoutY="209.0" prefHeight="17.0" prefWidth="130.0" text="01/03/2023 00:00" />
-            <Label fx:id="lblEndDate" layoutX="537.0" layoutY="245.0" prefHeight="17.0" prefWidth="136.0" text="15/03/2023 23:59" />
+            <Label fx:id="lblDeadline" layoutX="537.0" layoutY="245.0" prefHeight="17.0" prefWidth="136.0" text="15/03/2023 23:59" />
             <Label layoutX="537.0" layoutY="327.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de entrega:">
                <font>
                   <Font name="System Bold" size="12.0" />

@@ -24,6 +24,13 @@ public class ProfessorDAO implements IProfessor{
     private final String UPDATE_ACCESS_ACCOUNT_COMMAND = "UPDATE cuenta_acceso SET correo = ?, password = SHA1(?), estado = ? WHERE correo = ?";
     private final String UPDATE_PROFESSOR_COMMAND = "UPDATE profesor SET nombre = ?, apellido = ?, numPersonal = ?, honorifico = ?, isAdmin = ? WHERE correo = ?";
     private final String CHANGE_PROFESSOR_STATUS_QUERY = "UPDATE cuenta_acceso SET estado = ? WHERE correo = ?";
+    private final String GET_DIRECTOR_BY_PROJECT = "SELECT * FROM profesor_anteproyecto NATURAL JOIN profesor"
+            + " WHERE profesor_anteproyecto.idAnteproyecto = ?"
+            + " AND rol = 'Director'";
+    
+    private final String GET_COODIRECTORS_BY_PROJECT = "SELECT * FROM profesor_anteproyecto NATURAL JOIN profesor"
+            + " WHERE profesor_anteproyecto.idAnteproyecto = ?"
+            + " AND rol = 'Coodirector'";
 
     
     @Override
@@ -200,5 +207,51 @@ public class ProfessorDAO implements IProfessor{
         return response;
     }
 
+    @Override
+    public Professor getDirectorByProject(int projectId) throws SQLException {
+        DataBaseManager.getConnection();
+        Professor professor = new Professor();
+        
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_DIRECTOR_BY_PROJECT);
+        
+        statement.setInt(1, projectId);
+        
+        ResultSet professorResult = statement.executeQuery();
+        
+        if(professorResult.next()){
+        professor.setEMail(professorResult.getString("correo"));
+        professor.setName(professorResult.getString("nombre"));
+        professor.setLastName(professorResult.getString("apellido"));
+        professor.setPersonalNumber(professorResult.getString("numPersonal"));
+        professor.setHonorificTitle(professorResult.getString("honorifico"));      
+        }
+     
+        return professor;
+    }
     
+    @Override
+    public List<Professor> getCoodirectorByProject (int projectId) throws SQLException {
+        DataBaseManager.getConnection();
+        List<Professor> coodirectors = new ArrayList<>();
+        
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_COODIRECTORS_BY_PROJECT);
+        
+        statement.setInt(1, projectId);
+        
+        ResultSet professorResult = statement.executeQuery();
+
+        while(professorResult.next()){
+        Professor professor = new Professor();
+        
+        professor.setEMail(professorResult.getString("correo"));
+        professor.setName(professorResult.getString("nombre"));
+        professor.setLastName(professorResult.getString("apellido"));
+        professor.setPersonalNumber(professorResult.getString("numPersonal"));
+        professor.setHonorificTitle(professorResult.getString("honorifico"));   
+        
+        coodirectors.add(professor);
+        }
+                    
+        return coodirectors;
+    }
 }

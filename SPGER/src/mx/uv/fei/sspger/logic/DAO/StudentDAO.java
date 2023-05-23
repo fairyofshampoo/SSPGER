@@ -25,6 +25,9 @@ public class StudentDAO implements IStudent{
     private final String UPDATE_ACCESS_ACCOUNT_COMMAND = "UPDATE cuenta_acceso SET correo = ?, password = SHA1(?), estado = ? WHERE correo = ?";
     private final String UPDATE_STUDENT_COMMAND = "UPDATE estudiante SET nombre = ?, apellido = ?, matricula = ? WHERE correo_institucional = ?";
     private final String CHANGE_STUDENT_STATUS_QUERY = "UPDATE cuenta_acceso SET estado = ? WHERE correo = ?";
+    private final String GET_STUDENTS_BY_RECEPTIONAL_WORK = "SELECT nombre, apellido, idEstudiante FROM estudiante_trabajo_recepcional "
+            + "INNER JOIN estudiante ON estudiante.idUsuarioEstudiante = estudiante_trabajo_recepcional.idEstudiante WHERE"
+            + " idTrabajoRecepcional = ?";
     
     @Override
     public int addStudentTransaction(Student student) throws SQLException {
@@ -161,8 +164,6 @@ public class StudentDAO implements IStudent{
 
     @Override
     public List<Student> getStudentsByStatus(int status) throws SQLException {
-    DataBaseManager.getConnection();
-        DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().
                 prepareStatement(GET_STUDENTS_BY_STATUS_QUERY);
 
@@ -174,7 +175,7 @@ public class StudentDAO implements IStudent{
         
         while(studentResult.next()){
             Student student = new Student();
-            student.setEMail(studentResult.getString("correo"));
+            student.setEMail(studentResult.getString("correo_institucional"));
             student.setName(studentResult.getString("nombre"));
             student.setLastName(studentResult.getString(
                     "apellido"));
@@ -186,6 +187,31 @@ public class StudentDAO implements IStudent{
         
         DataBaseManager.closeConnection();
         
+        return studentList;
+    }
+    
+    @Override
+    public List<Student> getStudentPerReceptionalWork(int idRedceptionalWork) throws SQLException {
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_STUDENTS_BY_RECEPTIONAL_WORK);
+
+        statement.setInt(1,idRedceptionalWork);
+
+        ResultSet studentResult = statement.executeQuery();
+        List <Student> studentList = new ArrayList <>();
+        
+        while(studentResult.next()){
+            Student student = new Student();
+
+            student.setName(studentResult.getString("nombre"));
+            student.setLastName(studentResult.getString("apellido"));
+            student.setId(studentResult.getInt("idEstudiante"));
+            
+            studentList.add(student);
+        }
+        
+        DataBaseManager.closeConnection();
+
         return studentList;
     }
     

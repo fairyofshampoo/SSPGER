@@ -72,5 +72,18 @@ public class SubmissionManagerDAOTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+    @Test
+    public void testGetSubmissionById() throws Exception {
+        System.out.println("getSubmissionById");
+        int idSubmission = 1;
+        SubmissionManagerDAO instance = new SubmissionManagerDAO();
+        Submission submission = new Submission();
+        submission.setId(1);
+        submission.setDescription("describiendo una descripción de prueba");
+        submission.setIdDeliverableFile(1);
+        Submission expResult = submission;
+        Submission result = instance.getSubmissionById(idSubmission);
+        assertEquals(expResult, result);
+    }
     
 }

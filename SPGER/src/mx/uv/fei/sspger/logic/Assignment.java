@@ -37,8 +37,8 @@ public class Assignment {
         return idSubmission;
     }
 
-    public void setIdAdvancement(int idAdvancement) {
-        this.idSubmission = idAdvancement;
+    public void setIdSubmission(int idSubmission) {
+        this.idSubmission = idSubmission;
     }
 
     public int getIdProject() {
@@ -88,5 +88,21 @@ public class Assignment {
     public Date getPublicationDate () {
         return this.publicationDate;
     }
+    
+    public String getState(){
+        java.util.Date now = new java.util.Date();
+        java.util.Date utilStartDate = new java.util.Date(startDate.getTime());
+        java.util.Date utilDeadline = new java.util.Date(deadline.getTime());
+        
+        String state = "Finalizada";
+        
+        if(now.compareTo(utilDeadline) < 0){
+            state = "Disponible";
+        }
+        if(now.compareTo(utilStartDate) < 0){
+            state = "Por iniciar";
+        }
+        
+        return state;
+    }
 }
-

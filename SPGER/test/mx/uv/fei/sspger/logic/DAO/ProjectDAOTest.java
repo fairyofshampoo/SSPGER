@@ -1,6 +1,7 @@
 package mx.uv.fei.sspger.logic.DAO;
 
 import java.util.List;
+import mx.uv.fei.sspger.logic.Lgac;
 import mx.uv.fei.sspger.logic.Project;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -226,6 +227,58 @@ public class ProjectDAOTest {
         ProjectDAO instance = new ProjectDAO();
         int expResult = 0;
         int result = instance.getProjectsCountByStatus(projectStatus);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getLgacMostUsed method, of class ProjectDAO.
+     */
+    @Test
+    public void testGetLgacMostUsed() throws Exception {
+        System.out.println("getLgacMostUsed");
+        ProjectDAO instance = new ProjectDAO();
+        Lgac expResult = null;
+        Lgac result = instance.getLgacMostUsed();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getLgacLeastUsed method, of class ProjectDAO.
+     */
+    @Test
+    public void testGetLgacLeastUsed() throws Exception {
+        System.out.println("getLgacLeastUsed");
+        ProjectDAO instance = new ProjectDAO();
+        Lgac expResult = null;
+        Lgac result = instance.getLgacLeastUsed();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getModalityMostUsed method, of class ProjectDAO.
+     */
+    @Test
+    public void testGetModalityMostUsed() throws Exception {
+        System.out.println("getModalityMostUsed");
+        ProjectDAO instance = new ProjectDAO();
+        String expResult = "Monografía";
+        String result = instance.getModalityMostUsed();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getModalityLeastUsed method, of class ProjectDAO.
+     */
+    @Test
+    public void testGetModalityLeastUsed() throws Exception {
+        System.out.println("getModalityLeastUsed");
+        ProjectDAO instance = new ProjectDAO();
+        String expResult = "Trabajo práctico-teórico";
+        String result = instance.getModalityLeastUsed();
         assertEquals(expResult, result);
     }
     

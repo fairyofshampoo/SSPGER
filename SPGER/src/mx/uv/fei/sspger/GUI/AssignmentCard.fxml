@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="150.0" prefWidth="306.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.AssignmentCardController">
+   <children>
+      <Pane layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="307.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b9e34" height="169.0" layoutX="-2.0" layoutY="-11.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="308.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="159.0" layoutX="5.0" layoutY="-6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="293.0" />
+            <Label fx:id="lblAssignmentTitle" alignment="CENTER" layoutX="-2.0" layoutY="4.0" prefHeight="27.0" prefWidth="300.0" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b5b5b5" height="5.0" layoutX="9.0" layoutY="30.0" stroke="#969595" strokeType="INSIDE" width="278.0" />
+            <Label fx:id="lblState" layoutX="11.0" layoutY="38.0" text="Estado:" />
+            <Label fx:id="lblStartDate" layoutX="11.0" layoutY="60.0" text="Fecha inicio:" />
+            <Label fx:id="lblDeadline" layoutX="12.0" layoutY="82.0" text="Fecha fin:" />
+            <Label fx:id="lblPublicationDate" layoutX="12.0" layoutY="103.0" text="Fecha publicación:" />
+            <Button layoutX="9.0" layoutY="124.0" mnemonicParsing="false" onAction="#viewAssignmentDetails" prefHeight="25.0" prefWidth="85.0" text="Ver detalles" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

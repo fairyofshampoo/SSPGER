@@ -4,8 +4,6 @@ package mx.uv.fei.sspger.logic.DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
@@ -13,17 +11,23 @@ import mx.uv.fei.sspger.logic.Assignment;
 import mx.uv.fei.sspger.logic.contracts.IAssingment;
 
 
+
+
 public class AssignmentDAO implements IAssingment{
+    
+    private final String REGISTER_ASSIGNMENT = "INSERT INTO asignacion(idUsuarioProfesor, titulo, fechaInicia, fechaFin, fechaPublicacion, descripcion, idTrabajoRecepcional) values (?,?,?,?,?,?,?)";
+    private final String GET_ASSIGNMENT_PER_RECEPTIONAL_WORK = "SELECT * FROM asignacion Where idTrabajoRecepcional= ?";
+    private final String UPDATE_ASSIGNMENT = "UPDATE asignacion SET titulo = ?, fechaInicia = ?, fechaFin = ?, descripcion = ? WHERE idAsignacion = ?;";
+    private final String DELETE_ASSIGNMENT = "DELETE FROM asignacion WHERE idAsignacion = ?";
+    private final String GET_ASSIGNMENT_BY_ID = "SELECT * FROM asignacion WHERE idAsignacion = ?";
+    private final String GET_ASSIGMENT_COUNT_PER_RECEPTIONAL_WORK = "SELECT COUNT(*) AS submissionCount FROM sspger.asignacion WHERE idTrabajoRecepcional = ?";
+    private final int ERROR_IN_COUNT = -1;
     
     @Override
     public int registerAssignment(Assignment assignment, int idProfessor, int idProject) throws SQLException {
-        int result;
-        String query = "INSERT INTO asignacion(idUsuarioProfesor, titulo, fechaInicia, fechaFin, fechaPublicacion, descripcion, idAnteproyecto) values (?,?,?,?,?,?,?)";
+        int result;        
         
-        DataBaseManager.getConnection();
-        
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
-        
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(REGISTER_ASSIGNMENT);
         java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
         
         statement.setInt(1, idProfessor);
@@ -41,14 +45,11 @@ public class AssignmentDAO implements IAssingment{
         return result;
     }
 
-
     @Override
-    public List<Assignment> getAssignmentsPerProject(int idProject) throws SQLException {
-        String query = "Select * From asignacion Where idAnteproyecto= ?";
-        DataBaseManager.getConnection();
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+    public List<Assignment> getAssignmentsPerReceptionalWork(int idReceptionalWork) throws SQLException {
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_ASSIGNMENT_PER_RECEPTIONAL_WORK);
         
-        statement.setInt(1, idProject);
+        statement.setInt(1, idReceptionalWork);
         
         ResultSet assignmentResult = statement.executeQuery();
         List<Assignment> assignmentList = new ArrayList<>();
@@ -56,6 +57,7 @@ public class AssignmentDAO implements IAssingment{
         while(assignmentResult.next()){
             Assignment assignment = new Assignment();
             
+            assignment.setId(assignmentResult.getInt("idAsignacion"));
             assignment.setTitle(assignmentResult.getString("titulo"));
             assignment.setStartDate(assignmentResult.getDate("fechaInicia"));
             assignment.setDeadline(assignmentResult.getDate("fechaFin"));
@@ -63,6 +65,7 @@ public class AssignmentDAO implements IAssingment{
             assignment.setDescription(assignmentResult.getString("descripcion"));
             assignmentList.add(assignment);
         } 
+        
         DataBaseManager.closeConnection();
         
         return assignmentList;
@@ -71,12 +74,8 @@ public class AssignmentDAO implements IAssingment{
     @Override
     public int updateAssignment(Assignment assignment) throws SQLException {
         int result;
-        String query = "UPDATE asignacion SET titulo = ?,"
-                + " fechaInicia = ?, fechaFin = ?, descripcion = ? WHERE idAsignacion = ?;";
         
-        DataBaseManager.getConnection();
-        
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(UPDATE_ASSIGNMENT);
         
         statement.setString(1, assignment.getTitle());
         statement.setDate(2, assignment.getStartDate());
@@ -94,11 +93,8 @@ public class AssignmentDAO implements IAssingment{
     @Override
     public int deleteAssignment (Assignment assignment) throws SQLException{
         int result;
-        String query = "DELETE FROM asignacion WHERE idAsignacion = ?";
         
-        DataBaseManager.getConnection();
-        
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(DELETE_ASSIGNMENT);
         
         statement.setInt(1, assignment.getId());
         
@@ -111,28 +107,46 @@ public class AssignmentDAO implements IAssingment{
     
     @Override
     public Assignment getAssignmentById (int assignmentId) throws SQLException{
-        Assignment assignment = new Assignment();
-        String query = "SELECT * FROM asignacion WHERE idAsignacion = ?";
-        DataBaseManager.getConnection();
         
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_ASSIGNMENT_BY_ID);
         
         statement.setInt(1, assignmentId);
         
         ResultSet assignmentResult = statement.executeQuery();
-        assignmentResult.next();
-        
-        assignment.setId(assignmentResult.getInt("idAsignacion"));
-        assignment.setStartDate(assignmentResult.getDate("fechaInicia"));
-        assignment.setPublicationDate(assignmentResult.getDate("fechaPublicacion"));
-        assignment.setDeadline(assignmentResult.getDate("fechaFin"));
-        assignment.setTitle(assignmentResult.getString("titulo"));
-        assignment.setDescription(assignmentResult.getString("descripcion"));
-        assignment.setIdProject(assignmentResult.getInt("idAnteproyecto"));
-        assignment.setProfessorId(assignmentResult.getInt("idUsuarioProfesor"));
+        Assignment assignment = new Assignment();
+               
+        if (assignmentResult.next()){
+            assignment.setId(assignmentResult.getInt("idAsignacion"));
+            assignment.setStartDate(assignmentResult.getDate("fechaInicia"));
+            assignment.setPublicationDate(assignmentResult.getDate("fechaPublicacion"));
+            assignment.setDeadline(assignmentResult.getDate("fechaFin"));
+            assignment.setTitle(assignmentResult.getString("titulo"));
+            assignment.setDescription(assignmentResult.getString("descripcion"));
+            assignment.setIdProject(assignmentResult.getInt("idTrabajoRecepcional"));
+            assignment.setProfessorId(assignmentResult.getInt("idUsuarioProfesor"));
+        }
         
         DataBaseManager.closeConnection();
         
         return assignment;
+    }
+
+    @Override
+    public int getCountAssignmentPerReceptionalWork(int idReceptionalWork) throws SQLException {
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_ASSIGMENT_COUNT_PER_RECEPTIONAL_WORK);
+        int quantityOfAssignments;
+        
+        statement.setInt(1, idReceptionalWork);
+        
+        ResultSet countResult = statement.executeQuery();
+        
+        if (countResult.next()){
+            quantityOfAssignments = countResult.getInt("submissionCount");
+        }
+        else {
+            quantityOfAssignments = ERROR_IN_COUNT;
+        }
+        
+        return quantityOfAssignments;
     }
 }

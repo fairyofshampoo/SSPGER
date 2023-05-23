@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -101,7 +100,7 @@ public class HomeProfessorController implements Initializable {
 
     }
     private void showAdminFunctionalities(){
-        
+        //if(UserSession.)
     }
     
     private void setToolTips(){

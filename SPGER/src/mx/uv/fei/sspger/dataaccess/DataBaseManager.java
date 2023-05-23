@@ -14,10 +14,11 @@ import java.util.logging.Logger;
 
 
 public class DataBaseManager {
-    /* The atribute and methods are static because for managing the exception 
-    of a transaction we need access to the connection to make a rollback 
-    in the catch block, and we also need the connection for the finally 
-    block to close it.
+    /*
+    * The atribute and methods are static because for managing the exception 
+    * of a transaction we need access to the connection to make a rollback 
+    * in the catch block, and we also need the connection for the finally 
+    * block to close it.
     */
     
     private static Connection connection;
