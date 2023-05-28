@@ -65,7 +65,7 @@ public class ProjectDAO implements IProject{
         while(projectResult.next()){
             Project project = new Project();
             project.setIdProject(projectResult.getInt("idAnteproyecto"));
-            //project.setIdLGAC(projectResult.getString("idLGAC"));
+            project.setIdLGAC(projectResult.getString("idLGAC"));
             project.setStatus(projectResult.getString("estadoAnteproyecto"));
             project.setName(projectResult.getString("nombreProyecto"));
             project.setDescription(projectResult.getString("descripcion"));
@@ -113,8 +113,8 @@ public class ProjectDAO implements IProject{
         while(projectAvailableResult.next()){
             Project project = new Project();
             project.setIdProject(projectAvailableResult.getInt("idAnteproyecto"));
-            //project.setIdLGAC(projectAvailableResult.getString("idLGAC"));
-            //project.setIdAcademicBody(projectAvailableResult.getString("idCuerpoAcademico")); 
+            project.setIdLGAC(projectAvailableResult.getString("idLGAC"));
+            project.setIdAcademicBody(projectAvailableResult.getString("idCuerpoAcademico")); 
             project.setName(projectAvailableResult.getString("nombreProyecto"));
             project.setDescription(projectAvailableResult.getString("descripcion"));
             project.setExpectedResults(projectAvailableResult.getString("resultadosEsperados"));

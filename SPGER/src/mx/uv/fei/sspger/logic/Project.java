@@ -1,10 +1,10 @@
 package mx.uv.fei.sspger.logic;
 
-import java.util.List;
-
 
 public class Project {
     private int idProject;
+    private String idLGAC;
+    private String idAcademicBody;
     private String name;
     private String description;
     private String expectedResults;
@@ -15,11 +15,9 @@ public class Project {
     private String requeriments;
     private String bibliography;
     private String status;
-    private String receptionalWorkDescription;
-    private String pladeaFeiName;
-    private List<Lgac> lgac;
-    private List<Director> director;
-    private AcademicBody academicBody;
+    private ReceptionalWork receptionalWork;
+    private Lgac lgac;
+    private Professor professor;
     
     public Project(){
         
@@ -47,6 +45,22 @@ public class Project {
 
     public void setIdProject(int idProject) {
         this.idProject = idProject;
+    }
+
+    public String getIdLGAC() {
+        return idLGAC;
+    }
+
+    public void setIdLGAC(String idLGAC) {
+        this.idLGAC = idLGAC;
+    }
+
+    public String getIdAcademicBody() {
+        return idAcademicBody;
+    }
+
+    public void setIdAcademicBody(String idAcademicBody) {
+        this.idAcademicBody = idAcademicBody;
     }
 
     public String getName() {
@@ -112,46 +126,30 @@ public class Project {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public String getReceptionalWorkDescription() {
-        return receptionalWorkDescription;
-    }
-
-    public void setReceptionalWorkDescription(String receptionalWorkDescription) {
-        this.receptionalWorkDescription = receptionalWorkDescription;
-    }
-
-    public String getPladeaFeiName() {
-        return pladeaFeiName;
-    }
-
-    public void setPladeaFeiName(String pladeaFeiName) {
-        this.pladeaFeiName = pladeaFeiName;
+    
+    public ReceptionalWork getReceptionalWork(){
+        return receptionalWork;
     }
     
-    public List<Lgac> getLgac() {
+    public void setReceptionalWork(ReceptionalWork receptionalWork){
+        this.receptionalWork = receptionalWork;
+    }
+    
+    public Lgac getLgac() {
         return lgac;
     }
 
-    public void setLgac(List<Lgac> lgac) {
+    public void setLgac(Lgac lgac) {
         this.lgac = lgac;
     }
-
-    public AcademicBody getAcademicBody() {
-        return academicBody;
+    
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public void setAcademicBody(AcademicBody academicBody) {
-        this.academicBody = academicBody;
-    }
-
-    public List<Director> getDirector() {
-        return director;
-    }
-
-    public void setDirector(List<Director> director) {
-        this.director = director;
-    }
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }    
 
     public boolean equals(Object object){
         if((object == null) || (object.getClass() != this.getClass())) {
@@ -159,17 +157,15 @@ public class Project {
         } 
        final Project otherProject = (Project) object;
        
-       return (this.name == null? otherProject.name == null : this.name.equals(otherProject.name))
+       return (this.idAcademicBody == null? otherProject.idAcademicBody == null : this.idAcademicBody.equals(otherProject.idAcademicBody))
+           && (this.name == null? otherProject.name == null : this.name.equals(otherProject.name))
            && (this.description == null? otherProject.description == null : this.description.equals(otherProject.description))
            && (this.expectedResults == null? otherProject.expectedResults == null : this.expectedResults.equals(otherProject.expectedResults))
            && (this.duration == otherProject.duration)
-           && (this.modality == null? otherProject.modality == null : this.modality.equals(otherProject.modality))
            && (this.notes == null? otherProject.notes == null : this.notes.equals(otherProject.notes))
            && (this.requeriments == null? otherProject.requeriments == null : this.requeriments.equals(otherProject.requeriments))
            && (this.bibliography == null? otherProject.bibliography == null : this.bibliography.equals(otherProject.bibliography))
            && (this.status == null? otherProject.status == null : this.status.equals(otherProject.status))
-           && (this.spaces == otherProject.spaces)&& (this.modality == null? otherProject.modality == null : this.modality.equals(otherProject.modality))
-           && (this.receptionalWorkDescription == null? otherProject.receptionalWorkDescription == null : this.receptionalWorkDescription.equals(otherProject.receptionalWorkDescription))
-           && (this.pladeaFeiName == null? otherProject.pladeaFeiName == null : this.pladeaFeiName.equals(otherProject.pladeaFeiName));
+           && (this.spaces == otherProject.spaces)&& (this.modality == null? otherProject.modality == null : this.modality.equals(otherProject.modality));
     }
 }

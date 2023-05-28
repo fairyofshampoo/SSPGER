@@ -14,9 +14,14 @@ import java.util.ResourceBundle;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.input.KeyEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 import mx.uv.fei.sspger.GUI.SPGER;
+import mx.uv.fei.sspger.logic.User;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
 import mx.uv.fei.sspger.logic.DAO.StudentDAO;
 import mx.uv.fei.sspger.logic.UserTypes;
@@ -41,25 +46,34 @@ public class UserRegisterController implements Initializable {
     private ChoiceBox<String> cbxUserType;
 
     @FXML
-    private Label lblInvalidEMail;
+    private Label lblAddUser;
 
     @FXML
-    private Label lblInvalidHonorificTitle;
+    private Label lblEMail;
 
     @FXML
-    private Label lblInvalidIdUser;
+    private Label lblHonorificTitle;
 
     @FXML
-    private Label lblInvalidLastName;
+    private Label lblIdUser;
 
     @FXML
-    private Label lblInvalidName;
+    private Label lblInstruction;
 
     @FXML
-    private Label lblInvalidPassword;
+    private Label lblLastName;
 
     @FXML
-    private Label lblInvalidUserType;
+    private Label lblName;
+
+    @FXML
+    private Label lblPassword;
+
+    @FXML
+    private Label lblTitleSystem;
+
+    @FXML
+    private Label lblUserType;
 
     @FXML
     private TextField txtEMail;
@@ -78,7 +92,7 @@ public class UserRegisterController implements Initializable {
     
     @FXML
     void acceptButtonClick(ActionEvent event){
-        if(validateFields()){
+        if(!isEmptyField()){
             if(FieldValidation.isPasswordValid(txtPassword.getText())){
                 if("Estudiante".equals(cbxUserType.getValue())){
                     studentRegister();
@@ -91,7 +105,6 @@ public class UserRegisterController implements Initializable {
     
     @FXML
     void userTypeChoiceSelector(MouseEvent event){
-        lblInvalidUserType.setVisible(false);
         if("Estudiante".equals(cbxUserType.getValue())){
             cbxHonorificTitle.setDisable(true);
         }else{
@@ -99,75 +112,29 @@ public class UserRegisterController implements Initializable {
         }
     }
     
-        
-    @FXML
-    void cancelButtonClick(ActionEvent event){
-        try {
-            SPGER.setRoot("/mx/uv/fei/sspger/GUI/UsersManager.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    @FXML
-    void clickHonorificTitle(MouseEvent event) {
-        lblInvalidHonorificTitle.setVisible(false);
-    }
-
-    @FXML
-    void typingEMail(KeyEvent event) {
-        lblInvalidEMail.setVisible(false);
-    }
-
-    @FXML
-    void typingIdUser(KeyEvent event) {
-        lblInvalidIdUser.setVisible(false);
-    }
-
-    @FXML
-    void typingLastName(KeyEvent event) {
-        lblInvalidLastName.setVisible(false);
-    }
-
-    @FXML
-    void typingName(KeyEvent event) {
-        lblInvalidName.setVisible(false);
-    }
-
-    @FXML
-    void typingPassword(KeyEvent event) {
-        lblInvalidPassword.setVisible(false);
-    }
-    
     private void professorRegister(){
-        if(cbxHonorificTitle.getSelectionModel().isEmpty()){
-            lblInvalidHonorificTitle.setVisible(true);
-        }
-        else{
-            Professor professor = new Professor();
-            ProfessorDAO professorDAO = new ProfessorDAO();
+        Professor professor = new Professor();
+        ProfessorDAO professorDAO = new ProfessorDAO();
         
-            try{
-                professor.setEMail(txtEMail.getText());
-                professor.setName(txtName.getText());
-                professor.setLastName(txtLastName.getText());
-                professor.setPassword(txtPassword.getText());
-                professor.setPersonalNumber(txtIdUser.getText());
-                professor.setHonorificTitle(cbxHonorificTitle.getValue());
-                professor.setEMail(txtEMail.getText());
-                professor.setPassword(txtPassword.getText());
-                professor.setStatus(1);
-                professor.setIsAdmin(0);
+        try{
+            professor.setEMail(txtEMail.getText());
+            professor.setName(txtName.getText());
+            professor.setLastName(txtLastName.getText());
+            professor.setPassword(txtPassword.getText());
+            professor.setPersonalNumber(txtIdUser.getText());
+            professor.setHonorificTitle(cbxHonorificTitle.getValue());
+            professor.setEMail(txtEMail.getText());
+            professor.setPassword(txtPassword.getText());
+            professor.setStatus(1);
+            professor.setIsAdmin(0);
                         
-                if(professorDAO.addProfessorTransaction(professor) == 2){
-                    DialogGenerator.getDialog(new AlertMessage (
-                    "Profesor registrado con éxito",
-                    Status.SUCCESS));
-                    clearView();
-                }
-            } catch (SQLException ex){
-                Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            if(professorDAO.addProfessorTransaction(professor) == 1){
+                DialogGenerator.getDialog(new AlertMessage (
+                "Profesor registrado con éxito",
+                Status.SUCCESS));
             }
+        } catch (SQLException ex){
+            Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -183,58 +150,23 @@ public class UserRegisterController implements Initializable {
             student.setEMail(txtEMail.getText());
             student.setPassword(txtPassword.getText());
                         
-            if(accessAccountDAO.addStudentTransaction(student) == 2){
+            if(accessAccountDAO.addStudentTransaction(student) == 1){
                 DialogGenerator.getDialog(new AlertMessage (
                 "Estudiante registrado con éxito",
                 Status.SUCCESS));
-                
-                clearView();
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    private void clearView(){
-        txtName.clear();
-        txtLastName.clear();
-        txtEMail.clear();
-        txtPassword.clear();
-        txtIdUser.clear();
-        cbxUserType.getSelectionModel().clearSelection();
-        cbxHonorificTitle.getSelectionModel().clearSelection();
-        cbxHonorificTitle.setDisable(false);
-        
-        
-    }
-    
-    private boolean validateFields() {
-        boolean validation = true;
-        if(!FieldValidation.isEMailValid(txtEMail.getText())){
-            validation = false;
-            lblInvalidEMail.setVisible(true);
-        }
-        if(FieldValidation.isNullOrEmptyTxtField(txtName)){
-            validation = false;
-            lblInvalidName.setVisible(true);
-        }
-        if(FieldValidation.isNullOrEmptyTxtField(txtLastName)){
-            validation = false;
-            lblInvalidLastName.setVisible(true);
-        }
-        if(cbxUserType.getSelectionModel().isEmpty()){
-            validation = false;
-            lblInvalidUserType.setVisible(true);
-        }
-        if(FieldValidation.isNullOrEmptyTxtField(txtIdUser)){
-            validation = false;
-            lblInvalidIdUser.setVisible(true);
-        }
-        if(!FieldValidation.isPasswordValid(txtPassword.getText())){
-            validation = false;
-            lblInvalidPassword.setVisible(true);
-        }
-        return validation;
+    private boolean isEmptyField() {
+        return !FieldValidation.isChoiceBoxSelected(cbxUserType)
+        || FieldValidation.isNullOrEmptyTxtField(txtEMail) || 
+        FieldValidation.isNullOrEmptyTxtField(txtName) ||
+        FieldValidation.isNullOrEmptyTxtField(txtIdUser) || 
+        FieldValidation.isNullOrEmptyTxtField(txtLastName)
+        || FieldValidation.isNullOrEmptyTxtField(txtPassword);
     }
     
     
@@ -248,6 +180,15 @@ public class UserRegisterController implements Initializable {
     private void setHonorificTitleComboBox(){
         for (HonorificTitles honorificTitles : HonorificTitles.values()) {
         cbxHonorificTitle.getItems().add(honorificTitles.getDisplayName());
+        }
+    }
+    
+    @FXML
+    void cancelButtonClick(ActionEvent event){
+        try {
+            SPGER.setRoot("/mx/uv/fei/sspger/GUI/UsersManager.fxml");
+        } catch (IOException ex) {
+            Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

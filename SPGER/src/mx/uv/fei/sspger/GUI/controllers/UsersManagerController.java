@@ -63,7 +63,7 @@ public class UsersManagerController implements Initializable {
     
     private final int ACTIVE_STATUS = 1;
     private int column = 0;
-    private int row = 1;
+    private int row = 0;
     
     @FXML
     void addUserButtonClicked(ActionEvent event){
@@ -117,7 +117,7 @@ public class UsersManagerController implements Initializable {
                 UsersCardController usersCardController = fxmlLoader.getController();
                 usersCardController.setUserStudentData(studentsList.get(card));
                 
-                if(column == 2){
+                if(column == 3){
                     column = 0;
                     row++;
                 }
@@ -148,7 +148,7 @@ public class UsersManagerController implements Initializable {
                 UsersCardController usersCardController = fxmlLoader.getController();
                 usersCardController.setUserProfessorData(professorsList.get(card));
                 
-                if(column == 2){
+                if(column == 3){
                     column = 0;
                     row++;
                 }
