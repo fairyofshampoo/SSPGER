@@ -63,7 +63,7 @@ public class UsersManagerController implements Initializable {
     
     private final int ACTIVE_STATUS = 1;
     private int column = 0;
-    private int row = 0;
+    private int row = 1;
     
     @FXML
     void addUserButtonClicked(ActionEvent event){
