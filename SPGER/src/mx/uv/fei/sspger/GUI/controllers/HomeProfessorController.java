@@ -21,6 +21,7 @@ import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Course;
 import mx.uv.fei.sspger.logic.DAO.CourseDAO;
 import mx.uv.fei.sspger.logic.Project;
+import mx.uv.fei.sspger.logic.UserSession;
 
 
 public class HomeProfessorController implements Initializable {
@@ -60,6 +61,7 @@ public class HomeProfessorController implements Initializable {
     
     private List<Project> projectsRecentlyAdded;
     private List<Course> coursesRecentlyAdded;
+    private final int ADMIN_ROLE= 1;
     
 
     @Override
@@ -100,7 +102,15 @@ public class HomeProfessorController implements Initializable {
 
     }
     private void showAdminFunctionalities(){
-        //if(UserSession.)
+        if(UserSession.getInstance().getPrivileges()==ADMIN_ROLE){
+            imgAddAcademicBody.setVisible(true);
+            imgAddCourses.setVisible(true);
+            imgAddAcademicBody.setVisible(true);
+            imgAddAcademicBody.setDisable(false);
+            imgAddCourses.setDisable(false);
+            imgAddAcademicBody.setDisable(false);
+            
+        }
     }
     
     private void setToolTips(){
@@ -111,6 +121,7 @@ public class HomeProfessorController implements Initializable {
         Tooltip tltpCourses = new Tooltip("Mis cursos");
         Tooltip tltpCoursesManager = new Tooltip("Gestión de cursos");
         Tooltip tltpAcademicBody = new Tooltip("Cuerpo académico");
+        Tooltip tltpAddUsers = new Tooltip("Gestión de usuarios");
         
         Tooltip.install(imgMyProjects, tltpMyProjects);
         Tooltip.install(imgAddAcademicBody, tltpAddAcademicBody);
@@ -119,6 +130,7 @@ public class HomeProfessorController implements Initializable {
         Tooltip.install(imgMyCourses, tltpCourses);
         Tooltip.install(imgAddCourses, tltpCoursesManager);
         Tooltip.install(imgMyAcademicBody, tltpAcademicBody);
+        Tooltip.install(imgAddUsers, tltpAddUsers);
     }
     
     private void displayUsersManagerWindow(){
