@@ -117,7 +117,7 @@ public class UsersManagerController implements Initializable {
                 UsersCardController usersCardController = fxmlLoader.getController();
                 usersCardController.setUserStudentData(studentsList.get(card));
                 
-                if(column == 3){
+                if(column == 2){
                     column = 0;
                     row++;
                 }
@@ -148,7 +148,7 @@ public class UsersManagerController implements Initializable {
                 UsersCardController usersCardController = fxmlLoader.getController();
                 usersCardController.setUserProfessorData(professorsList.get(card));
                 
-                if(column == 3){
+                if(column == 2){
                     column = 0;
                     row++;
                 }
