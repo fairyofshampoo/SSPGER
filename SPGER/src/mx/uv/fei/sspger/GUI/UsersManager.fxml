@@ -58,7 +58,7 @@
             </ImageView>
             <ScrollPane layoutX="99.0" layoutY="110.0" prefHeight="452.0" prefWidth="675.0">
                <content>
-                  <GridPane fx:id="gpUsers" vgap="115.0">
+                  <GridPane fx:id="gpUsers">
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>

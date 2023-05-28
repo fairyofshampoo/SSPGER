@@ -50,9 +50,9 @@ public class LoginController implements Initializable {
     @FXML
     void logIn(MouseEvent event) {
         if(verifyFields()){
-            UserDAO userDAO = new UserDAO();
+            UserDAO userDao = new UserDAO();
             try {
-                int userExistence = userDAO.login(txtEMail.getText(), txtPassword.getText());
+                int userExistence = userDao.login(txtEMail.getText(), txtPassword.getText());
                 continueLogin(userExistence == 1);
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,7 +69,7 @@ public class LoginController implements Initializable {
             displayView();
         } else {
             DialogGenerator.getDialog(new AlertMessage (
-         "Datos de acceso incorrectos.",
+         "No hay cuenta de acceso activa con esos datos",
          Status.ERROR));
         }
     }
@@ -86,43 +86,28 @@ public class LoginController implements Initializable {
     
     private boolean verifyFields(){
         boolean validation = true;
-        if (!emailVerification()){
-            validation = false;
-        }
-        if(!passwordVerification()){
-            validation = false;
-        }
-        return validation;
-    }
-    
-    private boolean emailVerification(){
-        boolean validation = true;
-        
-        if(!FieldValidation.isEMailValid(txtEMail.getText())){
+        if (!FieldValidation.isEMailValid(txtEMail.getText())) {
             lblWrongEMail.setVisible(true);
             lblWrongEMail.setText("Correo inválido");
             validation = false;
         }
-        if (FieldValidation.isNullOrEmptyTxtField(txtEMail)){
+        if (FieldValidation.isNullOrEmptyTxtField(txtEMail)) {
             lblWrongEMail.setVisible(true);
             lblWrongEMail.setText("Campo de correo vacío");
             validation = false;
         }
-        return validation;
-    }
-    private boolean passwordVerification(){
-        boolean validation = true;
-        
-        if(!FieldValidation.isPasswordValid(txtPassword.getText())){
+    
+        if (!FieldValidation.isPasswordValid(txtPassword.getText())) {
             lblWrongPassword.setVisible(true);
             lblWrongPassword.setText("Contraseña inválida");
             validation = false;
         }
-        if(FieldValidation.isNullOrEmptyTxtField(txtPassword)){
+        if (FieldValidation.isNullOrEmptyTxtField(txtPassword)) {
             lblWrongPassword.setVisible(true);
             lblWrongPassword.setText("Campo de contraseña vacío");
             validation = false;
         }
+    
         return validation;
     }
     

@@ -14,63 +14,70 @@
          <children>
             <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
                <children>
-                  <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Label fx:id="lblAddUser" layoutX="43.0" layoutY="64.0" prefHeight="17.0" prefWidth="182.0" text="Añadir usuario">
+            <Label layoutX="43.0" layoutY="55.0" prefHeight="17.0" prefWidth="182.0" text="Añadir usuario">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lblInstruction" layoutX="118.0" layoutY="122.0" prefHeight="17.0" prefWidth="234.0" text="Ingrese la información del usuario." />
-            <Label fx:id="lblName" layoutX="118.0" layoutY="159.0" prefHeight="17.0" prefWidth="234.0" text="Nombre(s)">
+            <Label layoutX="118.0" layoutY="90.0" prefHeight="17.0" prefWidth="234.0" text="Ingrese la información del usuario." />
+            <Label layoutX="118.0" layoutY="115.0" prefHeight="17.0" prefWidth="234.0" text="Nombre(s)">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtName" layoutX="118.0" layoutY="188.0" prefHeight="25.0" prefWidth="259.0" />
-            <Label fx:id="lblLastName" layoutX="118.0" layoutY="223.0" prefHeight="17.0" prefWidth="234.0" text="Apellido(s)">
+            <TextField fx:id="txtName" layoutX="118.0" layoutY="144.0" onKeyTyped="#typingName" prefHeight="25.0" prefWidth="259.0" />
+            <Label layoutX="118.0" layoutY="199.0" prefHeight="17.0" prefWidth="234.0" text="Apellido(s)">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtLastName" layoutX="118.0" layoutY="252.0" prefHeight="25.0" prefWidth="259.0" />
-            <Label fx:id="lblEMail" layoutX="118.0" layoutY="287.0" prefHeight="17.0" prefWidth="234.0" text="Correo electrónico">
+            <TextField fx:id="txtLastName" layoutX="118.0" layoutY="228.0" onKeyTyped="#typingLastName" prefHeight="25.0" prefWidth="259.0" />
+            <Label layoutX="118.0" layoutY="293.0" prefHeight="17.0" prefWidth="234.0" text="Correo electrónico">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtEMail" layoutX="118.0" layoutY="316.0" prefHeight="25.0" prefWidth="259.0" />
-            <Label fx:id="lblPassword" layoutX="118.0" layoutY="351.0" prefHeight="17.0" prefWidth="234.0" text="Contraseña">
+            <TextField fx:id="txtEMail" layoutX="118.0" layoutY="322.0" onKeyTyped="#typingEMail" prefHeight="25.0" prefWidth="259.0" />
+            <Label layoutX="414.0" layoutY="382.0" prefHeight="17.0" prefWidth="234.0" text="Contraseña">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtPassword" layoutX="118.0" layoutY="380.0" prefHeight="25.0" prefWidth="259.0" />
-            <Label fx:id="lblHonorificTitle" layoutX="414.0" layoutY="227.0" prefHeight="17.0" prefWidth="234.0" text="Título honorífico">
+            <TextField fx:id="txtPassword" layoutX="414.0" layoutY="411.0" onKeyTyped="#typingPassword" prefHeight="25.0" prefWidth="259.0" />
+            <Label layoutX="414.0" layoutY="203.0" prefHeight="17.0" prefWidth="234.0" text="Título honorífico">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lblUserType" layoutX="414.0" layoutY="163.0" prefHeight="17.0" prefWidth="234.0" text="Tipo de Usuario">
+            <Label layoutX="414.0" layoutY="119.0" prefHeight="17.0" prefWidth="234.0" text="Tipo de Usuario">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lblIdUser" layoutX="414.0" layoutY="287.0" prefHeight="17.0" prefWidth="234.0" text="Matrícula o Número de Personal">
+            <Label layoutX="414.0" layoutY="293.0" prefHeight="17.0" prefWidth="234.0" text="Matrícula o Número de Personal">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtIdUser" layoutX="414.0" layoutY="316.0" prefHeight="25.0" prefWidth="259.0" />
-            <Button fx:id="btnAccept" layoutX="197.0" layoutY="484.0" mnemonicParsing="false" onAction="#acceptButtonClick" prefHeight="25.0" prefWidth="104.0" text="Aceptar" />
-            <Button fx:id="btnCancel" layoutX="464.0" layoutY="484.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="104.0" text="Cancelar" />
-            <ChoiceBox fx:id="cbxHonorificTitle" layoutX="414.0" layoutY="254.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="cbxUserType" layoutX="414.0" layoutY="189.0" onMouseClicked="#userTypeChoiceSelector" prefWidth="150.0" />
+            <TextField fx:id="txtIdUser" layoutX="414.0" layoutY="322.0" onKeyTyped="#typingIdUser" prefHeight="25.0" prefWidth="259.0" />
+            <Button fx:id="btnAccept" layoutX="197.0" layoutY="519.0" mnemonicParsing="false" onAction="#acceptButtonClick" prefHeight="25.0" prefWidth="104.0" text="Aceptar" />
+            <Button fx:id="btnCancel" layoutX="464.0" layoutY="519.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="104.0" text="Cancelar" />
+            <ChoiceBox fx:id="cbxHonorificTitle" layoutX="414.0" layoutY="230.0" onMouseClicked="#clickHonorificTitle" prefWidth="150.0" />
+            <ChoiceBox fx:id="cbxUserType" layoutX="414.0" layoutY="145.0" onMouseClicked="#userTypeChoiceSelector" prefWidth="150.0" />
+            <Label fx:id="lblInvalidName" layoutX="120.0" layoutY="175.0" text="Nombre inválido" textFill="RED" visible="false" />
+            <Label fx:id="lblInvalidUserType" layoutX="414.0" layoutY="175.0" prefHeight="17.0" prefWidth="168.0" text="Seleccione un tipo de usuario" textFill="RED" visible="false" />
+            <Label fx:id="lblInvalidLastName" layoutX="120.0" layoutY="263.0" prefHeight="17.0" prefWidth="104.0" text="Apellido inválido" textFill="RED" visible="false" />
+            <Label fx:id="lblInvalidHonorificTitle" layoutX="420.0" layoutY="263.0" text="Seleccione un título honorífico" textFill="RED" visible="false" />
+            <Label fx:id="lblInvalidEMail" layoutX="116.0" layoutY="355.0" prefHeight="54.0" prefWidth="267.0" text="Correo inválido. Dominios aceptables:  &quot;uv.mx&quot;, &quot;estudiantes.uv.mx&quot;, &quot;gmail.com&quot;, &quot;hotmail.com&quot;, &quot;outlook.com&quot; y &quot;edu.mx&quot;." textFill="RED" visible="false" wrapText="true" />
+            <Label fx:id="lblInvalidIdUser" layoutX="420.0" layoutY="355.0" text="Matrícula o número de personal inválido" textFill="RED" visible="false" />
+            <Label fx:id="lblInvalidPassword" layoutX="383.0" layoutY="445.0" prefHeight="54.0" prefWidth="342.0" text="La contraseña de 8 caracteres mínimo debe contener letras (mayúsculas o minúsculas), dígitos y caracteres no alfanuméricos (símbolos), sin espacios en blanco" textFill="RED" visible="false" wrapText="true" />
          </children>
       </Pane>
    </children>

@@ -101,13 +101,13 @@ public class DirectorProjectsManagerController implements Initializable {
         fillTable();
     } 
     
-    void fillTable(){
+    private void fillTable(){
         try {
             ProjectDAO projectDAO = new ProjectDAO();
             List<Project> projectList = projectDAO.getAllProjects();
             for (int i =0; i< projectList.size(); i++){
                 Project project = projectList.get(i);
-                list.add(new ProjectsTable(project.getIdProject(), project.getName(), project.getIdLGAC(), project.getStatus()));
+                list.add(new ProjectsTable(project.getIdProject(), project.getName(), project.getName(), project.getStatus()));
             }
             tblProjects.setItems(list);
             tblCDirectorName.setCellValueFactory(new PropertyValueFactory<ProjectsTable, String>("directorName"));

@@ -9,11 +9,12 @@ import mx.uv.fei.sspger.logic.contracts.IUser;
 
 public class UserDAO implements IUser{
     private final int ERROR_ADDITION = -1;
-    private final String LOGIN_QUERY = "SELECT * FROM cuenta_acceso WHERE correo = ? AND password = SHA1(?)";
+    private final String LOGIN_QUERY = "SELECT * FROM cuenta_acceso WHERE correo = ? AND password = SHA1(?) AND estado = ?";
     private final String PROFESSOR_LOGIN_QUERY = "SELECT idUsuarioProfesor FROM profesor WHERE correo = ?";
     private final String STUDENT_LOGIN_QUERY = "SELECT idUsuarioEstudiante FROM estudiante WHERE correo_institucional = ?";
     private final String PROFESSOR_PRIVILEGES_QUERY = "SELECT isAdmin FROM profesor WHERE idUsuarioProfesor = ?";
     private final String ANY_AVAILABLE_ACCOUNT_QUERY = "SELECT * FROM cuenta_acceso";
+    private final int ACTIVE_STATUS = 1;
 
     @Override
     public int login(String email, String password) throws SQLException {
@@ -22,6 +23,7 @@ public class UserDAO implements IUser{
         
         statement.setString(1, email);
         statement.setString(2, password);
+        statement.setInt(3, ACTIVE_STATUS);
         
         ResultSet loginResult = statement.executeQuery();
         
