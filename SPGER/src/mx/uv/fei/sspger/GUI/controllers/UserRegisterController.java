@@ -14,14 +14,8 @@ import java.util.ResourceBundle;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 import mx.uv.fei.sspger.GUI.SPGER;
-import mx.uv.fei.sspger.logic.User;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
 import mx.uv.fei.sspger.logic.DAO.StudentDAO;
 import mx.uv.fei.sspger.logic.UserTypes;
@@ -104,7 +98,7 @@ public class UserRegisterController implements Initializable {
     }
     
     @FXML
-    void userTypeChoiceSelector(MouseEvent event){
+    private void disableHonorificTitleSelection(MouseEvent event){
         if("Estudiante".equals(cbxUserType.getValue())){
             cbxHonorificTitle.setDisable(true);
         }else{

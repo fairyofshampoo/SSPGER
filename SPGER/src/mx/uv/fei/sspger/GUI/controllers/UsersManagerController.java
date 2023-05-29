@@ -83,12 +83,63 @@ public class UsersManagerController implements Initializable {
         }
     }
     
+    @FXML
+    void searchUser(MouseEvent event) {
+        gpUsers.getChildren().clear();
+        column = 0;
+        row = 1;
+        if(FieldValidation.isNullOrEmptyTxtField(txtSearchBar)){
+            setStudentCards(getAllStudents());
+            setProfessorCards(getAllProfessors());
+        }else{
+            List<Student> studentList = createStudentSearchList();
+            if(!studentList.isEmpty()){
+                setStudentCards(studentList);
+            } else{
+                List<Professor> professorList = createProfessorSearchList();
+                setProfessorCards(professorList);
+            }
+        }
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         displayImages();
-        setStudentCards();
-        setProfessorCards();
-    } 
+        setStudentCards(getAllStudents());
+        setProfessorCards(getAllProfessors());
+    }
+    
+    List<Student> createStudentSearchList(){
+        List<Student> studentsList = new ArrayList<>();
+        StudentDAO studentDao = new StudentDAO();
+        
+        try {
+            Student studentSearched = studentDao.searchStudentbyRegistrationTag(txtSearchBar.getText());
+            
+            if (studentSearched != null) {
+                studentsList.add(studentSearched);
+            }
+        } catch (SQLException sqlException) {
+            Logger.getLogger(UsersManagerController.class.getName()).log(Level.SEVERE, null, sqlException);
+        }
+        return studentsList;
+    }
+    
+    List<Professor> createProfessorSearchList(){
+        List<Professor> professorsList = new ArrayList<>();
+        ProfessorDAO professorDao = new ProfessorDAO();
+        
+        try {
+            Professor professorSearched = professorDao.getProfessorByPersonalNumber(txtSearchBar.getText());
+            
+            if (professorSearched != null) {
+                professorsList.add(professorSearched);
+            }
+        } catch (SQLException sqlException) {
+            Logger.getLogger(UsersManagerController.class.getName()).log(Level.SEVERE, null, sqlException);
+        }
+        return professorsList;
+    }
     
     private void displayImages(){
         imgHome.setImage(ImagesSetter.getHomeImage());
@@ -99,7 +150,7 @@ public class UsersManagerController implements Initializable {
         
     }
     
-    private void setStudentCards(){
+    private List<Student> getAllStudents(){
         List<Student> studentsList = new ArrayList<>();
         StudentDAO studentDao = new StudentDAO();
         
@@ -108,7 +159,10 @@ public class UsersManagerController implements Initializable {
         } catch (SQLException sqlException){
             Logger.getLogger(UsersManagerController.class.getName()).log(Level.SEVERE, null, sqlException);
         }
-        
+        return studentsList;
+    }
+    
+    private void setStudentCards(List <Student> studentsList){
         try{
             for (int card = 0; card < studentsList.size(); card++){
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -130,7 +184,7 @@ public class UsersManagerController implements Initializable {
         }
     }
     
-    private void setProfessorCards(){
+    private List<Professor> getAllProfessors(){
         List<Professor> professorsList = new ArrayList<>();
         ProfessorDAO professorDao = new ProfessorDAO();
         
@@ -139,7 +193,10 @@ public class UsersManagerController implements Initializable {
         } catch (SQLException sqlException){
             Logger.getLogger(UsersManagerController.class.getName()).log(Level.SEVERE, null, sqlException);
         }
-        
+        return professorsList;
+    }
+    
+    private void setProfessorCards(List<Professor> professorsList){
         try{
             for (int card = 0; card < professorsList.size(); card++){
                 FXMLLoader fxmlLoader = new FXMLLoader();

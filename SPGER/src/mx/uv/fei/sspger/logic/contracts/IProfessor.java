@@ -15,4 +15,5 @@ public interface IProfessor {
     int changeProfessorStatus (String email, int status) throws SQLException;
     List<Professor> getCoodirectorByProject (int projectId) throws SQLException;
     Professor getDirectorByProject(int projectId) throws SQLException;
+    Professor getProfessorByPersonalNumber(String personalNumber) throws SQLException;
 }

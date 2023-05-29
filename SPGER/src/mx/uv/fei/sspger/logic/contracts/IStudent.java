@@ -9,6 +9,7 @@ import mx.uv.fei.sspger.logic.Student;
 public interface IStudent {
     int addStudentTransaction(Student student) throws SQLException;
     Student getStudent(String email) throws SQLException;
+    Student searchStudentbyRegistrationTag(String registrationTag) throws SQLException;
     List <Student> getAllStudents() throws SQLException;
     List <Student> getStudentsByStatus(int status) throws SQLException;
     List <Student> getStudentPerReceptionalWork(int idRedceptionalWork) throws SQLException;

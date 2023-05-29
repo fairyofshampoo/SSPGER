@@ -16,13 +16,13 @@
    <children>
       <Pane prefHeight="600.0" prefWidth="800.0">
          <children>
-            <TextField fx:id="txtSearchBar" layoutX="383.0" layoutY="68.0" prefHeight="25.0" prefWidth="227.0" promptText="Buscar por nombre...." />
-            <Label fx:id="lblUsers" layoutX="175.0" layoutY="63.0" prefHeight="17.0" prefWidth="174.0" text="Usuarios">
+            <TextField fx:id="txtSearchBar" layoutX="271.0" layoutY="68.0" prefHeight="25.0" prefWidth="339.0" promptText="Buscar por matrícula o número de personal" />
+            <Label fx:id="lblUsers" layoutX="120.0" layoutY="64.0" prefHeight="35.0" prefWidth="135.0" text="Usuarios">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="btnAddUser" layoutX="661.0" layoutY="68.0" mnemonicParsing="false" onAction="#addUserButtonClicked" text="Añadir Usuario">
+            <Button fx:id="btnAddUser" layoutX="661.0" layoutY="68.0" mnemonicParsing="false" onAction="#addUserButtonClicked" style="-fx-background-radius: 20;" text="Añadir Usuario">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -51,14 +51,14 @@
                   </ImageView>
                </children>
             </Pane>
-            <ImageView fx:id="imgSearchBar" fitHeight="19.0" fitWidth="14.0" layoutX="585.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgSearchBar" fitHeight="19.0" fitWidth="14.0" layoutX="585.0" layoutY="74.0" onMouseClicked="#searchUser" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@resources/searchIcon.png" />
                </image>
             </ImageView>
             <ScrollPane layoutX="99.0" layoutY="110.0" prefHeight="452.0" prefWidth="675.0">
                <content>
-                  <GridPane fx:id="gpUsers" vgap="115.0">
+                  <GridPane fx:id="gpUsers">
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>

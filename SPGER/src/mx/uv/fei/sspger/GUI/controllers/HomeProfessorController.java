@@ -103,10 +103,10 @@ public class HomeProfessorController implements Initializable {
     }
     private void showAdminFunctionalities(){
         if(UserSession.getInstance().getPrivileges()==ADMIN_ROLE){
-            imgAddAcademicBody.setVisible(true);
+            imgAddUsers.setVisible(true);
             imgAddCourses.setVisible(true);
             imgAddAcademicBody.setVisible(true);
-            imgAddAcademicBody.setDisable(false);
+            imgAddUsers.setDisable(false);
             imgAddCourses.setDisable(false);
             imgAddAcademicBody.setDisable(false);
             

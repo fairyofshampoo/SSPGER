@@ -27,12 +27,11 @@ public class ProfessorDAO implements IProfessor{
     private final String GET_DIRECTOR_BY_PROJECT = "SELECT * FROM profesor_anteproyecto NATURAL JOIN profesor"
             + " WHERE profesor_anteproyecto.idAnteproyecto = ?"
             + " AND rol = 'Director'";
-    
     private final String GET_COODIRECTORS_BY_PROJECT = "SELECT * FROM profesor_anteproyecto NATURAL JOIN profesor"
             + " WHERE profesor_anteproyecto.idAnteproyecto = ?"
             + " AND rol = 'Coodirector'";
+    private final String SEARCH_PROFESSOR_BY_PERSONAL_NUMBER = "SELECT * FROM cuenta_acceso INNER JOIN profesor ON cuenta_acceso.correo = profesor.correo WHERE profesor.numPersonal = ?";
 
-    
     @Override
     public int addProfessorTransaction(Professor professor) throws SQLException {
         int response = ERROR_ADDITION;
@@ -253,5 +252,29 @@ public class ProfessorDAO implements IProfessor{
         }
                     
         return coodirectors;
+    }
+
+    @Override
+    public Professor getProfessorByPersonalNumber(String personalNumber) throws SQLException {
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(SEARCH_PROFESSOR_BY_PERSONAL_NUMBER);
+
+        statement.setString(1, personalNumber);
+
+        ResultSet professorResult = statement.executeQuery();
+        Professor professor = null;
+        
+        if(professorResult.next()){
+        professor = new Professor();
+        professor.setEMail(professorResult.getString("correo"));
+        professor.setName(professorResult.getString("nombre"));
+        professor.setLastName(professorResult.getString("apellido"));
+        professor.setPersonalNumber(professorResult.getString("numPersonal"));
+        professor.setId(professorResult.getInt("idUsuarioProfesor"));
+        professor.setStatus(professorResult.getInt("estado"));
+        professor.setHonorificTitle(professorResult.getString("honorifico"));
+        }
+        DataBaseManager.closeConnection();
+
+        return professor;
     }
 }

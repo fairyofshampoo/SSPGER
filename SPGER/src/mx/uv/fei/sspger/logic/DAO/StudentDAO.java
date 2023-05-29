@@ -28,6 +28,7 @@ public class StudentDAO implements IStudent{
     private final String GET_STUDENTS_BY_RECEPTIONAL_WORK = "SELECT nombre, apellido, idEstudiante FROM estudiante_trabajo_recepcional "
             + "INNER JOIN estudiante ON estudiante.idUsuarioEstudiante = estudiante_trabajo_recepcional.idEstudiante WHERE"
             + " idTrabajoRecepcional = ?";
+    private final String SEARCH_STUDENT_BY_REGISTRATION_TAG = "SELECT * FROM cuenta_acceso INNER JOIN estudiante ON cuenta_acceso.correo = estudiante.correo_institucional WHERE estudiante.matricula = ?";
     
     @Override
     public int addStudentTransaction(Student student) throws SQLException {
@@ -213,6 +214,29 @@ public class StudentDAO implements IStudent{
         DataBaseManager.closeConnection();
 
         return studentList;
+    }
+
+    @Override
+    public Student searchStudentbyRegistrationTag(String registrationTag) throws SQLException {
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(SEARCH_STUDENT_BY_REGISTRATION_TAG);
+
+        statement.setString(1,registrationTag);
+
+        ResultSet studentResult = statement.executeQuery();
+        Student student = null;
+        
+        if(studentResult.next()){
+        student = new Student();
+        student.setEMail(studentResult.getString("correo"));
+        student.setName(studentResult.getString("nombre"));
+        student.setLastName(studentResult.getString("apellido"));
+        student.setRegistrationTag(studentResult.getString("matricula"));
+        student.setId(studentResult.getInt("idUsuarioEstudiante"));
+        student.setStatus(studentResult.getInt("estado"));
+        }
+        DataBaseManager.closeConnection();
+
+        return student;
     }
     
 }
