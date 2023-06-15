@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.GeneralProjectReportController">
+    <children>
+      <Pane prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #8EB39D;">
+               <children>
+                  <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label fx:id="lblReportHeader" layoutX="98.0" layoutY="64.0" prefHeight="35.0" prefWidth="449.0" text="Reporte General de Anteproyectos" textFill="#2d5264">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Line endX="531.800048828125" layoutX="225.0" layoutY="111.0" startX="-148.20001220703125" stroke="#407a7b" />
+            <Line endX="582.199951171875" layoutX="177.0" layoutY="233.0" startX="-100.0" stroke="#407a7b" />
+            <Label layoutX="98.0" layoutY="241.0" prefHeight="30.0" prefWidth="275.0" text="Información de las LGAC" textFill="#2d5264">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="28.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/btnBack.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="98.0" layoutY="279.0" prefHeight="17.0" prefWidth="163.0" text="LGAC que más se alimenta:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="76.0" layoutY="156.0" prefHeight="17.0" prefWidth="207.0" text="Anteproyectos propuestos en total:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="76.0" layoutY="125.0" prefHeight="17.0" prefWidth="200.0" text="Anteproyectos validados en total:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="534.0" layoutY="125.0" prefHeight="17.0" prefWidth="200.0" text="Fecha de generación de reporte">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnDownloadReport" layoutX="77.0" layoutY="538.0" mnemonicParsing="false" onAction="#downloadReport" text="Descargar reporte en PDF" textFill="#437f80">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Label fx:id="lblLGACMost" layoutX="296.0" layoutY="279.0" prefHeight="17.0" prefWidth="455.0" text="L2. Tecnologías de Software" />
+            <Label fx:id="lblPublicationDate" layoutX="577.0" layoutY="148.0" prefHeight="17.0" prefWidth="114.0" text="28/02/2023 00:00" />
+            <Label fx:id="lblValidatedProjects" layoutX="313.0" layoutY="125.0" prefHeight="17.0" prefWidth="130.0" text="20" />
+            <Label fx:id="lblProposedProjects" layoutX="314.0" layoutY="156.0" prefHeight="17.0" prefWidth="123.0" text="2" />
+            <Label layoutX="77.0" layoutY="185.0" prefHeight="17.0" prefWidth="217.0" text="Anteproyectos rechazados en total:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblRejectedProjects" layoutX="314.0" layoutY="185.0" prefHeight="17.0" prefWidth="123.0" text="2" />
+            <Label layoutX="98.0" layoutY="305.0" prefHeight="17.0" prefWidth="181.0" text="LGAC que menos se alimenta:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblLGACLeast" layoutX="296.0" layoutY="305.0" prefHeight="17.0" prefWidth="455.0" text="L1. Modelado, Desarrollo y Gestión del Software" />
+            <Label layoutX="98.0" layoutY="337.0" prefHeight="30.0" prefWidth="449.0" text="Información de las modalidades" textFill="#2d5264">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="98.0" layoutY="375.0" prefHeight="17.0" prefWidth="163.0" text="Modalidad más utilizada:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblModalityMost" layoutX="296.0" layoutY="375.0" prefHeight="17.0" prefWidth="455.0" text="Tesis" />
+            <Label layoutX="98.0" layoutY="401.0" prefHeight="17.0" prefWidth="181.0" text="Modalidad menos utilizada:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblModalityLeast" layoutX="296.0" layoutY="401.0" prefHeight="17.0" prefWidth="455.0" text="Revisión Sistemática de la Literatura " />
+            <Label layoutX="98.0" layoutY="429.0" prefHeight="30.0" prefWidth="449.0" text="Información de directores" textFill="#2d5264">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="98.0" layoutY="463.0" prefHeight="17.0" prefWidth="267.0" text="Director con más anteproyectos validados:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDirectorMostProjects" layoutX="382.0" layoutY="463.0" prefHeight="17.0" prefWidth="369.0" text="Ángel Juan Sánchez" />
+            <Label layoutX="98.0" layoutY="489.0" prefHeight="17.0" prefWidth="267.0" text="Director con menos anteproyectos validados:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDirectorLeastProjects" layoutX="382.0" layoutY="489.0" prefHeight="17.0" prefWidth="369.0" text="Héctor Xavier Limón Riaño" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

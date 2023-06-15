@@ -5,6 +5,7 @@ public class Professor extends User{
     private String honorificTitle;
     private String personalNumber;
     private int id;
+    private int isAdmin;
     
     public Professor(){
         
@@ -33,6 +34,14 @@ public class Professor extends User{
         this.personalNumber = personalNumber;
     }
     
+    public int getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+    
     @Override
     public boolean equals(Object object){
         if(object == null || (object.getClass() != this.getClass())){
@@ -40,5 +49,10 @@ public class Professor extends User{
         }
         final Professor other = (Professor)object;
         return (this.personalNumber == null ? other.personalNumber == null: this.personalNumber.equals(other.personalNumber));
+    }
+    
+    @Override
+    public String toString(){
+        return honorificTitle + " " + name + " " + lastName;
     }
 }

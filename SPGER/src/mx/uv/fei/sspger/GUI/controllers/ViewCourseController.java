@@ -18,9 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import mx.uv.fei.sspger.GUI.AlertMessage;
-import mx.uv.fei.sspger.GUI.DialogGenerator;
-import mx.uv.fei.sspger.GUI.MainApplication;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Course;
 import mx.uv.fei.sspger.logic.DAO.CourseDAO;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
@@ -76,7 +74,7 @@ public class ViewCourseController implements Initializable {
     }    
     
     public void goBack (ActionEvent actionEvent) throws IOException{
-        MainApplication.setRoot("/mx/uv/fei/sspger/GUI/CourseManagement");
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/CourseManagement");
     }
     
     public void disableCourse (ActionEvent actionEvent){
@@ -86,7 +84,7 @@ public class ViewCourseController implements Initializable {
     public void modifyCourse (ActionEvent actionEvent) throws IOException{
         ModifyCourseController.courseId = courseId; 
         
-        MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ModifyCourse");
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/ModifyCourse");
     }
     
     public void setTable(){

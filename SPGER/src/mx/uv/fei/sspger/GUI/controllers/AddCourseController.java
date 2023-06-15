@@ -29,10 +29,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
-import mx.uv.fei.sspger.GUI.DialogGenerator;
-import mx.uv.fei.sspger.GUI.AlertMessage;
 import mx.uv.fei.sspger.GUI.ComboBoxProfessor;
-import mx.uv.fei.sspger.GUI.MainApplication;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.DAO.CourseDAO;
 import mx.uv.fei.sspger.logic.DAO.StudentDAO;
 import mx.uv.fei.sspger.logic.EnrollToCourse;
@@ -210,7 +208,7 @@ public class AddCourseController implements Initializable {
     @FXML
     private void cancelCourseAddition(ActionEvent actionEvent) throws IOException{
         if (isConfirmedExit()){
-            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/CourseManagement");
+            SPGER.setRoot("/mx/uv/fei/sspger/GUI/CourseManagement");
         }
     }
     
@@ -234,7 +232,7 @@ public class AddCourseController implements Initializable {
             try{
                 registerCourse(semester, course, courseDao);
                 
-                MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ViewCourse");
+                SPGER.setRoot("/mx/uv/fei/sspger/GUI/ViewCourse");
                 
             }catch (SQLException sqlException){
                 DialogGenerator.getDialog(new AlertMessage (

@@ -7,30 +7,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
 import mx.uv.fei.sspger.logic.contracts.IStudent;
 import mx.uv.fei.sspger.logic.Student;
 
 
 public class StudentDAO implements IStudent{
-    
-    private final String GET_COURSE_STUDENT = "SELECT * FROM  estudiante NATURAL JOIN cursa "
-            + "INNER JOIN estudiante_trabajo_recepcional ON estudiante_trabajo_recepcional.idEstudiante = idUsuarioEstudiante "
-            + "WHERE idCurso = ?";
+    private final int ERROR = -1;
+    private final String ADD_STUDENT_COMMAND = "insert into estudiante(correo_institucional, nombre, apellido, matricula) values(?,?,?,?)";
+    private final String ADD_ACCESS_ACCOUNT_COMMAND = "insert into cuenta_acceso(correo, password, estado) values (?, SHA1(?), ?)";
+    private final String GET_ALL_STUDENTS_QUERY = "SELECT * FROM estudiante";
+    private final String GET_STUDENTS_BY_STATUS_QUERY = "SELECT estudiante.* FROM cuenta_acceso INNER JOIN estudiante ON cuenta_acceso.correo = estudiante.correo_institucional WHERE cuenta_acceso.estado = ?";
+    private final String UPDATE_ACCESS_ACCOUNT_COMMAND = "UPDATE cuenta_acceso SET correo = ?, password = SHA1(?), estado = ? WHERE correo = ?";
+    private final String UPDATE_STUDENT_COMMAND = "UPDATE estudiante SET nombre = ?, apellido = ?, matricula = ? WHERE correo_institucional = ?";
+    private final String CHANGE_STUDENT_STATUS_QUERY = "UPDATE cuenta_acceso SET estado = ? WHERE correo = ?";
+    private final String GET_STUDENTS_BY_RECEPTIONAL_WORK = "SELECT nombre, apellido, idEstudiante FROM estudiante_trabajo_recepcional INNER JOIN estudiante ON estudiante.idUsuarioEstudiante = estudiante_trabajo_recepcional.idEstudiante WHERE idTrabajoRecepcional = ?";
+    private final String SEARCH_STUDENT_BY_REGISTRATION_TAG = "SELECT * FROM cuenta_acceso INNER JOIN estudiante ON cuenta_acceso.correo = estudiante.correo_institucional WHERE estudiante.matricula = ?";
     private final String GET_STUDENT_BY_ID = "SELECT * FROM estudiante WHERE idUsuarioEstudiante = ?";
-    private final String GET_STUDENTS_BY_RECEPTIONAL_WORK = "SELECT nombre, apellido, idEstudiante FROM estudiante_trabajo_recepcional "
-            + "INNER JOIN estudiante ON estudiante.idUsuarioEstudiante = estudiante_trabajo_recepcional.idEstudiante WHERE"
-            + " idTrabajoRecepcional = ?";
-
-    @Override
-    public int register(Student student) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<Student> getStudentList() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public Student getStudent(int idStudent) throws SQLException {
@@ -49,6 +44,29 @@ public class StudentDAO implements IStudent{
             student.setRegistrationTag(studentResult.getString("matricula"));
             student.setId(studentResult.getInt("idUsuarioEstudiante"));
         }
+        
+        DataBaseManager.closeConnection();
+
+        return student;
+    }
+    
+    @Override
+    public Student getStudent(String email) throws SQLException {
+        String query = "SELECT * FROM estudiante WHERE correo_institucional = ?";
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+
+        statement.setString(1,email);
+
+        ResultSet studentResult = statement.executeQuery();
+        studentResult.next();
+        
+        Student student = new Student();
+        student.setId(studentResult.getInt("idUsuarioEstudiante"));
+        student.setEMail(studentResult.getString("correo_institucional"));
+        student.setName(studentResult.getString("nombre"));
+        student.setLastName(studentResult.getString("apellido"));
+        student.setRegistrationTag(studentResult.getString("matricula"));
         
         DataBaseManager.closeConnection();
 
@@ -153,6 +171,198 @@ public class StudentDAO implements IStudent{
         
         DataBaseManager.closeConnection();
 
+        return studentList;
+    }
+    
+    @Override
+    public int addStudentTransaction(Student student) throws SQLException {
+        int response = ERROR;
+        try{
+            DataBaseManager.getConnection().setAutoCommit(false);
+            PreparedStatement accountStatement = DataBaseManager.getConnection().prepareStatement(ADD_ACCESS_ACCOUNT_COMMAND);
+        
+            accountStatement.setString(1, student.getEMail());
+            accountStatement.setString(2, student.getPassword());
+            accountStatement.setInt(3, student.getStatus());
+        
+            response = accountStatement.executeUpdate();
+        
+            if(response != ERROR){
+                PreparedStatement studentStatement = DataBaseManager.getConnection().prepareStatement(ADD_STUDENT_COMMAND);
+        
+                studentStatement.setString(1, student.getEMail());
+                studentStatement.setString(2, student.getName());
+                studentStatement.setString(3, student.getLastName());
+                studentStatement.setString(4, student.getRegistrationTag());
+            
+                response = response + studentStatement.executeUpdate();
+            }
+        
+            DataBaseManager.getConnection().commit();
+        } catch (SQLException ex){
+            DataBaseManager.getConnection().rollback();
+            Logger.getLogger(ProfessorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            DataBaseManager.getConnection().close();
+        }
+        return response;
+    }
+
+    @Override
+    public List<Student> getAllStudents() throws SQLException {
+        DataBaseManager.getConnection();
+        Statement statement = DataBaseManager.getConnection().createStatement();
+        ResultSet studentResult = statement.executeQuery(
+                GET_ALL_STUDENTS_QUERY);
+        
+        List<Student> studentList = new ArrayList<>();
+        
+        while(studentResult.next()){
+            Student student = new Student();
+            student.setEMail(studentResult.getString("correo_institucional"));
+            student.setName(studentResult.getString("nombre"));
+            student.setLastName(studentResult.getString(
+                    "apellido"));
+            student.setRegistrationTag(studentResult.getString(
+                    "matricula"));
+            student.setId(studentResult.getInt("idUsuarioEstudiante"));
+            studentList.add(student);
+        }
+        
+        DataBaseManager.closeConnection();
+        
+        return studentList;
+    }
+
+    @Override
+    public int updateStudentTransaction(String email, Student student) throws SQLException {
+        int response = ERROR;
+        try{
+            DataBaseManager.getConnection().setAutoCommit(false);
+            PreparedStatement accountStatement = DataBaseManager.getConnection().prepareStatement(UPDATE_ACCESS_ACCOUNT_COMMAND);
+        
+            accountStatement.setString(1, student.getEMail());
+            accountStatement.setString(2, student.getPassword());
+            accountStatement.setInt(3, student.getStatus());
+            accountStatement.setString(4, email);
+        
+            response = accountStatement.executeUpdate();
+        
+            if(response != ERROR){
+                PreparedStatement studentStatement = DataBaseManager.getConnection().prepareStatement(UPDATE_STUDENT_COMMAND);
+                
+                studentStatement.setString(1, student.getName());
+                studentStatement.setString(2, student.getLastName());
+                studentStatement.setString(3, student.getRegistrationTag());
+                studentStatement.setString(4, email);
+            
+                response = response + studentStatement.executeUpdate();
+            }
+        
+            DataBaseManager.getConnection().commit();
+        } catch (SQLException ex){
+            DataBaseManager.getConnection().rollback();
+            Logger.getLogger(ProfessorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            DataBaseManager.getConnection().close();
+        }
+        return response;
+    }
+
+    @Override
+    public int changeStudentStatus(String email, int status) throws SQLException {
+        int response = ERROR;
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(CHANGE_STUDENT_STATUS_QUERY);       
+        
+        statement.setInt(1, status);
+        statement.setString(2, email);
+        
+        response = statement.executeUpdate();
+        
+        DataBaseManager.closeConnection();
+        
+        return response;
+    }
+
+    @Override
+    public List<Student> getStudentsByStatus(int status) throws SQLException {
+        PreparedStatement statement = DataBaseManager.getConnection().
+                prepareStatement(GET_STUDENTS_BY_STATUS_QUERY);
+
+        statement.setInt(1, status);
+
+        ResultSet studentResult = statement.executeQuery();
+        
+        List<Student> studentList = new ArrayList<>();
+        
+        while(studentResult.next()){
+            Student student = new Student();
+            student.setEMail(studentResult.getString("correo_institucional"));
+            student.setName(studentResult.getString("nombre"));
+            student.setLastName(studentResult.getString(
+                    "apellido"));
+            student.setRegistrationTag(studentResult.getString(
+                    "matricula"));
+            student.setId(studentResult.getInt("idUsuarioEstudiante"));
+            studentList.add(student);
+        }
+        
+        DataBaseManager.closeConnection();
+        
+        return studentList;
+    }
+
+    @Override
+    public Student searchStudentbyRegistrationTag(String registrationTag) throws SQLException {
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(SEARCH_STUDENT_BY_REGISTRATION_TAG);
+
+        statement.setString(1,registrationTag);
+
+        ResultSet studentResult = statement.executeQuery();
+        Student student = new Student();
+        
+        if(studentResult.next()){
+        
+        student.setEMail(studentResult.getString("correo"));
+        student.setName(studentResult.getString("nombre"));
+        student.setLastName(studentResult.getString("apellido"));
+        student.setRegistrationTag(studentResult.getString("matricula"));
+        student.setId(studentResult.getInt("idUsuarioEstudiante"));
+        student.setStatus(studentResult.getInt("estado"));
+        } else {
+            student.setId(ERROR);
+        }
+        DataBaseManager.closeConnection();
+
+        return student;
+    }
+    
+    @Override
+    public List<Student> getStudentsByProjectByStatus(int idProject, String estadoEstudiante) throws SQLException{
+        String query = "SELECT estudiante.idUsuarioEstudiante, nombre, apellido, correo_institucional FROM estudiante INNER JOIN estudiante_anteproyecto ON estudiante_anteproyecto.idEstudiante = estudiante.idUsuarioEstudiante WHERE idAnteproyecto = ? AND estadoEstudiante = ?";
+        
+        DataBaseManager.getConnection();
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
+        
+        statement.setInt(1, idProject);
+        statement.setString(2, estadoEstudiante);
+        
+        ResultSet studentResult = statement.executeQuery();
+        
+        List<Student> studentList = new ArrayList<>();
+        
+        while(studentResult.next()){
+            Student student = new Student();
+            student.setId(studentResult.getInt("idUsuarioEstudiante"));
+            student.setEMail(studentResult.getString("correo_institucional"));
+            student.setName(studentResult.getString("nombre"));
+            student.setLastName(studentResult.getString("apellido"));
+            studentList.add(student);
+        }
+        
+        DataBaseManager.closeConnection();
+        
         return studentList;
     }
 }

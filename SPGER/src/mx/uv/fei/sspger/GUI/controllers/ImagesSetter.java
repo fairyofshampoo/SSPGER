@@ -17,7 +17,8 @@ public class ImagesSetter {
     private static final Image PROJECTS_IMAGE = new Image(ImagesSetter.class.getResourceAsStream("/mx/uv/fei/sspger/GUI/resources/btnProjects.png"));
     private static final Image DELETE_IMAGE = new Image(ImagesSetter.class.getResourceAsStream("/mx/uv/fei/sspger/GUI/resources/biggarbagebin_121980.png"));
     private static final Image MODIFY_IMAGE = new Image(ImagesSetter.class.getResourceAsStream("/mx/uv/fei/sspger/GUI/resources/create_edit_modify_icon_176960.png"));
-
+    private static final Image RECEPTIONAL_WORK_IMAGE = new Image(ImagesSetter.class.getResourceAsStream("/mx/uv/fei/sspger/GUI/resources/btnReceptionalWork.png"));
+    
     public static Image getHomeImage() {
         return HOME_IMAGE;
     }
@@ -64,6 +65,10 @@ public class ImagesSetter {
 
     public static Image getModifyImage() {
         return MODIFY_IMAGE;
+    }
+    
+    public static Image getReceptionalWorkImage() {
+        return RECEPTIONAL_WORK_IMAGE;
     }
     
 }

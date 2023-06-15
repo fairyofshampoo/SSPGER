@@ -4,12 +4,14 @@ package mx.uv.fei.sspger.logic;
 public class ReceptionalWork {
     private int idReceptionalWork;
     private int idFile;
+    private int idProject;
     private String name;
     private String description;
     private String modality;
+    private String results;
     private int space;
     private String state;
-    private int idProject;
+    
 
     public int getIdReceptionalWork() {
         return idReceptionalWork;
@@ -67,6 +69,14 @@ public class ReceptionalWork {
         this.state = state;
     }
 
+    public String getResults() {
+        return results;
+    }
+
+    public void setResults(String results) {
+        this.results = results;
+    }
+        
     public int getIdProject() {
         return idProject;
     }

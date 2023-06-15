@@ -35,20 +35,6 @@ public class ProfessorDAOTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of addProfessor method, of class ProfessorDAO.
-     */
-    @Test
-    public void testAddProfessor() throws Exception {
-        System.out.println("addProfessor");
-        Professor professor = null;
-        ProfessorDAO instance = new ProfessorDAO();
-        int expResult = 0;
-        int result = instance.addProfessor(professor);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of getProfessor method, of class ProfessorDAO.
@@ -74,37 +60,6 @@ public class ProfessorDAOTest {
         ProfessorDAO instance = new ProfessorDAO();
         List<Professor> expResult = null;
         List<Professor> result = instance.getAllProfessors();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of updateProfessor method, of class ProfessorDAO.
-     */
-    @Test
-    public void testUpdateProfessor() throws Exception {
-        System.out.println("updateProfessor");
-        String email = "";
-        Professor professor = null;
-        ProfessorDAO instance = new ProfessorDAO();
-        int expResult = 0;
-        int result = instance.updateProfessor(email, professor);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of deleteProfessor method, of class ProfessorDAO.
-     */
-    @Test
-    public void testDeleteProfessor() throws Exception {
-        System.out.println("deleteProfessor");
-        String email = "";
-        ProfessorDAO instance = new ProfessorDAO();
-        int expResult = 0;
-        int result = instance.deleteProfessor(email);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

@@ -17,19 +17,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import mx.uv.fei.sspger.GUI.AlertMessage;
-import mx.uv.fei.sspger.GUI.DialogGenerator;
-import mx.uv.fei.sspger.GUI.MainApplication;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Assignment;
 import mx.uv.fei.sspger.logic.DAO.AssignmentDAO;
+import mx.uv.fei.sspger.logic.DAO.ReceptionalWorkDAO;
 import mx.uv.fei.sspger.logic.Professor;
-import mx.uv.fei.sspger.logic.Project;
+import mx.uv.fei.sspger.logic.ReceptionalWork;
 import mx.uv.fei.sspger.logic.Status;
 
 
 public class RegisterAssignmentController implements Initializable {
     public static Professor professor;
-    public static Project project;
+    private ReceptionalWork receptionalWork;
+    public static int idReceptionalWork;
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     
     @FXML
@@ -61,14 +61,27 @@ public class RegisterAssignmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lblProyectName.setText("Anteproyecto: " + project.getName());
         
-    }     
+        try{
+            getReceptionalWork();
+            lblProyectName.setText("Anteproyecto: " + receptionalWork.getName());
+        } catch (SQLException sqlException){
+            //Logger
+            DialogGenerator.getDialog(new AlertMessage (
+                    "Problema en la conexion a la base de datos.",
+                    Status.FATAL));
+        }
+    }
+    
+    private void getReceptionalWork()throws SQLException{
+        ReceptionalWorkDAO receptionalWorkDao = new ReceptionalWorkDAO(); 
+        receptionalWork = receptionalWorkDao.getRecepetionalWorkById(idReceptionalWork);
+    }
     
     @FXML
     void cancelAssignmentCreation(ActionEvent event) throws IOException {
         if (isConfirmedExit()){
-            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ProjectAssignments");
+            SPGER.setRoot("/mx/uv/fei/sspger/GUI/ProjectAssignments");
         }
     }
 
@@ -89,7 +102,7 @@ public class RegisterAssignmentController implements Initializable {
             //ViewAssignment(SetAssignmentId);
             
             try{
-                if(assignmentDao.registerAssignment(assignment, professor.getId(), project.getIdProject()) == 1){
+                if(assignmentDao.registerAssignment(assignment, professor.getId(), idReceptionalWork) == 1){
                     //MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ViewCourse");
                     
                     DialogGenerator.getDialog(new AlertMessage (
@@ -129,9 +142,17 @@ public class RegisterAssignmentController implements Initializable {
             result = false;
             lblMissingStartDate.setVisible(true);
         }
-        if(result && startDate.isAfter(deadline)){
+        if(startDate.isAfter(deadline)){
             result = false;
-            //lbl
+            DialogGenerator.getDialog(new AlertMessage (
+                        "La fecha de inicio debe ir antes del fin de la actividad.",
+                        Status.ERROR));
+        }
+        if(LocalDate.now().isAfter(startDate)){
+            result = false;
+            DialogGenerator.getDialog(new AlertMessage (
+                        "La fecha de inicio debe ir despues de la fecha actual.",
+                        Status.ERROR));
         }
         
         return result;
@@ -143,7 +164,7 @@ public class RegisterAssignmentController implements Initializable {
         assignment.setStartDate(setDate(dtpStartDate));
         assignment.setDeadline(setDate(dtpDeadline));
         assignment.setProfessorId(professor.getId());
-        assignment.setIdProject(project.getIdProject());
+        assignment.setIdProject(idReceptionalWork);
     }
     
     private java.sql.Date setDate(DatePicker datePicker){

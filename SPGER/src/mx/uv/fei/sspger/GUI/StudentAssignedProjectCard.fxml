@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vCard" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.StudentAssignedProjectCardController">
+   <children>
+      <ImageView fitHeight="55.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/userIcon.png" />
+         </image>
+      </ImageView>
+      <HBox alignment="CENTER" prefHeight="22.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="lblStudentName" text="nombre estudiante" />
+         </children>
+      </HBox>
+      <Label fx:id="lblStudentId" text="Matrícula" />
+      <HBox alignment="CENTER" prefHeight="14.0" prefWidth="200.0">
+         <children>
+            <Label text="Avances entregados: ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTotalAssignmentsSended" text="1" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="17.0" prefWidth="200.0">
+         <children>
+            <Label text="Total de avances: ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTotalAssignments" text="1" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="17.0" prefWidth="200.0">
+         <children>
+            <Label text="Periodo: ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblSchoolPeriod" text="periodo" />
+         </children>
+      </HBox>
+      <Label fx:id="lblStudentStatus" text="ACEPTADO" />
+   </children>
+</VBox>

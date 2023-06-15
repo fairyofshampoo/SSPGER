@@ -18,6 +18,7 @@ public class SubmissionManagerDAO implements ISubmissionManager{
     private final String ADD_FILE_QUERY = "insert into archivo_entregable "
             + "(nombre, ruta, extension) values (?, ?, ?)";
     private final String ADD_SUBMISSION_TO_ASIGNMENT = "UPDATE asignacion SET idAvance = ? WHERE idAsignacion = ?";
+    private final String GET_SUBMISSION_QUERY = "SELECT * FROM avance WHERE idAvance = ?";
     private final String GET_SUBMISSION_COUNT_PER_RECEPTIONAL_WORK = "SELECT COUNT(*) AS submissionCount FROM asignacion WHERE idTrabajoRecepcional = ? AND idAvance IS NOT NULL";
     
     @Override
@@ -76,6 +77,27 @@ public class SubmissionManagerDAO implements ISubmissionManager{
     @Override
     public int modifySubmission(Submission submission, int idSubmission) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    @Override
+    public Submission getSubmissionById(int idSubmission) throws SQLException {
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_SUBMISSION_QUERY);
+        
+        statement.setInt(1, idSubmission);
+        
+        ResultSet submissionResult = statement.executeQuery();
+        Submission submission = new Submission();
+               
+        if (submissionResult.next()){
+            submission.setId(submissionResult.getInt("idavance"));
+            submission.setDeliveryDate(submissionResult.getDate("fechaEntrega"));
+            submission.setDescription(submissionResult.getString("descripcion"));
+            submission.setIdDeliverableFile(submissionResult.getInt("idArchivoAvance"));
+        }
+        
+        DataBaseManager.closeConnection();
+        
+        return submission;
     }
 
     @Override

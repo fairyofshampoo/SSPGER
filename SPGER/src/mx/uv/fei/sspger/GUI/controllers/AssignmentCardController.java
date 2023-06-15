@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import mx.uv.fei.sspger.GUI.MainApplication;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Assignment;
 
 
@@ -31,12 +31,7 @@ public class AssignmentCardController {
     @FXML
     private void viewAssignmentDetails(ActionEvent event) {
         StudentAdvanceController.assignmentId = assignmentId;
-        
-        try{
-            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/StudentAdvance");
-        } catch (IOException ioException){
-            Logger.getLogger(AssignmentCardController.class.getName()).log(Level.SEVERE, null, ioException);
-        }
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/StudentAdvance");
     }
     
     public void setAssignmentCard(Assignment assignment){

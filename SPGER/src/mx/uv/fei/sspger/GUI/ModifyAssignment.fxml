@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="mx.uv.fei.sspger.GUI.ModifyAssignmentController">
+<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.ModifyAssignmentController">
     <children>
       <Label layoutX="76.0" layoutY="64.0" prefHeight="71.0" prefWidth="461.0" text="Asignación de avances">
          <font>
@@ -22,24 +22,24 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtAssignmentTitle" layoutX="76.0" layoutY="204.0" prefHeight="25.0" prefWidth="403.0" promptText="Ingrese un titulo" style="-fx-background-color: #F6F6F6;">
+      <TextField fx:id="txtAssignmentTitle" layoutX="76.0" layoutY="204.0" onKeyTyped="#setMissingAssignmentTitleInvisible" prefHeight="25.0" prefWidth="403.0" promptText="Ingrese un titulo">
          <font>
             <Font size="14.0" />
          </font></TextField>
-      <DatePicker fx:id="dtpStartDate" layoutX="548.0" layoutY="202.0" prefHeight="29.0" prefWidth="175.0" promptText="Fecha de inicio" style="-fx-background-color: #F6F6F6;" />
-      <DatePicker fx:id="dtpDeadline" layoutX="548.0" layoutY="262.0" prefHeight="29.0" prefWidth="175.0" promptText="Fecha de fin" style="-fx-background-color: #F6F6F6;" />
-      <Button layoutX="50.0" layoutY="537.0" mnemonicParsing="false" onAction="#updateAssignment" prefHeight="35.0" prefWidth="137.0" text="Modificar">
+      <DatePicker fx:id="dtpStartDate" layoutX="548.0" layoutY="202.0" onAction="#setMissingStartDateInvisible" prefHeight="29.0" prefWidth="175.0" promptText="Fecha de inicio" />
+      <DatePicker fx:id="dtpDeadline" layoutX="548.0" layoutY="262.0" onAction="#setMissingDeadlineInvisible" prefHeight="29.0" prefWidth="175.0" promptText="Fecha de fin" />
+      <Button layoutX="50.0" layoutY="537.0" mnemonicParsing="false" onAction="#updateAssignment" prefHeight="35.0" prefWidth="137.0" style="-fx-background-radius: 20px;" text="Modificar">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="596.0" layoutY="537.0" mnemonicParsing="false" onAction="#cancelAssignmentCreation" prefHeight="35.0" prefWidth="137.0" text="Cancelar">
+      <Button layoutX="596.0" layoutY="537.0" mnemonicParsing="false" onAction="#cancelAssignmentCreation" prefHeight="35.0" prefWidth="137.0" style="-fx-background-radius: 20px;" text="Cancelar">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
       <Label fx:id="lblRemainingCharacters" layoutX="76.0" layoutY="507.0" text="Caracteres disponibles: " textFill="#aaa9a9" />
-      <TextArea fx:id="txtAssignmentDescription" layoutX="76.0" layoutY="253.0" onKeyTyped="#remainingCharactersInDescription" prefHeight="249.0" prefWidth="403.0" promptText="Ingrese una descripcion..." style="-fx-background-color: #F6F6F6;" wrapText="true">
+      <TextArea fx:id="txtAssignmentDescription" layoutX="76.0" layoutY="253.0" onKeyTyped="#remainingCharactersInDescription" prefHeight="249.0" prefWidth="403.0" promptText="Ingrese una descripcion..." wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
@@ -59,7 +59,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="444.0" layoutY="537.0" mnemonicParsing="false" onAction="#removeAssignment" prefHeight="39.0" prefWidth="137.0" text="Eliminar">
+      <Button layoutX="444.0" layoutY="537.0" mnemonicParsing="false" onAction="#removeAssignment" prefHeight="39.0" prefWidth="137.0" style="-fx-background-radius: 20px;" text="Eliminar">
          <font>
             <Font size="18.0" />
          </font>

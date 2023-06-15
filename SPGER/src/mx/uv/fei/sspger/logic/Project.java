@@ -1,22 +1,93 @@
 package mx.uv.fei.sspger.logic;
 
+import java.util.List;
+
 
 public class Project {
     private int idProject;
-    private String idLGAC;
-    private String idAcademicBody;
-    private String idReceptionalWork;
     private String name;
     private String description;
     private String expectedResults;
     private int duration;
+    private int spaces;
     private String notes;
     private String requeriments;
     private String bibliography;
     private String status;
+    private String modality;
+    private String receptionalWorkDescription;
+    private String pladeaFeiName;
+    private Professor director;
+    private List <Professor> codirectors;
+    private AcademicBodyMember responsible;
+    private AcademicBody academicBody;
+    private List<Lgac> lgac;
+     private List<Student> student;
     
-    public Project(){
-        
+    public Project(){}
+
+    public String getReceptionalWorkDescription() {
+        return receptionalWorkDescription;
+    }
+
+    public void setReceptionalWorkDescription(String receptionalWorkDescription) {
+        this.receptionalWorkDescription = receptionalWorkDescription;
+    }
+
+    public String getPladeaFeiName() {
+        return pladeaFeiName;
+    }
+
+    public void setPladeaFeiName(String pladeaFeiName) {
+        this.pladeaFeiName = pladeaFeiName;
+    }
+
+    public Professor getDirector() {
+        return director;
+    }
+
+    public void setDirector(Professor director) {
+        this.director = director;
+    }
+
+    public List<Professor> getCodirectors() {
+        return codirectors;
+    }
+
+    public void setCodirectors(List<Professor> codirectors) {
+        this.codirectors = codirectors;
+    }
+
+    public AcademicBodyMember getResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(AcademicBodyMember responsible) {
+        this.responsible = responsible;
+    }
+
+    public AcademicBody getAcademicBody() {
+        return academicBody;
+    }
+
+    public void setAcademicBody(AcademicBody academicBody) {
+        this.academicBody = academicBody;
+    }
+
+    public List<Lgac> getLgac() {
+        return lgac;
+    }
+
+    public void setLgac(List<Lgac> lgac) {
+        this.lgac = lgac;
+    }
+
+    public List<Student> getStudent() {
+        return student;
+    }
+
+    public void setStudent(List<Student> student) {
+        this.student = student;
     }
 
     public int getIdProject() {
@@ -25,30 +96,6 @@ public class Project {
 
     public void setIdProject(int idProject) {
         this.idProject = idProject;
-    }
-
-    public String getIdLGAC() {
-        return idLGAC;
-    }
-
-    public void setIdLGAC(String idLGAC) {
-        this.idLGAC = idLGAC;
-    }
-
-    public String getIdAcademicBody() {
-        return idAcademicBody;
-    }
-
-    public void setIdAcademicBody(String idAcademicBody) {
-        this.idAcademicBody = idAcademicBody;
-    }
-
-    public String getIdReceptionalWork() {
-        return idReceptionalWork;
-    }
-
-    public void setIdReceptionalWork(String idReceptionalWork) {
-        this.idReceptionalWork = idReceptionalWork;
     }
 
     public String getName() {
@@ -113,6 +160,22 @@ public class Project {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    
+        public int getSpaces() {
+        return spaces;
+    }
+
+    public void setSpaces(int spaces) {
+        this.spaces = spaces;
+    }
+
+    public String getModality() {
+        return modality;
+    }
+
+    public void setModality(String modality) {
+        this.modality = modality;
     }
 
 }

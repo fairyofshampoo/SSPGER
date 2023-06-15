@@ -10,7 +10,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import mx.uv.fei.sspger.GUI.MainApplication;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.DAO.ReceptionalWorkDAO;
 import mx.uv.fei.sspger.logic.ReceptionalWork;
 
@@ -45,12 +45,8 @@ public class ReceptionalWorkCardController {
 
     @FXML
     void openReceptionalWorkWindow(MouseEvent event) {
-        try {
-            ViewReceptionalWorkController.idReceptionalWork = idReceptionalWork;
-            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ViewReceptionalWork");
-        } catch (IOException ioException) {
-            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ioException);
-        }
+        ViewReceptionalWorkController.idReceptionalWork = idReceptionalWork;
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/ViewReceptionalWork");
     }
     
     public void setReceptionalWorkCardController (int idReceptionalWork) throws SQLException{

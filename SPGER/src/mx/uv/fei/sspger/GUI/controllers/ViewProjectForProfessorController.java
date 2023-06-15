@@ -19,7 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import mx.uv.fei.sspger.GUI.MainApplication;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Assignment;
 import mx.uv.fei.sspger.logic.DAO.AssignmentDAO;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
@@ -142,11 +142,7 @@ public class ViewProjectForProfessorController implements Initializable {
     
     @FXML
     private void goBack(MouseEvent event) {
-        try {
-            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ProfessorCourseView");
-        } catch (IOException ex) {
-            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/ProfessorCourseView");
     }
 
     @FXML

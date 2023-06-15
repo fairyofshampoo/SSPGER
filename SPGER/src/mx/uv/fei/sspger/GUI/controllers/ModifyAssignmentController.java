@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package mx.uv.fei.sspger.GUI.controllers;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,25 +21,20 @@ import mx.uv.fei.sspger.GUI.controllers.FieldValidation;
 import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import mx.uv.fei.sspger.GUI.AlertMessage;
-import mx.uv.fei.sspger.GUI.DialogGenerator;
-import mx.uv.fei.sspger.GUI.MainApplication;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Assignment;
 import mx.uv.fei.sspger.logic.DAO.AssignmentDAO;
 import mx.uv.fei.sspger.logic.Professor;
 import mx.uv.fei.sspger.logic.Project;
 import mx.uv.fei.sspger.logic.Status;
 
-/**
- * FXML Controller class
- *
- * @author mario
- */
+
 public class ModifyAssignmentController implements Initializable {
     
     public static Professor professor;
     public static Project project;
-    public static Assignment assignment;
+    public static int idAssignment;
+    private Assignment assignment;
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     
     @FXML
@@ -74,6 +66,14 @@ public class ModifyAssignmentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        AssignmentDAO assignmentDao = new AssignmentDAO();
+        
+        try{
+            assignment = assignmentDao.getAssignmentById(idAssignment);
+        } catch (SQLException sqlException){
+            Logger.getLogger(ModifyAssignmentController.class.getName()).log(Level.SEVERE, null, sqlException);
+        }
+        
         lblProyectName.setText("Anteproyecto: " + project.getName());
         txtAssignmentDescription.setText(assignment.getDescription());
         txtAssignmentTitle.setText(assignment.getTitle());
@@ -92,23 +92,22 @@ public class ModifyAssignmentController implements Initializable {
     @FXML
     void cancelAssignmentCreation(ActionEvent event) throws IOException {
         if (isConfirmedExit()){
-            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ProjectAssignments");
+            SPGER.setRoot("/mx/uv/fei/sspger/GUI/ViewReceptionalWork");
         }
     }
 
     private boolean isConfirmedExit() {
         Optional<ButtonType> response = DialogGenerator.getConfirmationDialog(
-                "¿Deseas salir de agregar curso?");
+                "¿Deseas salir de modificar asignación?");
         return (response.get() == DialogGenerator.BUTTON_YES);
     }
     
     @FXML
     void updateAssignment(ActionEvent event) throws SQLException{
         if(validFields()){
-            Assignment assignment = new Assignment();
             AssignmentDAO assignmentDao = new AssignmentDAO();
             
-            setAssignment(assignment);
+            setAssignment();
             //ViewAssignment(SetAssignmentId);
             
             try{
@@ -116,7 +115,7 @@ public class ModifyAssignmentController implements Initializable {
                     //MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ViewCourse");
                     
                     DialogGenerator.getDialog(new AlertMessage (
-                        "Asignación creada exitosamente.",
+                        "Asignación modificada exitosamente.",
                         Status.SUCCESS));
                 } else {
                     DialogGenerator.getDialog(new AlertMessage (
@@ -154,15 +153,28 @@ public class ModifyAssignmentController implements Initializable {
             result = false;
             lblMissingStartDate.setVisible(true);
         }
-        if(result && startDate.isAfter(deadline)){
+        if(startDate != null && deadline != null){
+            
+            if(startDate.isAfter(deadline)){
+                result = false;
+                DialogGenerator.getDialog(new AlertMessage (
+                    "La fecha de inicio debe ir antes del fin de la actividad.",
+                    Status.ERROR));
+                }
+            if(LocalDate.now().isAfter(startDate)){
+                result = false;
+                DialogGenerator.getDialog(new AlertMessage (
+                    "La fecha de inicio debe ir despues de la fecha actual.",
+                    Status.ERROR));
+            } 
+        } else {
             result = false;
-            //lbl
         }
         
         return result;
     }
     
-    private void setAssignment(Assignment assignment){
+    private void setAssignment(){
         assignment.setTitle(txtAssignmentTitle.getText());
         assignment.setDescription(txtAssignmentDescription.getText());
         assignment.setStartDate(setDate(dtpStartDate));
@@ -188,9 +200,23 @@ public class ModifyAssignmentController implements Initializable {
         }
     }
     
+    @FXML
+    private void setMissingAssignmentTitleInvisible (KeyEvent keyEvent){
+        lblMissingAssignmentTitle.setVisible(false);
+    }
+    
+    @FXML
+    private void setMissingStartDateInvisible (ActionEvent event){
+        lblMissingStartDate.setVisible(false);
+    }
+    
+    @FXML
+    private void setMissingDeadlineInvisible (ActionEvent event){
+        lblMissingDeadline.setVisible(false);
+    }
+    
       @FXML
     void removeAssignment(ActionEvent event) {
-        Assignment assignment = new Assignment();
         AssignmentDAO assignmentDao = new AssignmentDAO();
         
         try{
@@ -198,7 +224,7 @@ public class ModifyAssignmentController implements Initializable {
                //MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ViewCourse");
                 
                 DialogGenerator.getDialog(new AlertMessage (
-                    "Asignación creada exitosamente.",
+                    "Asignación eliminada exitosamente.",
                     Status.SUCCESS));
             } else {
                 DialogGenerator.getDialog(new AlertMessage (

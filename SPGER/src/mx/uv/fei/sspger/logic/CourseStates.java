@@ -9,7 +9,7 @@ public enum CourseStates{
     
     AVAILABLE("Disponible"), 
     ENDED("Finalizado"),
-    UNAVAILABLE("No disponible");
+    UNAVAILABLE("Por iniciar");
 
     private final String courseState;
 

@@ -29,10 +29,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
-import mx.uv.fei.sspger.GUI.AlertMessage;
 import mx.uv.fei.sspger.GUI.ComboBoxProfessor;
-import mx.uv.fei.sspger.GUI.DialogGenerator;
-import mx.uv.fei.sspger.GUI.MainApplication;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Course;
 import mx.uv.fei.sspger.logic.CourseName;
 import mx.uv.fei.sspger.logic.CourseStates;
@@ -286,7 +284,7 @@ public class ModifyCourseController implements Initializable{
     @FXML
     void cancelCourseModification(ActionEvent event) throws IOException {
         if (isConfirmedExit()){
-            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/CourseManagement");
+            SPGER.setRoot("/mx/uv/fei/sspger/GUI/CourseManagement");
         }
     }
 
@@ -308,8 +306,8 @@ public class ModifyCourseController implements Initializable{
             try{
                 modifyCourse(course, courseDao);
             
-                MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ViewCourse");
-            } catch (SQLException | IOException exception){
+                SPGER.setRoot("/mx/uv/fei/sspger/GUI/ViewCourse");
+            } catch (SQLException exception){
                 DialogGenerator.getDialog(new AlertMessage (
                     "Hubo un problema al registrar el sistema",
                     Status.FATAL));

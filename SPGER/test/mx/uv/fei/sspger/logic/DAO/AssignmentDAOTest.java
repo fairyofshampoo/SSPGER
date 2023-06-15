@@ -56,10 +56,10 @@ public class AssignmentDAOTest {
     @Test
     public void testGetAssignmentsPerProject() throws Exception {
         System.out.println("getAssignmentsPerProject");
-        int idProject = 1;
+        int idReceptionalWork = 1;
         AssignmentDAO instance = new AssignmentDAO();
         List<Assignment> expResult = null;
-        List<Assignment> result = instance.getAssignmentsPerProject(idProject);
+        List<Assignment> result = instance.getAssignmentsPerReceptionalWork(idReceptionalWork);
         assertEquals(expResult, result);
     }
 
@@ -75,10 +75,10 @@ public class AssignmentDAOTest {
         Project project = new Project();
         AssignmentDAO assignmentDao = new AssignmentDAO();
         
-        assignment = assignmentDao.getAssignmentById(9);
+        assignment = assignmentDao.getAssignmentById(15);
                 
-        project.setIdProject(1);
-        project.setName("Control Estadístico de Procesos en el desarrollo de");
+        assignment.setDescription("Test para ver si el DAO funciona.");
+        assignment.setTitle("Titulo del test");
         
         professor.setId(1);    
         
@@ -96,16 +96,10 @@ public class AssignmentDAOTest {
         System.out.println("deleteAssignment");
         Assignment assignment = new Assignment();
         
-        Professor professor = new Professor();
-        Project project = new Project();;
         AssignmentDAO assignmentDao = new AssignmentDAO();
         
-        assignment = assignmentDao.getAssignmentById(9);
-                
-        project.setIdProject(1);
-        project.setName("Control Estadístico de Procesos en el desarrollo de");
-        
-        professor.setId(1);    
+        assignment = assignmentDao.getAssignmentById(17);
+          
         AssignmentDAO instance = new AssignmentDAO();
         int expResult = 1;
         int result = instance.deleteAssignment(assignment);

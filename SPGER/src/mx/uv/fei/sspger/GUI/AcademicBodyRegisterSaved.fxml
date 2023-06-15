@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.AcademicBodyRegisterSavedController">
+   <children>
+      <Pane layoutY="-2.0" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
+         <children>
+            <Label layoutX="213.0" layoutY="12.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <HBox layoutX="14.0" layoutY="44.0" prefHeight="35.0" prefWidth="399.0" />
+         </children>
+      </Pane>
+      <HBox layoutY="128.0" prefHeight="473.0" prefWidth="800.0">
+         <children>
+            <VBox prefHeight="513.0" prefWidth="785.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="1.0" prefWidth="405.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="405.0">
+                           <children>
+                              <Pane prefHeight="50.0" prefWidth="30.0" />
+                              <Label text="Clave: ">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblAcademicBodyKeyData" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="405.0">
+                     <children>
+                        <Pane prefHeight="50.0" prefWidth="30.0" />
+                        <Label text="Nombre: ">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblAcademicBodyNameData" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="152.0" prefWidth="405.0">
+                     <children>
+                        <Pane prefHeight="50.0" prefWidth="30.0" />
+                        <Label text="Responsable: ">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblAcademicBodyResponsible" />
+                     </children>
+                  </HBox>
+                  <Pane prefHeight="423.0" prefWidth="405.0">
+                     <children>
+                        <HBox alignment="CENTER" layoutX="15.0" layoutY="251.0" prefHeight="63.0" prefWidth="375.0">
+                           <children>
+                              <Button fx:id="btnModify" mnemonicParsing="false" onAction="#modifyAcademicBody" prefHeight="25.0" prefWidth="110.0" text="Modificar">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Button>
+                              <Pane prefHeight="100.0" prefWidth="100.0" />
+                              <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteAcademicBody" prefHeight="25.0" prefWidth="110.0" text="Eliminar">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+            <VBox fx:id="vboxAcademicBodyMembersContent" prefHeight="473.0" prefWidth="777.0">
+               <children>
+                  <Label text="Miembros:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutY="37.0" prefHeight="63.0" prefWidth="800.0">
+         <children>
+            <Pane prefHeight="63.0" prefWidth="71.0" />
+            <ImageView fx:id="btnGoBack" fitHeight="45.0" fitWidth="45.0" onMouseClicked="#goBackAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/btnBack.png" />
+               </image>
+            </ImageView>
+            <Pane prefHeight="63.0" prefWidth="161.0" />
+            <Label prefHeight="41.0" prefWidth="222.0" text="Cuerpo Académico">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

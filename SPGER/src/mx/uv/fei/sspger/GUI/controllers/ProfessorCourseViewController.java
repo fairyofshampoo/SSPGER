@@ -22,9 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import mx.uv.fei.sspger.GUI.AlertMessage;
-import mx.uv.fei.sspger.GUI.DialogGenerator;
-import mx.uv.fei.sspger.GUI.MainApplication;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Course;
 import mx.uv.fei.sspger.logic.DAO.SemesterDAO;
 import mx.uv.fei.sspger.logic.DAO.StudentDAO;
@@ -34,10 +32,16 @@ import mx.uv.fei.sspger.logic.Student;
 
 
 public class ProfessorCourseViewController implements Initializable {
+    //private
     public static Course course;
+    //public static int idCourse; 
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private int column = 0;
     private int row = 0;
+    
+    //SETTER
+    
+    //DAO buscar el curso con idCourse
     
     @FXML
     private Label lblBlock;
@@ -137,13 +141,9 @@ public class ProfessorCourseViewController implements Initializable {
     
     @FXML
     private void generateCourseReport(ActionEvent event) {
-        CourseReportController.courseId = course.getCourseId();
+        CourseReportController.setCourseId(course.getCourseId());
         
-        try {
-            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/CourseReport");
-        } catch (IOException ioException){
-            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ioException);
-        }
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/CourseReport");
     }
 
     @FXML
@@ -151,10 +151,6 @@ public class ProfessorCourseViewController implements Initializable {
 
         imgReturn.setCursor(Cursor.DEFAULT);
         
-        try {
-            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ProfessorCourseManager");
-        } catch (IOException ioException) {
-            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ioException);
-        }
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/ProfessorCourseManager");
     }
 }

@@ -12,7 +12,7 @@ public class Assignment {
     private Date deadline;
     private Date publicationDate;
     private int professorId;
-    private int idAdvancement;
+    private int idSubmission;
     private int idProject;
     
     public Assignment () {}
@@ -33,12 +33,12 @@ public class Assignment {
         this.professorId = professorId;
     }
 
-    public int getIdAdvancement() {
-        return idAdvancement;
+    public int getIdSubmission() {
+        return idSubmission;
     }
 
-    public void setIdAdvancement(int idAdvancement) {
-        this.idAdvancement = idAdvancement;
+    public void setIdSubmission(int idAdvancement) {
+        this.idSubmission = idAdvancement;
     }
 
     public int getIdProject() {

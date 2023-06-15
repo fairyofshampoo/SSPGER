@@ -12,9 +12,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import mx.uv.fei.sspger.GUI.AlertMessage;
-import mx.uv.fei.sspger.GUI.DialogGenerator;
-import mx.uv.fei.sspger.GUI.MainApplication;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Course;
 import mx.uv.fei.sspger.logic.DAO.SemesterDAO;
 import mx.uv.fei.sspger.logic.Semester;
@@ -25,6 +23,7 @@ public class CourseCardController {
     
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private Course courseCard;
+    private int idCourse;
     
     @FXML
     private AnchorPane apCourseCard;
@@ -46,12 +45,8 @@ public class CourseCardController {
     
     @FXML
     void openProfessorCourseView(MouseEvent event) {
-        try {
-            ProfessorCourseViewController.course = courseCard;
-            MainApplication.setRoot("/mx/uv/fei/sspger/GUI/ProfessorCourseView");
-        } catch (IOException ioException) {
-            Logger.getLogger(ProfessorCourseViewController.class.getName()).log(Level.SEVERE, null, ioException);
-        }
+        ProfessorCourseViewController.course = courseCard;
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/ProfessorCourseView");
     }
     
     @FXML
