@@ -15,7 +15,7 @@
     <children>
       <Pane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Label layoutX="442.0" layoutY="94.0" prefHeight="62.0" prefWidth="271.0" text="Iniciar sesión">
+            <Label layoutX="445.0" layoutY="72.0" prefHeight="62.0" prefWidth="271.0" text="Iniciar sesión">
                <font>
                   <Font name="System Bold" size="42.0" />
                </font>
@@ -25,51 +25,52 @@
                   <Image url="@resources/login.jpg" />
                </image>
             </ImageView>
-            <TextField fx:id="txtEMail" layoutX="427.0" layoutY="222.0" onKeyTyped="#typingEMail" prefHeight="30.0" prefWidth="325.0">
+            <TextField fx:id="txtEMail" layoutX="418.0" layoutY="163.0" onKeyTyped="#typingEMail" prefHeight="30.0" prefWidth="325.0">
                <font>
                   <Font size="14.0" />
                </font></TextField>
-            <PasswordField fx:id="txtPassword" layoutX="427.0" layoutY="350.0" onKeyTyped="#typingPassword" prefHeight="30.0" prefWidth="325.0">
+            <PasswordField fx:id="txtPassword" layoutX="417.0" layoutY="309.0" onKeyTyped="#typingPassword" prefHeight="30.0" prefWidth="325.0">
                <font>
                   <Font size="14.0" />
                </font></PasswordField>
-            <Label layoutX="427.0" layoutY="185.0" prefHeight="27.0" prefWidth="191.0" text="Correo electrónico" textFill="#437f80">
+            <Label layoutX="421.0" layoutY="136.0" prefHeight="27.0" prefWidth="191.0" text="Correo electrónico" textFill="#437f80">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="427.0" layoutY="315.0" prefHeight="17.0" prefWidth="142.0" text="Contraseña" textFill="#437f80">
+            <Label layoutX="418.0" layoutY="282.0" prefHeight="17.0" prefWidth="142.0" text="Contraseña" textFill="#437f80">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="414.0" layoutY="511.0" prefHeight="19.0" prefWidth="344.0" text="* Si ha olvidado la contraseña, cóntacte al administrador." textFill="#2f5568">
+            <Label layoutX="15.0" layoutY="492.0" prefHeight="19.0" prefWidth="344.0" text="* Si ha olvidado la contraseña, cóntacte al administrador." textFill="#2f5568">
                <font>
                   <Font name="System Italic" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="btnLogin" layoutX="522.0" layoutY="427.0" mnemonicParsing="false" onMouseClicked="#logIn" prefHeight="25.0" prefWidth="111.0" text="Ingresar" textFill="#2f5568">
+            <Button fx:id="btnLogin" layoutX="517.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#logIn" prefHeight="25.0" prefWidth="111.0" text="Ingresar" textFill="#2f5568">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Button>
-            <Separator layoutX="383.0" layoutY="75.0" orientation="VERTICAL" prefHeight="473.0" prefWidth="8.0" />
-            <Label fx:id="lblWrongEMail" layoutX="428.0" layoutY="261.0" prefHeight="17.0" prefWidth="325.0" text="No se encuentra usuario con ese correo" textFill="RED" visible="false" />
-            <Label fx:id="lblWrongPassword" layoutX="427.0" layoutY="391.0" prefHeight="17.0" prefWidth="325.0" text="Contraseña incorrecta" textFill="RED" visible="false" />
+            <Separator layoutX="369.0" layoutY="76.0" orientation="VERTICAL" prefHeight="473.0" prefWidth="8.0" />
+            <Label fx:id="lblWrongEMail" alignment="TOP_LEFT" layoutX="383.0" layoutY="193.0" prefHeight="78.0" prefWidth="394.0" text="No se encuentra usuario con ese correo" textFill="RED" visible="false" wrapText="true">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
+            <Label fx:id="lblWrongPassword" alignment="TOP_LEFT" layoutX="383.0" layoutY="339.0" prefHeight="122.0" prefWidth="394.0" text="Contraseña incorrecta" textFill="RED" visible="false" wrapText="true">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
          </children>
       </Pane>
       <Pane layoutY="-1.0" prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #94BAA3;">
          <children>
-            <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

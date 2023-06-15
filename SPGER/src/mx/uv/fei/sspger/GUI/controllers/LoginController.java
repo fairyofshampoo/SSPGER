@@ -1,7 +1,6 @@
 package mx.uv.fei.sspger.GUI.controllers;
 
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -19,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.DAO.UserDAO;
 import mx.uv.fei.sspger.logic.Status;
+import mx.uv.fei.sspger.logic.User;
 import mx.uv.fei.sspger.logic.UserSession;
 import mx.uv.fei.sspger.logic.UserTypes;
 
@@ -49,18 +49,17 @@ public class LoginController implements Initializable {
 
     @FXML
     void logIn(MouseEvent event) {
-        if(verifyFields()){
-            UserDAO userDAO = new UserDAO();
-            try {
-                int userExistence = userDAO.login(txtEMail.getText(), txtPassword.getText());
-                continueLogin(userExistence == 1);
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                DialogGenerator.getDialog(new AlertMessage (
-                "Error de conexión a la base de datos",
-                Status.FATAL));
+        if(isAnyUserAvailable()){
+            if(verifyFields()){
+                UserDAO userDAO = new UserDAO();
+                try {
+                    int userExistence = userDAO.login(txtEMail.getText(), txtPassword.getText());
+                    continueLogin(userExistence == 1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    DialogGenerator.getDialog(new AlertMessage ("Error de conexión a la base de datos",Status.FATAL));
+                }
             }
-            
         }
     }
     
@@ -86,43 +85,26 @@ public class LoginController implements Initializable {
     
     private boolean verifyFields(){
         boolean validation = true;
-        if (!emailVerification()){
-            validation = false;
+        User user = new User();
+        try{
+            user.setEMail(txtEMail.getText());
         }
-        if(!passwordVerification()){
-            validation = false;
-        }
-        return validation;
-    }
-    
-    private boolean emailVerification(){
-        boolean validation = true;
-        
-        if(!FieldValidation.isEMailValid(txtEMail.getText())){
+        catch(IllegalArgumentException eMailException){
             lblWrongEMail.setVisible(true);
-            lblWrongEMail.setText("Correo inválido");
+            lblWrongEMail.setText("Correo inválido:\n" + eMailException.getMessage());
             validation = false;
         }
-        if (FieldValidation.isNullOrEmptyTxtField(txtEMail)){
-            lblWrongEMail.setVisible(true);
-            lblWrongEMail.setText("Campo de correo vacío");
-            validation = false;
+        finally{
+            try{
+                user.setPassword(txtPassword.getText());
+            }
+            catch(IllegalArgumentException passwordException){
+                lblWrongPassword.setVisible(true);
+                lblWrongPassword.setText("Contraseña inválida: \n" + passwordException.getMessage());
+                validation = false;
+            }
         }
-        return validation;
-    }
-    private boolean passwordVerification(){
-        boolean validation = true;
         
-        if(!FieldValidation.isPasswordValid(txtPassword.getText())){
-            lblWrongPassword.setVisible(true);
-            lblWrongPassword.setText("Contraseña inválida");
-            validation = false;
-        }
-        if(FieldValidation.isNullOrEmptyTxtField(txtPassword)){
-            lblWrongPassword.setVisible(true);
-            lblWrongPassword.setText("Campo de contraseña vacío");
-            validation = false;
-        }
         return validation;
     }
     
@@ -134,12 +116,14 @@ public class LoginController implements Initializable {
                 idUser = userDAO.isStudent(email);
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                DialogGenerator.getDialog(new AlertMessage ("Error de conexión con la base de datos",Status.ERROR));
             }
         }else{
             try {
                 idUser = userDAO.isProfessor(email);
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                DialogGenerator.getDialog(new AlertMessage ("Error de conexión con la base de datos",Status.ERROR));
             }
         }
         return idUser;
@@ -147,7 +131,7 @@ public class LoginController implements Initializable {
     }
     
     private String determinateUserType(String email){
-        String userType = "";
+        String userType = "Usuario";
         try {
             UserDAO userDAO = new UserDAO();
             if(userDAO.isStudent(email) != ERROR){
@@ -157,6 +141,7 @@ public class LoginController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            DialogGenerator.getDialog(new AlertMessage ("Error de conexión con la base de datos",Status.ERROR));
         }
         
         return userType;
@@ -169,6 +154,7 @@ public class LoginController implements Initializable {
             privileges = userDAO.professorPrivileges(idProfessor);
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            DialogGenerator.getDialog(new AlertMessage ("Error de conexión con la base de datos",Status.ERROR));
         }
         return privileges;
     }
@@ -183,32 +169,27 @@ public class LoginController implements Initializable {
         userSession.setUserId(idUser);
         if(userSession.getUserType().equals(PROFESSOR_TYPE.getDisplayName())){
             userSession.setPrivileges(getProfessorPrivileges(idUser));
-            try {
-                SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeProfessor.fxml");
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeProfessor.fxml");
         } else {
-            try {
-                SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeStudent.fxml");
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeStudent.fxml");
         }
     }
-    private void isAnyUserAvailable(){
+    private boolean isAnyUserAvailable(){
+        boolean userAvailable = false;
         try {
             UserDAO userDAO = new UserDAO();
-            int isAnyUser = userDAO.usersAvailables();
-            if(isAnyUser == ERROR){
-                DialogGenerator.getDialog(new AlertMessage (
-                        "No hay usuarios registrados para iniciar sesión",
-                        Status.WARNING));
+            if(!userDAO.usersAvailables()){
                 disableComponents();
+                DialogGenerator.getDialog(new AlertMessage ("No hay usuarios disponibles para iniciar sesión",Status.WARNING));
+            } else{
+                userAvailable = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            DialogGenerator.getDialog(new AlertMessage ("Error de conexión con la base de datos",Status.ERROR));
+            disableComponents();
         }
+        return userAvailable;
     }
     private void disableComponents(){
         txtEMail.setDisable(true);
@@ -219,7 +200,6 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         displayImages();
-        isAnyUserAvailable();
-    }    
+    }
     
 }
