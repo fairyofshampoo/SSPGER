@@ -1,7 +1,6 @@
 package mx.uv.fei.sspger.GUI.controllers;
 
 
-import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -14,13 +13,15 @@ import java.util.ResourceBundle;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.CheckBox;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import mx.uv.fei.sspger.GUI.SPGER;
-import mx.uv.fei.sspger.GUI.controllers.AlertMessage;
-import mx.uv.fei.sspger.GUI.controllers.DialogGenerator;
-import mx.uv.fei.sspger.GUI.controllers.FieldValidation;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
 import mx.uv.fei.sspger.logic.DAO.StudentDAO;
+import mx.uv.fei.sspger.logic.DAO.UserDAO;
 import mx.uv.fei.sspger.logic.UserTypes;
 import mx.uv.fei.sspger.logic.HonorificTitles;
 import mx.uv.fei.sspger.logic.Professor;
@@ -41,36 +42,6 @@ public class UserRegisterController implements Initializable {
 
     @FXML
     private ChoiceBox<String> cbxUserType;
-
-    @FXML
-    private Label lblAddUser;
-
-    @FXML
-    private Label lblEMail;
-
-    @FXML
-    private Label lblHonorificTitle;
-
-    @FXML
-    private Label lblIdUser;
-
-    @FXML
-    private Label lblInstruction;
-
-    @FXML
-    private Label lblLastName;
-
-    @FXML
-    private Label lblName;
-
-    @FXML
-    private Label lblPassword;
-
-    @FXML
-    private Label lblTitleSystem;
-
-    @FXML
-    private Label lblUserType;
 
     @FXML
     private TextField txtEMail;
@@ -109,91 +80,221 @@ public class UserRegisterController implements Initializable {
     private Label lblInvalidUserType;
     
     @FXML
-    void acceptButtonClick(ActionEvent event){
-        if(!isEmptyField()){
-                if("Estudiante".equals(cbxUserType.getValue())){
-                    studentRegister();
-                } else{
-                    professorRegister();
-                }
-        }
-    }
+    private CheckBox chkAdmin;
     
     @FXML
-    private void disableHonorificTitleSelection(MouseEvent event){
-        if("Estudiante".equals(cbxUserType.getValue())){
-            cbxHonorificTitle.setDisable(true);
+    private Label lblHonorificTitle;
+    
+    private final UserTypes STUDENT_TYPE = UserTypes.STUDENT;
+    private final UserTypes PROFESSOR_TYPE = UserTypes.PROFESSOR;
+    private final int ACTIVE = 1;
+    private final int SUCESSFUL_TRANSACTION = 2;
+    private final int NO_EMAIL_FOUND = 0;
+    
+    @FXML
+    void acceptButtonClick(ActionEvent event){
+        if(cbxUserType.getValue() != null){
+                registerUser(cbxUserType.getValue());
         }else{
-            cbxHonorificTitle.setDisable(false);
+            lblInvalidUserType.setVisible(true);
+            DialogGenerator.getDialog(new AlertMessage (
+                "No ha seleccionado tipo de usuario a registrar",
+                Status.WARNING));
         }
     }
     
-    private void professorRegister(){
-        Professor professor = new Professor();
-        ProfessorDAO professorDAO = new ProfessorDAO();
+    void registerUser(String userType){
+        if(STUDENT_TYPE.getDisplayName().equals(userType)){
+            studentSetFormData();
+        } else{
+            professorSetFormData();
+        }
+    }
+    
+    private void disableProfessorOptions(String userType){
+        if(STUDENT_TYPE.getDisplayName().equals(userType)){
+            cbxHonorificTitle.setVisible(false);
+            chkAdmin.setVisible(false);
+            lblHonorificTitle.setVisible(false);
+            
+        }if(PROFESSOR_TYPE.getDisplayName().equals(userType)){
+            cbxHonorificTitle.setVisible(true);
+            lblHonorificTitle.setVisible(true);
+            chkAdmin.setVisible(true);
+        }
+        lblInvalidUserType.setVisible(false);
+        lblInvalidHonorificTitle.setVisible(false);
         
-        try{
-            professor.setEMail(txtEMail.getText());
-            professor.setName(txtName.getText());
-            professor.setLastName(txtLastName.getText());
-            professor.setPassword(txtPassword.getText());
-            professor.setPersonalNumber(txtIdUser.getText());
-            professor.setHonorificTitle(cbxHonorificTitle.getValue());
-            professor.setEMail(txtEMail.getText());
-            professor.setPassword(txtPassword.getText());
-            professor.setStatus(1);
-            professor.setIsAdmin(0);
-                        
-            if(professorDAO.addProfessorTransaction(professor) == 1){
-                DialogGenerator.getDialog(new AlertMessage (
-                "Profesor registrado con éxito",
-                Status.SUCCESS));
-            }
-        } catch (SQLException ex){
-            Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
-    private void studentRegister(){
+    private boolean validateEMailDuplications(String email){
+        boolean validation = false;
+        UserDAO userDAO = new UserDAO();
         try {
-            Student student = new Student();
-            StudentDAO accessAccountDAO = new StudentDAO();
-            student.setEMail(txtEMail.getText());
-            student.setName(txtName.getText());
-            student.setLastName(txtLastName.getText());
-            student.setPassword(txtPassword.getText());
-            student.setRegistrationTag(txtIdUser.getText());
-            student.setEMail(txtEMail.getText());
-            student.setPassword(txtPassword.getText());
-                        
-            if(accessAccountDAO.addStudentTransaction(student) == 1){
+            if(userDAO.searchEmailDuplication(email) == NO_EMAIL_FOUND){
+                validation = true;
+            } else{
                 DialogGenerator.getDialog(new AlertMessage (
-                "Estudiante registrado con éxito",
-                Status.SUCCESS));
+                    "Este correo ya ha sido registrado en el sistema",
+                    Status.WARNING));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return validation;
     }
     
-    private boolean isEmptyField() {
-        return !FieldValidation.isChoiceBoxSelected(cbxUserType)
-        || FieldValidation.isNullOrEmptyTxtField(txtEMail) || 
-        FieldValidation.isNullOrEmptyTxtField(txtName) ||
-        FieldValidation.isNullOrEmptyTxtField(txtIdUser) || 
-        FieldValidation.isNullOrEmptyTxtField(txtLastName)
-        || FieldValidation.isNullOrEmptyTxtField(txtPassword);
+    private void professorRegister(Professor professor){
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        try{ 
+            if(validateEMailDuplications(professor.getEMail())){
+                if(professorDAO.addProfessorTransaction(professor) == SUCESSFUL_TRANSACTION){
+                    DialogGenerator.getDialog(new AlertMessage (
+                    "Profesor registrado con éxito",
+                    Status.SUCCESS));
+                    goToUsersManagerView();
+                }
+            }
+        } catch (SQLException ex){
+            Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            DialogGenerator.getDialog(new AlertMessage (
+                "Error con la base de datos",
+                Status.FATAL));
+        }
     }
     
+    private void studentRegister(Student student){
+        try {
+            StudentDAO accessAccountDAO = new StudentDAO();
+            if(validateEMailDuplications(student.getEMail())){
+                if(accessAccountDAO.addStudentTransaction(student) == SUCESSFUL_TRANSACTION){
+                    DialogGenerator.getDialog(new AlertMessage (
+                           "Estudiante registrado con éxito",
+                          Status.SUCCESS));
+                    goToUsersManagerView();
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserRegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            DialogGenerator.getDialog(new AlertMessage (
+                "Error con la base de datos",
+                Status.FATAL));
+        }
+    }
     
+    private void professorSetFormData(){
+        Professor professor = new Professor();
+        professor.setStatus(ACTIVE);
+        boolean validation = true;
+        try {
+            professor.setEMail(txtEMail.getText());
+        } catch(IllegalArgumentException eMailException){
+            lblInvalidEMail.setVisible(true);
+            lblInvalidEMail.setText("Correo inválido:\n" + eMailException.getMessage());
+            validation = false;
+        } finally{
+            try {
+                professor.setName(txtName.getText());
+            } catch(IllegalArgumentException nameException){
+                lblInvalidName.setVisible(true);
+                lblInvalidName.setText("Nombre inválido:\n" + nameException.getMessage());
+                validation = false;
+            } finally{
+                try{
+                    professor.setLastName(txtLastName.getText());
+                }catch(IllegalArgumentException lastNameException){
+                    lblInvalidLastName.setVisible(true);
+                    lblInvalidLastName.setText("Apellido inválido:\n" + lastNameException.getMessage());
+                    validation = false;
+                } finally{
+                    try{
+                        professor.setPassword(txtPassword.getText());
+                    } catch(IllegalArgumentException passwordException){
+                        lblInvalidPassword.setVisible(true);
+                        lblInvalidPassword.setText("Contraseña inválida:\n" + passwordException.getMessage());
+                        validation = false;
+                    } finally {
+                        try {
+                            professor.setPersonalNumber(txtIdUser.getText());
+                        } catch(IllegalArgumentException personalNumberException){
+                            lblInvalidId.setVisible(true);
+                            lblInvalidId.setText("Número personal inválido:\n" + personalNumberException.getMessage());
+                            validation = false;
+                        } finally {
+                            if(cbxHonorificTitle.getValue() == null){
+                                lblInvalidHonorificTitle.setVisible(true);
+                                validation = false;
+                            } else {
+                                professor.setHonorificTitle(cbxHonorificTitle.getValue());
+                            }
+                            if(chkAdmin.isSelected()){
+                                professor.setIsAdmin(ACTIVE);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (validation == true){
+            professorRegister(professor);
+        }
+    }
     
-    private void setUserTypeComboBox(){
+    private void studentSetFormData(){
+        Student student = new Student();
+        student.setStatus(ACTIVE);
+        boolean validation = true;
+        try {
+            student.setEMail(txtEMail.getText());
+        } catch(IllegalArgumentException eMailException){
+            lblInvalidEMail.setVisible(true);
+            lblInvalidEMail.setText("Correo inválido:\n" + eMailException.getMessage());
+            validation = false;
+        } finally {
+            try {
+                student.setName(txtName.getText());
+            } catch(IllegalArgumentException nameException){
+                lblInvalidName.setVisible(true);
+                lblInvalidName.setText("Nombre inválido:\n" + nameException.getMessage());
+                validation = false;
+            } finally {
+                try {
+                    student.setLastName(txtLastName.getText());
+                } catch(IllegalArgumentException lastNameException){
+                    lblInvalidLastName.setVisible(true);
+                    lblInvalidLastName.setText("Apellido inválido:\n" + lastNameException.getMessage());
+                    validation = false;
+                } finally {
+                    try {
+                        student.setPassword(txtPassword.getText());
+                    } catch(IllegalArgumentException passwordException){
+                        lblInvalidPassword.setVisible(true);
+                        lblInvalidPassword.setText("Contraseña inválida:\n" + passwordException.getMessage());
+                        validation = false;
+                    } finally {
+                        try{
+                            student.setRegistrationTag(txtIdUser.getText());
+                        } catch(IllegalArgumentException registrationTagException){
+                            lblInvalidId.setVisible(true);
+                            lblInvalidId.setText("Matrícula inválida:\n" + registrationTagException.getMessage());
+                            validation = false;
+                        }
+                    }
+                }
+            }
+        }
+        if (validation == true){
+            studentRegister(student);
+        }
+    }
+
+    private void setUserTypeChoiceBox(){
         for (UserTypes userType : UserTypes.values()) {
         cbxUserType.getItems().add(userType.getDisplayName());
         }
     }
     
-    private void setHonorificTitleComboBox(){
+    private void setHonorificTitleChoiceBox(){
         for (HonorificTitles honorificTitles : HonorificTitles.values()) {
         cbxHonorificTitle.getItems().add(honorificTitles.getDisplayName());
         }
@@ -201,13 +302,52 @@ public class UserRegisterController implements Initializable {
     
     @FXML
     void cancelButtonClick(ActionEvent event){
+        goToUsersManagerView();
+    }
+    
+    private void goToUsersManagerView(){
         SPGER.setRoot("/mx/uv/fei/sspger/GUI/UsersManager.fxml");
+    }
+    
+    @FXML
+    void typingEMail(KeyEvent event) {
+        lblInvalidEMail.setVisible(false);
+    }
+
+    @FXML
+    void typingId(KeyEvent event) {
+        lblInvalidId.setVisible(false);
+    }
+
+    @FXML
+    void typingLastName(KeyEvent event) {
+        lblInvalidLastName.setVisible(false);
+    }
+
+    @FXML
+    void typingName(KeyEvent event) {
+        lblInvalidName.setVisible(false);
+    }
+
+    @FXML
+    void typingPassword(KeyEvent event) {
+        lblInvalidPassword.setVisible(false);
+    }
+    
+    private void userTypeChoiceBoxListener(){
+        cbxUserType.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                disableProfessorOptions(newValue);
+            }
+        });
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setUserTypeComboBox();
-        setHonorificTitleComboBox();
+        setUserTypeChoiceBox();
+        setHonorificTitleChoiceBox();
+        userTypeChoiceBoxListener();
     }
 
 }
