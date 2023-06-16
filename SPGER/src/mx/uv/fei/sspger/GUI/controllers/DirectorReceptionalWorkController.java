@@ -52,11 +52,11 @@ public class DirectorReceptionalWorkController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //setReceptionalWorks();
+        setReceptionalWorks();
         setGraphicElements();
     }    
 
-    /*private void setReceptionalWorks() {
+    private void setReceptionalWorks() {
         ReceptionalWorkDAO receptionalWorkDao = new ReceptionalWorkDAO();
         List<ReceptionalWork> receptionalWorksByProfessor = new ArrayList<>();
         
@@ -82,7 +82,7 @@ public class DirectorReceptionalWorkController implements Initializable {
         }catch (SQLException | IOException exception){
             Logger.getLogger(DirectorReceptionalWorkController.class.getName()).log(Level.SEVERE, null, exception);
         }
-    }*/
+    }
 
     private void setGraphicElements() {
         

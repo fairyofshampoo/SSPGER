@@ -14,20 +14,21 @@ import mx.uv.fei.sspger.logic.contracts.IAcademicBody;
 
 
 public class AcademicBodyDAO implements IAcademicBody {
+    private static final String ADD_ACADEMIC_BODY = "INSERT INTO cuerpo_academico(idCuerpoAcademico, nombre) values (?,?)";
+    private static final String ADD_ACADEMIC_BODY_MEMBER = "INSERT INTO profesor_cuerpo_academico(idCuerpoAcadémico, idUsuarioProfesor, rol) values (?,?,?)";
+    private static final int VALUE_BY_DEFAULT = 0;
+    private final String GET_PROFESSOR_QUERY = "SELECT * FROM profesor WHERE correo = ?";
 
     @Override
     public int addAcademicBody(AcademicBody academicBody) throws SQLException {
         int result;
-        String query = "INSERT INTO cuerpo_academico(idCuerpoAcademico, nombre) values (?,?)";
-        DataBaseManager.getConnection();
+        String query = ADD_ACADEMIC_BODY;
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
         
         statement.setString(1, academicBody.getKey());
         statement.setString(2, academicBody.getName());
         
         result = statement.executeUpdate();
-        
-        DataBaseManager.closeConnection();
         
         return result;
     }
@@ -75,7 +76,7 @@ public class AcademicBodyDAO implements IAcademicBody {
     @Override
     // The parameter include id because it could be updated
     public int updateAcademicBody (String key, AcademicBody academicBody) throws SQLException{
-        int result;
+        int result ;
         String query = "UPDATE cuerpo_academico SET idCuerpoAcademico = ?, nombre = ? WHERE idCuerpoAcademico = ?";
         DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);       
@@ -108,117 +109,102 @@ public class AcademicBodyDAO implements IAcademicBody {
     }
     
     @Override
-   public int addAcademicBodyMember(AcademicBodyMember academicBodyMember) throws SQLException{
+    public int addAcademicBodyMember(AcademicBodyMember academicBodyMember, String academicBodyKey) throws SQLException{
         int result;
-        String query = "INSERT INTO profesor_cuerpo_academico(idCuerpoAcadémico, idUsuarioProfesor, rol) values (?,?,?)";
-        DataBaseManager.getConnection();
+        String query = ADD_ACADEMIC_BODY_MEMBER;
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
-        
-        statement.setString(1, academicBodyMember.getIdAcademicBody());
-        statement.setInt(2, academicBodyMember.getIdUserProfessor());
+
+        statement.setString(1, academicBodyKey);
+        statement.setInt(2, academicBodyMember.getId());
         statement.setString(3, academicBodyMember.getRole());
-        
+
         result = statement.executeUpdate();
-        
-        DataBaseManager.closeConnection();
-        
+
         return result;
     }
-   
+    
     @Override
-    public int updateAcademicBodyMember(AcademicBodyMember academicBodyMember) throws SQLException{
+    public int updateAcademicBodyMember(AcademicBodyMember academicBodyMember, String academicBodyKey) throws SQLException{
         int result;
         String query = "UPDATE profesor_cuerpo_academico SET idCuerpoAcadémico = ?, idUsuarioProfesor = ?, rol = ? WHERE idProfesorCuerpoAcademico = ?";
         DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);       
         
-        statement.setString(1, academicBodyMember.getIdAcademicBody());
-        statement.setInt(2, academicBodyMember.getIdUserProfessor());
+        statement.setString(1, academicBodyKey);
+        statement.setInt(2, academicBodyMember.getId());
         statement.setString(3, academicBodyMember.getRole());
-        statement.setInt(4, academicBodyMember.getId());
         
         result = statement.executeUpdate();
         
-        DataBaseManager.closeConnection();
+        return result;
+    }
+    
+    @Override
+    public int addAcademicBodyTransaction(AcademicBody academicBody) throws SQLException{
+        int result = VALUE_BY_DEFAULT;
+        
+        try {
+            DataBaseManager.getConnection().setAutoCommit(false);
+            result = addAcademicBody(academicBody);
+            
+            for(int i = 0; i < academicBody.getMember().size(); i++){
+                result += addAcademicBodyMember(academicBody.getMember().get(i), academicBody.getKey());
+            }
+            
+            DataBaseManager.getConnection().commit();
+        } catch (SQLException ex) {
+            DataBaseManager.getConnection().rollback();
+        } finally {
+            DataBaseManager.getConnection().close();
+        }
         
         return result;
     }
-   
+    
     @Override
-   public int removeAcademicBodyMember(int idProfessor) throws SQLException{
-       int result;
-       String query = "DELETE FROM profesor_cuerpo_academico WHERE idProfesorCuerpoAcademico = ?";
-       DataBaseManager.getConnection();
-       PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
-        
-       statement.setInt(1, idProfessor);
-        
-       result = statement.executeUpdate();
-        
-       DataBaseManager.closeConnection();
-        
-       return result;
-   }
-
-    @Override
-    public List<AcademicBodyMember> getAllAcademicBodyMember() throws SQLException {
-        String query = "SELECT * FROM profesor_cuerpo_academico";
+    public AcademicBodyMember getProfessor(String email) throws SQLException {
         DataBaseManager.getConnection();
-        Statement statement = DataBaseManager.getConnection().createStatement();
-        ResultSet academicBodyMemberResult = statement.executeQuery(query);
-        List<AcademicBodyMember> academicBodyMemberList = new ArrayList<>();
+        PreparedStatement statement = DataBaseManager.getConnection().
+                prepareStatement(GET_PROFESSOR_QUERY);
 
-        while(academicBodyMemberResult.next()){
-            AcademicBodyMember academicBodyMember = new AcademicBodyMember();
-            
-            academicBodyMember.setId(academicBodyMemberResult.getInt("idProfesorCuerpoAcademico"));
-            academicBodyMember.setIdAcademicBody(academicBodyMemberResult.getString("idCuerpoAcadémico"));
-            academicBodyMember.setIdUserProfessor(academicBodyMemberResult.getInt("idUsuarioProfesor"));
-            academicBodyMember.setRole(academicBodyMemberResult.getString("rol"));
-            academicBodyMemberList.add(academicBodyMember);
+        statement.setString(1,email);
+
+        ResultSet professorResult = statement.executeQuery();
+        AcademicBodyMember academicBodyMember = new AcademicBodyMember();
+        
+        if(professorResult.next()){
+            academicBodyMember.setEMail(professorResult.getString("correo"));
+            academicBodyMember.setName(professorResult.getString("nombre"));
+            academicBodyMember.setLastName(professorResult.getString("apellido"));
+            academicBodyMember.setPersonalNumber(professorResult.getString(
+                    "numPersonal"));
+            academicBodyMember.setHonorificTitle(professorResult.getString(
+                    "honorifico"));
+            academicBodyMember.setId(professorResult.getInt("idUsuarioProfesor"));
+            academicBodyMember.setIsAdmin(professorResult.getInt("isAdmin"));
         }
         
         DataBaseManager.closeConnection();
-        
-        return academicBodyMemberList;
-    }
 
-    @Override
-    public AcademicBodyMember getAcademicBodyMember(int id) throws SQLException {
-        String query = "SELECT * FROM profesor_cuerpo_academico WHERE idProfesorCuerpoAcademico = ?";
-        DataBaseManager.getConnection();
-        PreparedStatement preparedStatement = DataBaseManager.getConnection().prepareStatement(query);        
-        AcademicBodyMember academicBodyMember = new AcademicBodyMember();
-        
-        preparedStatement.setInt(1, id);
-        ResultSet academicBodyMemberResult = preparedStatement.executeQuery();
-        academicBodyMemberResult.next();
-        
-        academicBodyMember.setId(academicBodyMemberResult.getInt("idProfesorCuerpoAcademico"));
-        academicBodyMember.setIdAcademicBody(academicBodyMemberResult.getString("idCuerpoAcadémico"));
-        academicBodyMember.setIdUserProfessor(academicBodyMemberResult.getInt("idUsuarioProfesor"));
-        academicBodyMember.setRole(academicBodyMemberResult.getString("rol"));
-        
-        DataBaseManager.closeConnection();
-        
         return academicBodyMember;
     }
     
     @Override
-    public int getAcademicBodyMemberId(String academicBodyKey, int professorId) throws SQLException{
-        String query = "SELECT idProfesorCuerpoAcademico FROM profesor_cuerpo_academico WHERE idCuerpoAcadémico = ? AND idUsuarioProfesor = ?";
-        DataBaseManager.getConnection();
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);        
+    public int getExistenceAcademicBody(AcademicBody academicBody) throws SQLException{
+        String query = "SELECT COUNT(*) FROM cuerpo_academico WHERE idCuerpoAcademico = ? AND nombre = ?";
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
         
-        statement.setString(1, academicBodyKey);
-        statement.setInt(2, professorId);
+        statement.setString(1, academicBody.getKey());
+        statement.setString(2, academicBody.getName());
         
-        ResultSet result = statement.executeQuery();
-        result.next();
+        ResultSet academicBodyResult = statement.executeQuery();
+        int result = VALUE_BY_DEFAULT;
         
-        int academicBodyMemberId = result.getInt("idProfesorCuerpoAcademico");
+        if(academicBodyResult.next()){
+            result = academicBodyResult.getInt(1);
+        }
         
-        DataBaseManager.closeConnection();
-        return academicBodyMemberId;
+        return result;
     }
+
 }

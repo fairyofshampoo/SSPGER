@@ -10,20 +10,20 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="mx.uv.fei.sspger.GUI.controllers.HomeStudentController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.HomeStudentController">
     <children>
       <Pane prefHeight="600.0" prefWidth="800.0">
          <children>
             <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
                <children>
-                  <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Label fx:id="lblUsers" layoutX="175.0" layoutY="63.0" prefHeight="35.0" prefWidth="362.0" text="¡Bienvenido, estudiante!">
+            <Label layoutX="175.0" layoutY="63.0" prefHeight="35.0" prefWidth="362.0" text="¡Bienvenido, estudiante!">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -35,12 +35,12 @@
                         <Image url="@resources/25694.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imgMyProject" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="91.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgMyWork" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="91.0" onMouseClicked="#displayMyWorkView" opacity="0.46" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@resources/btnMyProject.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imgProjects" fitHeight="62.0" fitWidth="37.0" layoutX="22.0" layoutY="153.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgProjects" fitHeight="62.0" fitWidth="37.0" layoutX="22.0" layoutY="153.0" onMouseClicked="#displayProjectsPostulation" opacity="0.46" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@resources/btnProjects.png" />
                      </image>
@@ -54,7 +54,7 @@
                </font>
             </Label>
             <Line endX="497.800048828125" endY="7.62939453125E-6" layoutX="225.0" layoutY="342.0" startX="-100.0" stroke="#a6a6a6" />
-            <Label layoutX="127.0" layoutY="355.0" prefHeight="27.0" prefWidth="173.0" text="Mi anteproyecto">
+            <Label layoutX="127.0" layoutY="355.0" prefHeight="27.0" prefWidth="273.0" text="Mi trabajo recepcional">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -68,7 +68,7 @@
                   </AnchorPane>
                </content>
             </ScrollPane>
-            <Label fx:id="lblSeeMyProject" layoutX="664.0" layoutY="360.0" prefHeight="17.0" prefWidth="61.0" text="Ver todo" underline="true">
+            <Label fx:id="lblSeeMyWork" layoutX="664.0" layoutY="360.0" onMouseClicked="#displayMyWorkView" prefHeight="17.0" prefWidth="61.0" text="Ver todo" underline="true">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

@@ -23,9 +23,9 @@ public class UserSession {
     }
     
     public void cleanUserSession(){
-        userId=0;
-        userType="";
-        privileges=0;
+        userId = -1;
+        userType = "Estudiante";
+        privileges = 0;
     }
 
     public void setUserId(int userId) {

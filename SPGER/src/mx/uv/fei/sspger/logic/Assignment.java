@@ -37,8 +37,8 @@ public class Assignment {
         return idSubmission;
     }
 
-    public void setIdSubmission(int idSubmission) {
-        this.idSubmission = idSubmission;
+    public void setIdSubmission(int idAdvancement) {
+        this.idSubmission = idAdvancement;
     }
 
     public int getIdProject() {
@@ -93,7 +93,6 @@ public class Assignment {
         java.util.Date now = new java.util.Date();
         java.util.Date utilStartDate = new java.util.Date(startDate.getTime());
         java.util.Date utilDeadline = new java.util.Date(deadline.getTime());
-        
         String state = "Finalizada";
         
         if(now.compareTo(utilDeadline) < 0){

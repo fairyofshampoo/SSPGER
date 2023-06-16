@@ -1,34 +1,16 @@
 package mx.uv.fei.sspger.logic;
 
 
-public class AcademicBodyMember {
-    private int id;
-    private String idAcademicBody;
-    private int idUserProfessor;
+public class AcademicBodyMember extends Professor{
+    private int idAcademicBodyMember;
     private String role;
     
-    public void setId(int id){
-        this.id = id;
+    public void setIdAcademicBodyMember(int idAcademicBodyMember){
+        this.idAcademicBodyMember = idAcademicBodyMember;
     }
     
-    public int getId(){
-        return id;
-    }
-    
-    public void setIdAcademicBody(String idAcademicBody){
-        this.idAcademicBody = idAcademicBody;
-    }
-    
-    public String getIdAcademicBody(){
-        return idAcademicBody;
-    }
-    
-    public void setIdUserProfessor(int idUserProfessor){
-        this.idUserProfessor = idUserProfessor;
-    }
-    
-    public int getIdUserProfessor(){
-        return idUserProfessor;
+    public int getIdAcademicBodyMember(){
+        return idAcademicBodyMember;
     }
     
     public void setRole(String role){
@@ -38,15 +20,13 @@ public class AcademicBodyMember {
     public String getRole(){
         return role;
     }
-    
+   
     public boolean equals(Object object){
-        if(object instanceof AcademicBodyMember){
-            AcademicBodyMember academicBodyMember = (AcademicBodyMember)object;
-            
-            return (this.getId() == academicBodyMember.getId()) && (this.getIdAcademicBody().equals(academicBodyMember.getIdAcademicBody()))
-                   && (this.getIdUserProfessor() == (academicBodyMember.getIdUserProfessor())) && (this.getRole().equals(academicBodyMember.getRole()));
-        }else{
+        if((object == null) || (object.getClass() != this.getClass())) {
             return false;
-        }
+        } 
+        final AcademicBodyMember otherAcademicBodyMember = (AcademicBodyMember) object;
+       
+        return (this.role == null? otherAcademicBodyMember.role == null : this.role.equals(otherAcademicBodyMember.role));
     }
 }

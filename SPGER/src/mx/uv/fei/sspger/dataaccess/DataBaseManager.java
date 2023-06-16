@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,32 +23,35 @@ public class DataBaseManager {
     */
     
     private static Connection connection;
+    private static final String URL_PROPERTY_FIELD = "url";
+    private static final String USER_PROPERTY_FIELD = "user";
+    private static final String PASSWORD_PROPERTY_FIELD = "password";
 
     public static Connection getConnection() throws SQLException {
-        if(connection == null || connection.isClosed()){
-            connect();
+        try {
+            if (connection == null || connection.isClosed()) {
+                connection = connect();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            throw new SQLException("Error en base de datos");
         }
-        
         return connection;
     }
 
-    private static void connect() throws SQLException {
-        try {
-            FileInputStream configFile = new FileInputStream(new File("src/mx/uv/fei/sspger/dataaccess/databaseconfig.txt"));
-            Properties properties = new Properties();
-            properties.load(configFile);
-            configFile.close();
-            String name = properties.getProperty("name");
-            String user = properties.getProperty("user");
-            String password = properties.getProperty("password");
-            connection = DriverManager.getConnection(name, user, password);
-        } catch (FileNotFoundException fileNotFoundException) {
-            //LOGGER
-            throw new SQLException("No se pudo acceder a la base de datos.");
-        } catch (IOException iOException){
-            //LOGGER
-            throw new SQLException("Hubo un error en el sistema.");
+    private static Connection connect() throws SQLException {
+        Connection newConnection = null;
+        Properties properties = new DataBaseManager().getPropertiesFile();
+        if (properties != null) {
+            newConnection = DriverManager.getConnection(
+                    properties.getProperty(URL_PROPERTY_FIELD),
+                    properties.getProperty(USER_PROPERTY_FIELD),
+                    properties.getProperty(PASSWORD_PROPERTY_FIELD));
+
+        } else {
+            throw new SQLException("No fue posible encontrar las credenciales de la base de datos");
         }
+        return newConnection;
     }
 
     public static void closeConnection() {
@@ -60,5 +64,22 @@ public class DataBaseManager {
                 Logger.getLogger(DataBaseManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    private Properties getPropertiesFile() {
+        Properties properties = null;
+        try {
+            InputStream file = new FileInputStream("src/mx/uv/fei/sspger/dataaccess/databaseconfig.properties");
+            if (file != null) {
+                properties = new Properties();
+                properties.load(file);
+            }
+            file.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DataBaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataBaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return properties;
     }
 }

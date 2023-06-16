@@ -42,7 +42,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="414.0" layoutY="167.0" prefHeight="17.0" prefWidth="234.0" text="Título honorífico">
+            <Label fx:id="lblPrincipalHonorificTitle" layoutX="414.0" layoutY="167.0" prefHeight="17.0" prefWidth="234.0" text="Título honorífico">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -59,16 +59,16 @@
             </Label>
             <Button fx:id="btnAccept" layoutX="104.0" layoutY="519.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-radius: 20;" text="Modificar usuario" />
             <Button fx:id="btnCancel" layoutX="582.0" layoutY="519.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" style="-fx-background-radius: 20;" text="Eliminar usuario" />
-            <Label fx:id="lblInvalidName" layoutX="120.0" layoutY="196.0" prefHeight="25.0" prefWidth="259.0" text="Ana Luisa" />
-            <Label fx:id="lblInvalidUserType" layoutX="417.0" layoutY="275.0" prefHeight="25.0" prefWidth="168.0" text="Profesor" />
-            <Label fx:id="lblInvalidLastName" layoutX="120.0" layoutY="275.0" prefHeight="25.0" prefWidth="259.0" text="Gómez Hernández" />
-            <Label fx:id="lblInvalidHonorificTitle" layoutX="416.0" layoutY="196.0" prefHeight="25.0" prefWidth="150.0" text="Lic." />
-            <Label fx:id="lblInvalidEMail" layoutX="116.0" layoutY="364.0" prefHeight="45.0" prefWidth="267.0" text="zs20013869@estudiantes.uv.mx" />
-            <Label fx:id="lblInvalidIdUser" layoutX="416.0" layoutY="364.0" prefHeight="25.0" prefWidth="253.0" text="s20013869" />
+            <Label fx:id="lblName" layoutX="120.0" layoutY="196.0" prefHeight="25.0" prefWidth="259.0" text="Ana Luisa" />
+            <Label fx:id="lblUserType" layoutX="417.0" layoutY="275.0" prefHeight="25.0" prefWidth="168.0" text="Profesor" />
+            <Label fx:id="lblLastName" layoutX="120.0" layoutY="275.0" prefHeight="25.0" prefWidth="259.0" text="Gómez Hernández" />
+            <Label fx:id="lblHonorificTitle" layoutX="416.0" layoutY="196.0" prefHeight="25.0" prefWidth="150.0" text="Lic." />
+            <Label fx:id="lblEMail" layoutX="116.0" layoutY="364.0" prefHeight="45.0" prefWidth="267.0" text="zs20013869@estudiantes.uv.mx" />
+            <Label fx:id="lblIdUser" layoutX="416.0" layoutY="364.0" prefHeight="25.0" prefWidth="253.0" text="s20013869" />
             <Line endX="627.4000244140625" layoutX="139.0" layoutY="101.0" startX="-60.600006103515625" stroke="#a6a6a6" />
          </children>
       </Pane>
-      <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="64.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@resources/btnBack.png" />
          </image>

@@ -48,11 +48,7 @@ public class SendFeedbackController implements Initializable {
 
     @FXML
     void cancelFeedback(ActionEvent event) {
-        try {
-            SPGER.setRoot("/mx/uv/fei/sspger/GUI/SubmissionConcludedDetails.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(SendFeedbackController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/SubmissionConcludedDetails.fxml");
     }
 
     @FXML

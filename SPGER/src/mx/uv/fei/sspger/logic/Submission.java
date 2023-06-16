@@ -43,15 +43,4 @@ public class Submission {
         this.idDeliverableFile = idDeliverableFile;
     }
     
-    @Override
-    public boolean equals(Object object){
-        if(object == null || (object.getClass() != this.getClass())){
-            return false;
-        }
-        final Submission other = (Submission)object;
-        return (this.description == null ? other.description == null : this.description.equals(other.description)) &&
-            (this.id == other.id) &&
-            (this.idDeliverableFile == other.idDeliverableFile);
-    }
-    
 }

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.AcademicBodyManagerController">
+   <children>
+      <Pane prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
+         <children>
+            <Label fx:id="lblTitleSystem" layoutX="215.0" layoutY="12.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <VBox layoutY="40.0" prefHeight="560.0" prefWidth="96.0" style="-fx-background-color: #a6a6a6;">
+         <children>
+            <VBox alignment="CENTER" prefHeight="65.0" prefWidth="120.0">
+               <children>
+                  <ImageView fx:id="imgHome" fitHeight="45.0" fitWidth="45.0" onMouseEntered="#onMouseEnteredAction" opacity="0.46" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/25694.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="65.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="imgAddCourse" fitHeight="45.0" fitWidth="45.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/addCourse.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="65.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="imgAddUser" fitHeight="45.0" fitWidth="45.0" opacity="0.46" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/addUsers.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="65.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="imgAddAcademicBody" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/academicBody.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox prefHeight="65.0" prefWidth="100.0" />
+         </children>
+      </VBox>
+      <Pane layoutX="120.0" layoutY="40.0" prefHeight="74.0" prefWidth="680.0">
+         <children>
+            <Label fx:id="lblAcademicBody" layoutX="23.0" layoutY="17.0" text="Cuerpo Académico">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnAdd" layoutX="533.0" layoutY="22.0" mnemonicParsing="false" onAction="#addButtonEvent" prefHeight="25.0" prefWidth="82.0" text="Agregar">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <VBox layoutX="120.0" layoutY="104.0" prefHeight="495.0" prefWidth="680.0">
+         <children>
+            <ScrollPane prefHeight="467.0" prefWidth="680.0">
+               <content>
+                  <GridPane fx:id="gpCardLayout" prefHeight="467.0" prefWidth="678.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -13,10 +13,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Assignment;
 import mx.uv.fei.sspger.logic.DAO.AssignmentDAO;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
@@ -31,6 +35,9 @@ public class ViewReceptionalWorkController implements Initializable {
     public static int idReceptionalWork;
     private int column = 0;
     private int row = 1;
+    
+    @FXML
+    private ImageView imgGoBack;
     
     @FXML
     private GridPane gpAssignments;
@@ -129,7 +136,7 @@ public class ViewReceptionalWorkController implements Initializable {
             }
         
         } catch (IOException ioException){
-            Logger.getLogger(ViewReceptionalWorkController.class.getName()).log(Level.SEVERE, null, ioException);
+            Logger.getLogger(ViewProjectForProfessorController.class.getName()).log(Level.SEVERE, null, ioException);
         }
     }
     
@@ -151,6 +158,26 @@ public class ViewReceptionalWorkController implements Initializable {
     @FXML
     void modifyReceptionalWork(ActionEvent event) {
         
+    }
+    
+    @FXML
+    void modifyStudents(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void mouseEnteredGoBackArea(MouseEvent event) {
+        imgGoBack.setCursor(Cursor.HAND);
+    }
+
+    @FXML
+    void mouseExitedGoBackArea(MouseEvent event) {
+        imgGoBack.setCursor(Cursor.DEFAULT);
+    }
+    
+    @FXML
+    void goBack(MouseEvent event) {
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/DirectorReceptionalWork");
     }
     
 }

@@ -1,3 +1,0 @@
-name = jdbc:mysql://spger-database-2023.mysql.database.azure.com:3306/sspger
-user = ikariscraft
-password = Mario_Nara_Mich

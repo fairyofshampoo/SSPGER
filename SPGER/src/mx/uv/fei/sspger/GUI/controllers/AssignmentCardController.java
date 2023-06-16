@@ -31,12 +31,7 @@ public class AssignmentCardController {
     @FXML
     private void viewAssignmentDetails(ActionEvent event) {
         StudentAdvanceController.assignmentId = assignmentId;
-        
-        try{
-            SPGER.setRoot("/mx/uv/fei/sspger/GUI/StudentAdvance");
-        } catch (IOException ioException){
-            Logger.getLogger(AssignmentCardController.class.getName()).log(Level.SEVERE, null, ioException);
-        }
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/StudentAdvance");
     }
     
     public void setAssignmentCard(Assignment assignment){

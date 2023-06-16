@@ -1,42 +1,93 @@
 package mx.uv.fei.sspger.logic;
 
+import java.util.List;
+
 
 public class Project {
     private int idProject;
-    private String idLGAC;
-    private String idAcademicBody;
     private String name;
     private String description;
     private String expectedResults;
     private int duration;
     private int spaces;
-    private String modality;
     private String notes;
     private String requeriments;
     private String bibliography;
     private String status;
-    private ReceptionalWork receptionalWork;
-    private Lgac lgac;
-    private Professor professor;
+    private String modality;
+    private String receptionalWorkDescription;
+    private String pladeaFeiName;
+    private Professor director;
+    private List <Professor> codirectors;
+    private AcademicBodyMember responsible;
+    private AcademicBody academicBody;
+    private List<Lgac> lgac;
+     private List<Student> student;
     
-    public Project(){
-        
-    }
-    
-    public int getSpaces() {
-        return spaces;
+    public Project(){}
+
+    public String getReceptionalWorkDescription() {
+        return receptionalWorkDescription;
     }
 
-    public void setSpaces(int spaces) {
-        this.spaces = spaces;
+    public void setReceptionalWorkDescription(String receptionalWorkDescription) {
+        this.receptionalWorkDescription = receptionalWorkDescription;
     }
 
-    public String getModality() {
-        return modality;
+    public String getPladeaFeiName() {
+        return pladeaFeiName;
     }
 
-    public void setModality(String modality) {
-        this.modality = modality;
+    public void setPladeaFeiName(String pladeaFeiName) {
+        this.pladeaFeiName = pladeaFeiName;
+    }
+
+    public Professor getDirector() {
+        return director;
+    }
+
+    public void setDirector(Professor director) {
+        this.director = director;
+    }
+
+    public List<Professor> getCodirectors() {
+        return codirectors;
+    }
+
+    public void setCodirectors(List<Professor> codirectors) {
+        this.codirectors = codirectors;
+    }
+
+    public AcademicBodyMember getResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(AcademicBodyMember responsible) {
+        this.responsible = responsible;
+    }
+
+    public AcademicBody getAcademicBody() {
+        return academicBody;
+    }
+
+    public void setAcademicBody(AcademicBody academicBody) {
+        this.academicBody = academicBody;
+    }
+
+    public List<Lgac> getLgac() {
+        return lgac;
+    }
+
+    public void setLgac(List<Lgac> lgac) {
+        this.lgac = lgac;
+    }
+
+    public List<Student> getStudent() {
+        return student;
+    }
+
+    public void setStudent(List<Student> student) {
+        this.student = student;
     }
 
     public int getIdProject() {
@@ -45,22 +96,6 @@ public class Project {
 
     public void setIdProject(int idProject) {
         this.idProject = idProject;
-    }
-
-    public String getIdLGAC() {
-        return idLGAC;
-    }
-
-    public void setIdLGAC(String idLGAC) {
-        this.idLGAC = idLGAC;
-    }
-
-    public String getIdAcademicBody() {
-        return idAcademicBody;
-    }
-
-    public void setIdAcademicBody(String idAcademicBody) {
-        this.idAcademicBody = idAcademicBody;
     }
 
     public String getName() {
@@ -127,45 +162,20 @@ public class Project {
         this.status = status;
     }
     
-    public ReceptionalWork getReceptionalWork(){
-        return receptionalWork;
-    }
-    
-    public void setReceptionalWork(ReceptionalWork receptionalWork){
-        this.receptionalWork = receptionalWork;
-    }
-    
-    public Lgac getLgac() {
-        return lgac;
+        public int getSpaces() {
+        return spaces;
     }
 
-    public void setLgac(Lgac lgac) {
-        this.lgac = lgac;
-    }
-    
-    public Professor getProfessor() {
-        return professor;
+    public void setSpaces(int spaces) {
+        this.spaces = spaces;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }    
-
-    public boolean equals(Object object){
-        if((object == null) || (object.getClass() != this.getClass())) {
-            return false;
-        } 
-       final Project otherProject = (Project) object;
-       
-       return (this.idAcademicBody == null? otherProject.idAcademicBody == null : this.idAcademicBody.equals(otherProject.idAcademicBody))
-           && (this.name == null? otherProject.name == null : this.name.equals(otherProject.name))
-           && (this.description == null? otherProject.description == null : this.description.equals(otherProject.description))
-           && (this.expectedResults == null? otherProject.expectedResults == null : this.expectedResults.equals(otherProject.expectedResults))
-           && (this.duration == otherProject.duration)
-           && (this.notes == null? otherProject.notes == null : this.notes.equals(otherProject.notes))
-           && (this.requeriments == null? otherProject.requeriments == null : this.requeriments.equals(otherProject.requeriments))
-           && (this.bibliography == null? otherProject.bibliography == null : this.bibliography.equals(otherProject.bibliography))
-           && (this.status == null? otherProject.status == null : this.status.equals(otherProject.status))
-           && (this.spaces == otherProject.spaces)&& (this.modality == null? otherProject.modality == null : this.modality.equals(otherProject.modality));
+    public String getModality() {
+        return modality;
     }
+
+    public void setModality(String modality) {
+        this.modality = modality;
+    }
+
 }

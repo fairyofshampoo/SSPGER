@@ -7,6 +7,8 @@ public class Professor extends User{
     private int id;
     private int isAdmin;
     
+    private final String PERSONAL_NUMBER_REGEX = "^\\d{4,5}$";
+    
     public Professor(){
         
     }
@@ -32,6 +34,7 @@ public class Professor extends User{
     
     public void setPersonalNumber(String personalNumber){
         this.personalNumber = personalNumber;
+        validatePersonalNumber(personalNumber);
     }
 
     public int getIsAdmin() {
@@ -40,6 +43,14 @@ public class Professor extends User{
 
     public void setIsAdmin(int isAdmin) {
         this.isAdmin = isAdmin;
+    }
+    
+    private void validatePersonalNumber(String personalNumber){
+        if (!personalNumber.matches(PERSONAL_NUMBER_REGEX)) {
+            throw new IllegalArgumentException("El número de personal debe contener las siguientes características:\n"
+                    + "1. La longitud es de 4 a 5 dígitos. \n");
+        }
+        
     }
     
     @Override

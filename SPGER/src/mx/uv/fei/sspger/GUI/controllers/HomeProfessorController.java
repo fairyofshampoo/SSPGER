@@ -21,6 +21,7 @@ import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Course;
 import mx.uv.fei.sspger.logic.DAO.CourseDAO;
 import mx.uv.fei.sspger.logic.Project;
+import mx.uv.fei.sspger.logic.Status;
 import mx.uv.fei.sspger.logic.UserSession;
 
 
@@ -74,17 +75,15 @@ public class HomeProfessorController implements Initializable {
     
     @FXML
     void usersManagerClicked(MouseEvent mouseEvent){
-        displayUsersManagerWindow();
+        SPGER.setRoot("UsersManager.fxml");
     }
     
     @FXML
     void allProjectsClicked(MouseEvent event) {
-        displayUsersManagerWindow();
     }
     
     @FXML
     void allCoursesClicked(MouseEvent event) {
-        displayUsersManagerWindow();
     }
     
     @FXML
@@ -99,7 +98,7 @@ public class HomeProfessorController implements Initializable {
 
     @FXML
     void coursesManagerClicked(MouseEvent event) {
-
+        SPGER.setRoot("CourseManagement.fxml");
     }
     private void showAdminFunctionalities(){
         if(UserSession.getInstance().getPrivileges()==ADMIN_ROLE){
@@ -131,14 +130,6 @@ public class HomeProfessorController implements Initializable {
         Tooltip.install(imgAddCourses, tltpCoursesManager);
         Tooltip.install(imgMyAcademicBody, tltpAcademicBody);
         Tooltip.install(imgAddUsers, tltpAddUsers);
-    }
-    
-    private void displayUsersManagerWindow(){
-        try {
-            SPGER.setRoot("/mx/uv/fei/sspger/GUI/UsersManager.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(HomeProfessorController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     private void displayImages(){
@@ -179,6 +170,9 @@ public class HomeProfessorController implements Initializable {
             
         } catch (SQLException ex) {
             Logger.getLogger(HomeProfessorController.class.getName()).log(Level.SEVERE, null, ex);
+            DialogGenerator.getDialog(new AlertMessage (
+                "Error de conexión a la base de datos",
+                Status.FATAL));
         }
         
         return courseList;

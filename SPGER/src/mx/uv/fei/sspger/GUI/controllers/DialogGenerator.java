@@ -1,13 +1,18 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package mx.uv.fei.sspger.GUI.controllers;
 
-import mx.uv.fei.sspger.GUI.controllers.AlertMessage;
 import java.util.Optional;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-
-
+/**
+ *
+ * @author mario
+ */
 public class DialogGenerator {
     
     public static final ButtonType BUTTON_YES = new ButtonType("Sí", ButtonBar.ButtonData.OK_DONE);

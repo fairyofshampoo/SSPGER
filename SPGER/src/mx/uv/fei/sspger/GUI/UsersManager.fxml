@@ -17,7 +17,7 @@
       <Pane prefHeight="600.0" prefWidth="800.0">
          <children>
             <TextField fx:id="txtSearchBar" layoutX="271.0" layoutY="68.0" prefHeight="25.0" prefWidth="339.0" promptText="Buscar por matrícula o número de personal" />
-            <Label fx:id="lblUsers" layoutX="120.0" layoutY="64.0" prefHeight="35.0" prefWidth="135.0" text="Usuarios">
+            <Label layoutX="120.0" layoutY="64.0" prefHeight="35.0" prefWidth="135.0" text="Usuarios">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -69,7 +69,7 @@
       </Pane>
       <Pane layoutY="-2.0" prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
          <children>
-            <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

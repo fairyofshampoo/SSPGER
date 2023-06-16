@@ -6,6 +6,9 @@ public class Student extends User{
     private String registrationTag;
     private int id;
     
+    private final String REGISTRATION_TAG_REGEX = "^(?i)zs\\d{8}$";
+
+    
     public Student(){
         
     }
@@ -24,6 +27,15 @@ public class Student extends User{
     
     public void setRegistrationTag(String registrationTag){
         this.registrationTag = registrationTag;
+        validateRegistrationTag(registrationTag);
+    }
+    
+    private void validateRegistrationTag(String registrationTag){
+        if (!registrationTag.matches(REGISTRATION_TAG_REGEX)) {
+            throw new IllegalArgumentException("La matricula debe contener las siguientes características:\n"
+                    + "1. La longitud de la matrícula es de 10. \n"
+                    + "2. Debe comenzar con zs seguido de dígitos \n");
+        }
     }
     
     @Override

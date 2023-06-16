@@ -11,8 +11,6 @@ import mx.uv.fei.sspger.logic.Assignment;
 import mx.uv.fei.sspger.logic.contracts.IAssingment;
 
 
-
-
 public class AssignmentDAO implements IAssingment{
     
     private final String REGISTER_ASSIGNMENT = "INSERT INTO asignacion(idUsuarioProfesor, titulo, fechaInicia, fechaFin, fechaPublicacion, descripcion, idTrabajoRecepcional) values (?,?,?,?,?,?,?)";
@@ -24,7 +22,7 @@ public class AssignmentDAO implements IAssingment{
     private final int ERROR_IN_COUNT = -1;
     
     @Override
-    public int registerAssignment(Assignment assignment, int idProfessor, int idProject) throws SQLException {
+    public int registerAssignment(Assignment assignment, int idProfessor, int idReceptionalWork) throws SQLException {
         int result;        
         
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(REGISTER_ASSIGNMENT);
@@ -36,7 +34,7 @@ public class AssignmentDAO implements IAssingment{
         statement.setDate(4, assignment.getDeadline());
         statement.setDate(5, currentDate);
         statement.setString(6, assignment.getDescription());
-        statement.setInt(7, idProject);
+        statement.setInt(7, idReceptionalWork);
 
         result = statement.executeUpdate();
         

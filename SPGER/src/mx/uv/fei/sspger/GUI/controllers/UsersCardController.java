@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +13,7 @@ import javafx.scene.layout.Pane;
 import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Professor;
 import mx.uv.fei.sspger.logic.Student;
+import mx.uv.fei.sspger.logic.UserTypes;
 
 
 public class UsersCardController{
@@ -40,39 +39,31 @@ public class UsersCardController{
     private Pane pnUsersCard;
     
     private int idUser;
+    private String userType = "Estudiante";
+    private final int ERROR = -1;
     
     public void setUserStudentData(Student student){
-        if(student != null){
             lblFullNameUser.setText(student.getName() + " " + student.getLastName());
             lblEMail.setText(student.getEMail());
             lblUserType.setText("Estudiante");
             lblTagOrNumber.setText(student.getRegistrationTag());
-        }
+            idUser = student.getId();
+            userType = UserTypes.STUDENT.getDisplayName();
     }
     
     public void setUserProfessorData(Professor professor){
-        if(professor != null){
             lblFullNameUser.setText(professor.getHonorificTitle() + " " + professor.getName() + " " + professor.getLastName());
             lblEMail.setText(professor.getEMail());
             lblUserType.setText("Profesor");
             lblTagOrNumber.setText(professor.getPersonalNumber());
-        }
+            idUser = professor.getId();
+            userType = UserTypes.PROFESSOR.getDisplayName();
     }
     
     @FXML
     void selectUser(MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/mx/uv/fei/sspger/GUI/UserDetails.fxml"));
-            Parent root = loader.load();
-            UserDetailsController userDetailsController = loader.getController();
-            //SPGER.setRoot(root);
-        } catch (IOException ex) {
-            Logger.getLogger(UsersCardController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private String getUserEMail(){
-        
-        return lblEMail.getText();
+        UserDetailsController.setIdUser(idUser);
+        UserDetailsController.setUserType(userType);
+        SPGER.setRoot("UserDetails.fxml");
     }
 }

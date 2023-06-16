@@ -13,11 +13,13 @@ import mx.uv.fei.sspger.logic.contracts.ISubmissionManager;
 public class SubmissionManagerDAO implements ISubmissionManager{
 
     private final int ERROR_ADDITION = -1;
+    private final int ERROR_IN_COUNT = -2;
     private final String ADD_SUBMISSION_QUERY = "insert into avance (descripcion, fechaEntrega, idArchivoAvance) values (?, ?, ?)";
     private final String ADD_FILE_QUERY = "insert into archivo_entregable "
             + "(nombre, ruta, extension) values (?, ?, ?)";
     private final String ADD_SUBMISSION_TO_ASIGNMENT = "UPDATE asignacion SET idAvance = ? WHERE idAsignacion = ?";
     private final String GET_SUBMISSION_QUERY = "SELECT * FROM avance WHERE idAvance = ?";
+    private final String GET_SUBMISSION_COUNT_PER_RECEPTIONAL_WORK = "SELECT COUNT(*) AS submissionCount FROM asignacion WHERE idTrabajoRecepcional = ? AND idAvance IS NOT NULL";
     
     @Override
     public int addSubmission(Submission submission, DeliverableFile file, int idAsignment) throws SQLException {
@@ -76,7 +78,7 @@ public class SubmissionManagerDAO implements ISubmissionManager{
     public int modifySubmission(Submission submission, int idSubmission) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     @Override
     public Submission getSubmissionById(int idSubmission) throws SQLException {
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_SUBMISSION_QUERY);
@@ -96,6 +98,25 @@ public class SubmissionManagerDAO implements ISubmissionManager{
         DataBaseManager.closeConnection();
         
         return submission;
+    }
+
+    @Override
+    public int getCountSubmissionsPerReceptionalWork(int idReceptionalWork) throws SQLException {
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_SUBMISSION_COUNT_PER_RECEPTIONAL_WORK);
+        int quantityOfSubmissions;
+        
+        statement.setInt(1, idReceptionalWork);
+        
+        ResultSet countResult = statement.executeQuery();
+        
+        if (countResult.next()){
+            quantityOfSubmissions = countResult.getInt("submissionCount");
+        }
+        else {
+            quantityOfSubmissions = ERROR_IN_COUNT;
+        }
+        
+        return quantityOfSubmissions;
     }
     
 }

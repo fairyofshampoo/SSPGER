@@ -24,4 +24,5 @@ public interface ICourse {
     int enrollProfessorToCourse (int professorId, Course course) throws SQLException;
     void registerCourseTransaction(int professorId, Course course, List<EnrollToCourse> studentsList, int idSemester) throws SQLException;
     void modifyCourseTransaction(int professorId, Course course, List<EnrollToCourse> studentsList, List<EnrollToCourse> studentsToExpell) throws SQLException;
+    public List<Course> getCoursesPerStateAndProfessor(String state, int professorId) throws SQLException;
 }

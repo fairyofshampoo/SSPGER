@@ -98,11 +98,7 @@ public class SubmissionConcludedDetailsController implements Initializable {
 
     @FXML
     void addFeedBack(ActionEvent event) {
-        try {
-            SPGER.setRoot("/mx/uv/fei/sspger/GUI/SendFeedback.fxml");
-        } catch (IOException ex) {
-            Logger.getLogger(SubmissionConcludedDetailsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/SendFeedback.fxml");
     }
 
     @FXML
@@ -158,7 +154,7 @@ public class SubmissionConcludedDetailsController implements Initializable {
             SubmissionManagerDAO submissionDAO = new SubmissionManagerDAO();
             Submission submission = submissionDAO.getSubmissionById(getIdSubmission());
             ntxtDescriptionSubmission.setText(submission.getDescription());
-            lblDeliveryDate.setText(formatDate(submission.getDeliveryDate()));
+            lblDeliveryDate.setText(formatDate( submission.getDeliveryDate()));
             
         } catch (SQLException ex) {
             Logger.getLogger(SubmissionConcludedDetailsController.class.getName()).log(Level.SEVERE, null, ex);
