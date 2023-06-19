@@ -1,7 +1,6 @@
 package mx.uv.fei.sspger.GUI.controllers;
 
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -50,18 +49,17 @@ public class LoginController implements Initializable {
 
     @FXML
     void logIn(MouseEvent event) {
-        if(verifyFields()){
-            UserDAO userDAO = new UserDAO();
-            try {
-                int userExistence = userDAO.login(txtEMail.getText(), txtPassword.getText());
-                continueLogin(userExistence == 1);
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                DialogGenerator.getDialog(new AlertMessage (
-                "Error de conexión a la base de datos",
-                Status.FATAL));
+        if(isAnyUserAvailable()){
+            if(verifyFields()){
+                UserDAO userDAO = new UserDAO();
+                try {
+                    int userExistence = userDAO.login(txtEMail.getText(), txtPassword.getText());
+                    continueLogin(userExistence == 1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    DialogGenerator.getDialog(new AlertMessage ("Error de conexión a la base de datos",Status.FATAL));
+                }
             }
-            
         }
     }
     
@@ -93,7 +91,7 @@ public class LoginController implements Initializable {
         }
         catch(IllegalArgumentException eMailException){
             lblWrongEMail.setVisible(true);
-            lblWrongEMail.setText("Correo inválido");
+            lblWrongEMail.setText("Correo inválido:\n" + eMailException.getMessage());
             validation = false;
         }
         finally{
@@ -102,7 +100,7 @@ public class LoginController implements Initializable {
             }
             catch(IllegalArgumentException passwordException){
                 lblWrongPassword.setVisible(true);
-                lblWrongPassword.setText("Contraseña inválida");
+                lblWrongPassword.setText("Contraseña inválida: \n" + passwordException.getMessage());
                 validation = false;
             }
         }
@@ -133,7 +131,7 @@ public class LoginController implements Initializable {
     }
     
     private String determinateUserType(String email){
-        String userType = "";
+        String userType = "Usuario";
         try {
             UserDAO userDAO = new UserDAO();
             if(userDAO.isStudent(email) != ERROR){
@@ -176,18 +174,22 @@ public class LoginController implements Initializable {
             SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeStudent.fxml");
         }
     }
-    private void isAnyUserAvailable(){
+    private boolean isAnyUserAvailable(){
+        boolean userAvailable = false;
         try {
             UserDAO userDAO = new UserDAO();
             if(!userDAO.usersAvailables()){
                 disableComponents();
-                DialogGenerator.getDialog(new AlertMessage ("No hay usuarios registrados para iniciar sesión",Status.WARNING));
+                DialogGenerator.getDialog(new AlertMessage ("No hay usuarios disponibles para iniciar sesión",Status.WARNING));
+            } else{
+                userAvailable = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             DialogGenerator.getDialog(new AlertMessage ("Error de conexión con la base de datos",Status.ERROR));
             disableComponents();
         }
+        return userAvailable;
     }
     private void disableComponents(){
         txtEMail.setDisable(true);
@@ -198,7 +200,6 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         displayImages();
-        isAnyUserAvailable();
-    }    
+    }
     
 }

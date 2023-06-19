@@ -19,7 +19,7 @@ import mx.uv.fei.sspger.logic.Semester;
 import mx.uv.fei.sspger.logic.Status;
 
 
-public class CourseCardController {
+public class CourseCardAdminController {
     
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private Course courseCard;
@@ -44,9 +44,9 @@ public class CourseCardController {
     private Label lblSection;
     
     @FXML
-    void openProfessorCourseView(MouseEvent event) {
-        ProfessorCourseViewController.course = courseCard;
-        SPGER.setRoot("ProfessorCourseView.fxml");
+    void openAdminCourseView(MouseEvent event) {
+        ViewCourseController.setIdCourse(courseCard.getCourseId());
+        SPGER.setRoot("ViewCourse.fxml");
     }
     
     @FXML
@@ -87,3 +87,4 @@ public class CourseCardController {
     }
     
 }
+

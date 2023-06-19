@@ -51,28 +51,7 @@ public class AcademicBodyDAO implements IAcademicBody {
         
         return academicBody;
     }
-    
-    @Override
-    public List<AcademicBodyMember> getAllAcademicBodyMember(String key) throws SQLException{
-        String query = "SELECT * FROM profesor_cuerpo_academico WHERE idCuerpoAcadémico = ?";
-        PreparedStatement preparedStatement = DataBaseManager.getConnection().prepareStatement(query);
-        List<AcademicBodyMember> academicBodyMemberList = new ArrayList<>();
         
-        preparedStatement.setString(1, key);
-        ResultSet memberResult = preparedStatement.executeQuery();
-        
-        while(memberResult.next()){
-            AcademicBodyMember academicBodyMember = new AcademicBodyMember();
-            academicBodyMember.setIdAcademicBodyMember(memberResult.getInt("idProfesorCuerpoAcademico"));
-            academicBodyMember.setRole(memberResult.getString("rol"));
-            academicBodyMember.setId(memberResult.getInt("idUsuarioProfesor"));
-            academicBodyMemberList.add(academicBodyMember);
-        }
-        
-        DataBaseManager.closeConnection();
-        return academicBodyMemberList;
-    }
-    
     @Override
     public List<AcademicBody> getAllAcademicBody() throws SQLException{
         String query = "SELECT * FROM cuerpo_academico";

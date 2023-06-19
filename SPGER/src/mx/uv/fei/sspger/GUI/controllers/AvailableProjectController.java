@@ -87,7 +87,7 @@ public class AvailableProjectController implements Initializable {
     }
     @FXML
     void openAvailableProjectsCatalog(MouseEvent event) {
-        SPGER.setRoot("/mx/uv/fei/sspger/GUI/AvailableProjectsCatalog.fxml");
+        SPGER.setRoot("AvailableProjectsCatalog.fxml");
     }
     
     @Override
@@ -135,7 +135,7 @@ public class AvailableProjectController implements Initializable {
     
     //this method has a high complexity due to the validations cause it mantains data integrity.
     public void showProjectData(){
-        Project project = new Project();
+    /*    Project project = new Project();
         ProjectDAO projectDAO = new ProjectDAO();
             
         try {
@@ -189,6 +189,7 @@ public class AvailableProjectController implements Initializable {
         lblProjectTitle.setText(project.getName());
         ntxtReceptionalWorkDescription.setText(project.getReceptionalWorkDescription());
         ntxtRequirementsData.setText(project.getRequeriments());
+*/
     }
     
     public void applyToProject(){

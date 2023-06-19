@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,8 +33,12 @@ import mx.uv.fei.sspger.logic.Student;
 
 
 public class ViewCourseController implements Initializable {
-    private SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    public static String courseId;
+    private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static String idCourse;
+    
+    public static void setIdCourse (String idCourse){
+        ViewCourseController.idCourse = idCourse;
+    }
     
     @FXML
     private Label lblBlock;
@@ -68,13 +74,12 @@ public class ViewCourseController implements Initializable {
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         setLabels();
         setTable();
     }    
     
     public void goBack (ActionEvent actionEvent) throws IOException{
-        SPGER.setRoot("/mx/uv/fei/sspger/GUI/CourseManagement");
+        SPGER.setRoot("CourseManagement.fxml");
     }
     
     public void disableCourse (ActionEvent actionEvent){
@@ -82,7 +87,7 @@ public class ViewCourseController implements Initializable {
     }
     
     public void modifyCourse (ActionEvent actionEvent) throws IOException{
-        ModifyCourseController.courseId = courseId; 
+        ModifyCourseController.courseId = idCourse; 
         
         SPGER.setRoot("/mx/uv/fei/sspger/GUI/ModifyCourse");
     }
@@ -92,8 +97,9 @@ public class ViewCourseController implements Initializable {
         List<Student> courseStudents = new ArrayList<>();
         
         try{
-            courseStudents = studentDao.getStudentsPerCourse(courseId);
-        } catch (SQLException Ex) {
+            courseStudents = studentDao.getStudentsPerCourse(idCourse);
+        } catch (SQLException sqlException) {
+                Logger.getLogger(ViewCourseController.class.getName()).log(Level.SEVERE, null, sqlException);
                 DialogGenerator.getDialog(new AlertMessage (
                 "Error en la conexion al sistema.",
                 Status.FATAL));
@@ -119,8 +125,9 @@ public class ViewCourseController implements Initializable {
         CourseDAO courseDao = new CourseDAO();
         
         try{
-        course = courseDao.getCourseByID(courseId);
-        } catch (SQLException SqlException){
+        course = courseDao.getCourseByID(idCourse);
+        } catch (SQLException sqlException){
+                Logger.getLogger(ViewCourseController.class.getName()).log(Level.SEVERE, null, sqlException);
                 DialogGenerator.getDialog(new AlertMessage (
                 "Error en la conexion al sistema.",
                 Status.FATAL));
@@ -138,12 +145,12 @@ public class ViewCourseController implements Initializable {
         SemesterDAO semesterDao = new SemesterDAO ();
         Semester semester = new Semester();
         
-        try{
+        try {
             semester = semesterDao.getSemesterPerId(semesterId);
-        } catch (SQLException SqlException){
-            //LOGGER
+        } catch (SQLException sqlException) {
+            Logger.getLogger(ViewCourseController.class.getName()).log(Level.SEVERE, null, sqlException);
         }
-       
+              
         Date semesterStart = new Date(semester.getStartDate().getTime());
         Date semesterEnd = new Date(semester.getDeadline().getTime());
         String semesterDate = DATE_FORMAT.format(semesterStart) + " / " + DATE_FORMAT.format(semesterEnd);
@@ -156,10 +163,9 @@ public class ViewCourseController implements Initializable {
         Professor professor = new Professor();
         
         try{
-            professor = professorDao.getProfessorByCourse(this.courseId);
+            professor = professorDao.getProfessorByCourse(this.idCourse);
         } catch (SQLException sqlException){
-            
-            //LOGGER
+            Logger.getLogger(ViewCourseController.class.getName()).log(Level.SEVERE, null, sqlException);
         }
         
         String professorName = professor.getHonorificTitle() + " " + professor.getName() + " " + professor.getLastName();

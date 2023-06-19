@@ -38,7 +38,6 @@ public class AcademicBodyCardController implements Initializable {
     void openAcademicBodyRegisteredSaved(MouseEvent event) {
         AcademicBodyRegisterSavedController.setAcademicBodyKey(AcademicBodyKey);
         SPGER.setRoot("/mx/uv/fei/sspger/GUI/AcademicBodyRegisterSaved.fxml");
-
     }
     
     @Override

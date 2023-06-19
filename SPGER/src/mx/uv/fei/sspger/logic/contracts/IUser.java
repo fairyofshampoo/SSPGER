@@ -10,4 +10,5 @@ public interface IUser{
     int isStudent(String email) throws SQLException;
     boolean usersAvailables() throws SQLException;
     int professorPrivileges(int id) throws SQLException;
+    int searchEmailDuplication(String email) throws SQLException;
 }

@@ -17,10 +17,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.Course;
 import mx.uv.fei.sspger.logic.DAO.CourseDAO;
 import mx.uv.fei.sspger.logic.Project;
+import mx.uv.fei.sspger.logic.Status;
 import mx.uv.fei.sspger.logic.UserSession;
 
 
@@ -30,116 +32,34 @@ public class HomeProfessorController implements Initializable {
     private HBox coursesCardLayout;
 
     @FXML
-    private ImageView imgAddAcademicBody;
-
-    @FXML
-    private ImageView imgAddCourses;
-
-    @FXML
-    private ImageView imgAddUsers;
-
-    @FXML
-    private ImageView imgHome;
-
-    @FXML
-    private ImageView imgReceptionalWork;
-
-    @FXML
-    private ImageView imgMyAcademicBody;
-
-    @FXML
-    private ImageView imgMyCourses;
-
-    @FXML
-    private ImageView imgMyProjects;
-
-    @FXML
     private HBox projectsCardLayout;
-
     
+    @FXML
+    private Pane pnNavigationBar;
+
     final int CARD_SPACES = 3;
     
     private List<Project> projectsRecentlyAdded;
     private List<Course> coursesRecentlyAdded;
     private final int ADMIN_ROLE= 1;
     
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        displayImages();
-        displayCourses();
-        setToolTips();
-        showAdminFunctionalities();
-    }
-    
-    @FXML
-    void usersManagerClicked(MouseEvent mouseEvent){
-        SPGER.setRoot("/mx/uv/fei/sspger/GUI/UsersManager.fxml");
-    }
-    
-    @FXML
-    void allProjectsClicked(MouseEvent event) {
-    }
-    
     @FXML
     void allCoursesClicked(MouseEvent event) {
-    }
-    
-    @FXML
-    void academicBodyClicked(MouseEvent event) {
 
     }
 
     @FXML
-    void academicBodyManagerClicked(MouseEvent event) {
+    void allProjectsClicked(MouseEvent event) {
 
     }
-
-    @FXML
-    void coursesManagerClicked(MouseEvent event) {
-
-    }
-    private void showAdminFunctionalities(){
-        if(UserSession.getInstance().getPrivileges()==ADMIN_ROLE){
-            imgAddUsers.setVisible(true);
-            imgAddCourses.setVisible(true);
-            imgAddAcademicBody.setVisible(true);
-            imgAddUsers.setDisable(false);
-            imgAddCourses.setDisable(false);
-            imgAddAcademicBody.setDisable(false);
-            
-        }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        displayCourses();
+        setNavigationBar();
     }
     
-    private void setToolTips(){
-        Tooltip tltpMyProjects = new Tooltip("Mis anteproyectos");
-        Tooltip tltpAddAcademicBody = new Tooltip("Gestión de cuerpo académico");
-        Tooltip tltpReceptionalWork = new Tooltip("Trabajos recepcionales");
-        Tooltip tltpHome = new Tooltip("Página principal");
-        Tooltip tltpCourses = new Tooltip("Mis cursos");
-        Tooltip tltpCoursesManager = new Tooltip("Gestión de cursos");
-        Tooltip tltpAcademicBody = new Tooltip("Cuerpo académico");
-        Tooltip tltpAddUsers = new Tooltip("Gestión de usuarios");
-        
-        Tooltip.install(imgMyProjects, tltpMyProjects);
-        Tooltip.install(imgAddAcademicBody, tltpAddAcademicBody);
-        Tooltip.install(imgReceptionalWork, tltpReceptionalWork);
-        Tooltip.install(imgHome, tltpHome);
-        Tooltip.install(imgMyCourses, tltpCourses);
-        Tooltip.install(imgAddCourses, tltpCoursesManager);
-        Tooltip.install(imgMyAcademicBody, tltpAcademicBody);
-        Tooltip.install(imgAddUsers, tltpAddUsers);
-    }
-    
-    private void displayImages(){
-        
-        imgHome.setImage(ImagesSetter.getHomeImage());
-        imgAddAcademicBody.setImage(ImagesSetter.getAcademicBodyImage());
-        imgAddCourses.setImage(ImagesSetter.getCoursesImage());
-        imgAddUsers.setImage(ImagesSetter.getUsersImage());
-        
-    }
-    
+               
     public void displayCourses(){
         coursesRecentlyAdded = new ArrayList<>(coursesRecentlyAdded());
         try {
@@ -161,7 +81,7 @@ public class HomeProfessorController implements Initializable {
         List<Course> courseList = new ArrayList<>();
         
         try {
-            courseList = courseDAO.getAllCourses();
+            courseList = courseDAO.getCoursesPerProfessor(UserSession.getInstance().getUserId());
             
             if (courseList.size() > CARD_SPACES){
                 courseList = reduceCourseList(courseList);
@@ -169,6 +89,9 @@ public class HomeProfessorController implements Initializable {
             
         } catch (SQLException ex) {
             Logger.getLogger(HomeProfessorController.class.getName()).log(Level.SEVERE, null, ex);
+            DialogGenerator.getDialog(new AlertMessage (
+                "Error de conexión a la base de datos",
+                Status.FATAL));
         }
         
         return courseList;
@@ -183,5 +106,21 @@ public class HomeProfessorController implements Initializable {
     
     return newCourseList;
     }
-    
+
+    private void setNavigationBar() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/mx/uv/fei/sspger/GUI/NavigationBar.fxml"));
+            Pane pnNavigationBarParent = fxmlLoader.load();
+            NavigationBarController navigationBarController = fxmlLoader.getController();
+            navigationBarController.setNavigationBar();
+        
+            pnNavigationBar.getChildren().add(pnNavigationBarParent);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeProfessorController.class.getName()).log(Level.SEVERE, null, ex);
+            DialogGenerator.getDialog(new AlertMessage (
+                "Archivo FXML corrupto",
+                Status.FATAL));
+        }
+    }
 }

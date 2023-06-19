@@ -102,7 +102,7 @@ public class DirectorProjectsManagerController implements Initializable {
     } 
     
     void fillTable(){
-        try {
+        /*try {
             ProjectDAO projectDAO = new ProjectDAO();
             List<Project> projectList = projectDAO.getAllProjects();
             for (int i =0; i< projectList.size(); i++){
@@ -116,6 +116,6 @@ public class DirectorProjectsManagerController implements Initializable {
             tblCProjectTitle.setCellValueFactory(new PropertyValueFactory<ProjectsTable, String>("projectName"));
         } catch (SQLException ex) {
             Logger.getLogger(DirectorProjectsManagerController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 }

@@ -22,8 +22,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import mx.uv.fei.sspger.GUI.SPGER;
-import mx.uv.fei.sspger.GUI.controllers.FieldValidation;
-import mx.uv.fei.sspger.GUI.controllers.ImagesSetter;
 import mx.uv.fei.sspger.logic.DAO.ProfessorDAO;
 import mx.uv.fei.sspger.logic.DAO.StudentDAO;
 import mx.uv.fei.sspger.logic.Professor;

@@ -15,7 +15,6 @@ public interface IAcademicBody {
     int updateAcademicBody(String key, AcademicBody academicBody) throws SQLException;
     int deleteAcademicBody(String key) throws SQLException;
     int addAcademicBodyTransaction(AcademicBody academicBody) throws SQLException;
-    List<AcademicBodyMember> getAllAcademicBodyMember(String key) throws SQLException;
     List<AcademicBody> getAllAcademicBody() throws SQLException;
     AcademicBodyMember getProfessor(String email) throws SQLException;
     int getExistenceAcademicBody(AcademicBody academicBody) throws SQLException;

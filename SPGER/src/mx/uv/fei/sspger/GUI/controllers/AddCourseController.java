@@ -208,7 +208,7 @@ public class AddCourseController implements Initializable {
     @FXML
     private void cancelCourseAddition(ActionEvent actionEvent) throws IOException{
         if (isConfirmedExit()){
-            SPGER.setRoot("/mx/uv/fei/sspger/GUI/CourseManagement");
+            SPGER.setRoot("CourseManagement.fxml");
         }
     }
     
@@ -227,12 +227,12 @@ public class AddCourseController implements Initializable {
             
             setCourse(course, semester);
             
-            ViewCourseController.courseId = course.getCourseId();
+            ViewCourseController.setIdCourse(course.getCourseId());
             
             try{
                 registerCourse(semester, course, courseDao);
                 
-                SPGER.setRoot("/mx/uv/fei/sspger/GUI/ViewCourse");
+                SPGER.setRoot("ViewCourse.fxml");
                 
             }catch (SQLException sqlException){
                 DialogGenerator.getDialog(new AlertMessage (

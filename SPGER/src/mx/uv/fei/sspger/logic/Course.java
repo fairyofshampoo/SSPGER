@@ -27,7 +27,7 @@ public class Course {
         this.professorId = professorId;
     }
     
-    public void setCourseId(int semesterId){
+    public void setCourseId(int courseId){
         this.courseId = createCourseId(semesterId);
     }
     

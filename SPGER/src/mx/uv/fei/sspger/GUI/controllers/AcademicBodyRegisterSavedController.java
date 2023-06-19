@@ -97,8 +97,8 @@ public class AcademicBodyRegisterSavedController implements Initializable {
         setAcademicBodyMembersData();
     }
     
-    private void setAcademicBodyMembersData(){
-        AcademicBodyDAO academicBodyDao = new AcademicBodyDAO();
+   private void setAcademicBodyMembersData(){
+        /*AcademicBodyDAO academicBodyDao = new AcademicBodyDAO();
         List<AcademicBodyMember> memberList = new ArrayList<>();
         
         try {
@@ -129,7 +129,7 @@ public class AcademicBodyRegisterSavedController implements Initializable {
             Label lblMember = new Label();
             lblMember.setText("No hay miembros registrados");
             vboxAcademicBodyMembersContent.getChildren().add(lblMember);
-        }
+        }*/
     }
     
     private boolean deleteClicked(){

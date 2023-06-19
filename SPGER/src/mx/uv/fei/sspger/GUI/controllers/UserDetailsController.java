@@ -90,6 +90,14 @@ public class UserDetailsController implements Initializable {
         }
     }
 
+    public static void setIdUser(int idUser) {
+        UserDetailsController.idUser = idUser;
+    }
+
+    public static void setUserType(String userType) {
+        UserDetailsController.userType = userType;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         lblUserType.setText(userType);

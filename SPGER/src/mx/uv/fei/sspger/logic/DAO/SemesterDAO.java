@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import mx.uv.fei.sspger.dataaccess.DataBaseManager;
@@ -11,6 +13,9 @@ import mx.uv.fei.sspger.logic.Semester;
 import mx.uv.fei.sspger.logic.contracts.ISemester;
 
 public class SemesterDAO implements ISemester{
+    
+    private final Date ERROR_SEMESTER = Date.valueOf(LocalDate.of(2000,1,1));
+    private final int ERROR_ID = -1;
 
     @Override
     public Semester getSemesterPerStartDate(Semester semester) throws SQLException {
@@ -68,11 +73,15 @@ public class SemesterDAO implements ISemester{
         
         Semester semester = new Semester();
         
-        semesterResult.next();
-        
-        semester.setSemesterId(semesterResult.getInt("idPeriodoEscolar"));
-        semester.setStartDate(semesterResult.getDate("fechaInicio"));
-        semester.setDeadline(semesterResult.getDate("fechaFin"));
+        if(semesterResult.next()){
+            semester.setSemesterId(semesterResult.getInt("idPeriodoEscolar"));
+            semester.setStartDate(semesterResult.getDate("fechaInicio"));
+            semester.setDeadline(semesterResult.getDate("fechaFin"));
+        } else {
+            semester.setSemesterId(ERROR_ID);
+            semester.setStartDate(ERROR_SEMESTER);
+            semester.setDeadline(ERROR_SEMESTER);
+        }
         
         DataBaseManager.closeConnection();
         

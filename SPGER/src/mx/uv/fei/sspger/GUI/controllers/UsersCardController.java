@@ -5,15 +5,12 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import mx.uv.fei.sspger.GUI.SPGER;
-import mx.uv.fei.sspger.GUI.controllers.UserDetailsController;
 import mx.uv.fei.sspger.logic.Professor;
 import mx.uv.fei.sspger.logic.Student;
 import mx.uv.fei.sspger.logic.UserTypes;
@@ -68,8 +65,8 @@ public class UsersCardController{
     
     @FXML
     void selectUser(MouseEvent event) {
-        UserDetailsController.idUser = idUser;
-        UserDetailsController.userType = userType;
+        UserDetailsController.setIdUser(idUser);
+        UserDetailsController.setUserType(userType);
         SPGER.setRoot("/mx/uv/fei/sspger/GUI/UserDetails.fxml");
     }
     

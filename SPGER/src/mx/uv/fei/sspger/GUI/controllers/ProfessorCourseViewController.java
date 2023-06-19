@@ -151,6 +151,6 @@ public class ProfessorCourseViewController implements Initializable {
 
         imgReturn.setCursor(Cursor.DEFAULT);
         
-        SPGER.setRoot("/mx/uv/fei/sspger/GUI/ProfessorCourseManager");
+        SPGER.setRoot("ProfessorCourseManager.fxml");
     }
 }

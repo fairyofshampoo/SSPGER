@@ -12,9 +12,8 @@ public interface IProject {
     int addProject(Project project, String idCuerpoAcademico, String idLgac) throws SQLException;
     List <Project> getAllProjects() throws SQLException;
     Project getProjectByStudent(int studentId) throws SQLException;
-    List <Project> getAvailableProjects() throws SQLException;
+    List<Project> getProjectsByStatus(String status) throws SQLException;
     int applyToProject(int idProject, int idStudent) throws SQLException;
-    List<Project> getAvailableProjectCard() throws SQLException;
     List<Project> getAvailableProjectsPerDirectorCard(int idProfessor) throws SQLException;
     List<Project> getProjectsPerDirectorCard(int idProfessor) throws SQLException;
     int getProjectsCountByStatus(String projectStatus) throws SQLException;
@@ -30,7 +29,6 @@ public interface IProject {
     int expellStudent(int idProject, List<Student> studentList) throws SQLException;
     int acceptToProject(int idProject, List<Student> studentList) throws SQLException;
     Project getProject(int idProject) throws SQLException;
-    int countStudentsProjectSelected(int idStudent) throws SQLException;
     List<Lgac> getLgacByProject(int idProject) throws SQLException;
     AcademicBody getAcademicBodyByProject(int idProject) throws SQLException;
     int changeProjectStatus(String status, int idAnteproyecto) throws SQLException;

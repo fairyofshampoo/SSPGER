@@ -39,7 +39,7 @@ public class CourseDAO implements ICourse{
 
     @Override
     public List<Course> getCoursesPerState(String state) throws SQLException {
-        String query = "SELECT * FROM asignacion WHERE estado = ?";
+        String query = "SELECT idCurso, nombre, nrc, seccion, estado, bloque FROM curso WHERE estado = ?";
         DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(query);
         
@@ -51,13 +51,12 @@ public class CourseDAO implements ICourse{
         while(coursesResult.next()){
             Course course = new Course();
             
+            course.manualSetOfCourseId("idCurso");
             course.setName(coursesResult.getString("nombre"));
             course.setNrc(coursesResult.getString("nrc"));
             course.setSection(coursesResult.getInt("seccion"));
             course.setState(coursesResult.getString("estado"));
             course.setBlock(coursesResult.getInt("bloque"));
-            course.setSemesterId(coursesResult.getInt("idPeriodoEscolar"));
-            course.setProfessorId(coursesResult.getInt("idUsuarioProfesor"));
             coursesList.add(course);
         } 
         DataBaseManager.closeConnection();
