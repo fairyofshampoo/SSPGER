@@ -86,8 +86,6 @@ public class ProjectRegisterController implements Initializable {
     @FXML
     private TextField txtPladeaProjectTitle;
 
-    @FXML
-    private TextField txtProjectModality;
 
     @FXML
     private TextArea txtProjectRequeriments;
@@ -102,6 +100,8 @@ public class ProjectRegisterController implements Initializable {
     private TextField txtReceptionalWorkName;
     
     private final int ACTIVE_STATUS = 1;
+    @FXML
+    private ChoiceBox<?> cbxModality;
 
     @FXML
     void acceptButtonClick(ActionEvent event) {

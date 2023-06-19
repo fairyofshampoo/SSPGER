@@ -2,12 +2,14 @@ package mx.uv.fei.sspger.GUI.controllers;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.UserSession;
+import mx.uv.fei.sspger.logic.UserTypes;
 
 
 public class NavigationBarController {
@@ -20,10 +22,7 @@ public class NavigationBarController {
 
     @FXML
     private ImageView imgAddUsers;
-
-    @FXML
-    private ImageView imgHome;
-
+    
     @FXML
     private ImageView imgMyAcademicBody;
 
@@ -37,9 +36,28 @@ public class NavigationBarController {
     private ImageView imgReceptionalWork;
 
     @FXML
-    private Pane pnNavigationBar;
+    private Pane pnNavigationBarProfessor;
+    
+    @FXML
+    private ImageView imgHomeProfessor;
+    @FXML
+    private Pane pnNavigationBarStudent;
+    @FXML
+    private ImageView imgHomeStudent;
+    @FXML
+    private ImageView imgMyReceptionalWork;
+    @FXML
+    private ImageView imgAllProjects;
+    @FXML
+    private Pane pnNavigationBarParent;
+    @FXML
+    private Group groupCloseSession;
+    @FXML
+    private ImageView imgExit;
 
     private int ADMIN_ROLE = 1;
+    private final UserTypes STUDENT_TYPE = UserTypes.STUDENT;
+    private final UserTypes PROFESSOR_TYPE = UserTypes.PROFESSOR;
     
     @FXML
     void academicBodyClicked(MouseEvent event) {
@@ -63,7 +81,7 @@ public class NavigationBarController {
     
     @FXML
     void academicBodyManagerClicked(MouseEvent event) {
-        
+        SPGER.setRoot("AcademicBodyManager.fxml");
     }
 
     @FXML
@@ -77,31 +95,49 @@ public class NavigationBarController {
     }
     
     public void setNavigationBar(){
-        setToolTips();
+        verifyUserType();
         displayImages();
         showAdminFunctionalities();
     }
     
     private void displayImages(){
-        imgHome.setImage(ImagesSetter.getHomeImage());
+        
+        imgHomeProfessor.setImage(ImagesSetter.getHomeImage());
         imgAddAcademicBody.setImage(ImagesSetter.getAcademicBodyImage());
         imgAddCourses.setImage(ImagesSetter.getCoursesImage());
-        imgAddUsers.setImage(ImagesSetter.getUsersImage());   
+        imgAddUsers.setImage(ImagesSetter.getUsersImage());
+        imgMyAcademicBody.setImage(ImagesSetter.getMyAcademicBodyImage());
+        imgMyCourses.setImage(ImagesSetter.getAddCoursesImage());
+        imgMyProjects.setImage(ImagesSetter.getMyProjectImage());
+        imgReceptionalWork.setImage(ImagesSetter.getReceptionalWorkImage());
+        imgHomeStudent.setImage(ImagesSetter.getHomeImage());
+        imgMyReceptionalWork.setImage(ImagesSetter.getReceptionalWorkImage());
+        imgAllProjects.setImage(ImagesSetter.getProjectsImage());
+        imgExit.setImage(ImagesSetter.getExitImage());
+        
     }
     
-    private void showAdminFunctionalities(){
-        if(UserSession.getInstance().getPrivileges()==ADMIN_ROLE){
-            imgAddUsers.setVisible(true);
-            imgAddCourses.setVisible(true);
-            imgAddAcademicBody.setVisible(true);
-            imgAddUsers.setDisable(false);
-            imgAddCourses.setDisable(false);
-            imgAddAcademicBody.setDisable(false);
-            
+    private void verifyUserType(){
+        if(UserSession.getInstance().getUserType().equals(PROFESSOR_TYPE.getDisplayName())){
+            setProfessorToolTips();
+            pnNavigationBarProfessor.setVisible(true);
+        }
+        
+        if(UserSession.getInstance().getUserType().equals(STUDENT_TYPE.getDisplayName())){
+            setStudentToolTips();
+            pnNavigationBarStudent.setVisible(true);
         }
     }
     
-    private void setToolTips(){
+    private void showAdminFunctionalities(){
+        if(UserSession.getInstance().getPrivileges() == ADMIN_ROLE){
+            imgAddUsers.setVisible(true);
+            imgAddCourses.setVisible(true);
+            imgAddAcademicBody.setVisible(true);
+        }
+    }
+    
+    private void setProfessorToolTips(){
         Tooltip tltpMyProjects = new Tooltip("Mis anteproyectos");
         Tooltip tltpAddAcademicBody = new Tooltip("Gestión de cuerpo académico");
         Tooltip tltpReceptionalWork = new Tooltip("Trabajos recepcionales");
@@ -114,10 +150,43 @@ public class NavigationBarController {
         Tooltip.install(imgMyProjects, tltpMyProjects);
         Tooltip.install(imgAddAcademicBody, tltpAddAcademicBody);
         Tooltip.install(imgReceptionalWork, tltpReceptionalWork);
-        Tooltip.install(imgHome, tltpHome);
+        Tooltip.install(imgHomeProfessor, tltpHome);
         Tooltip.install(imgMyCourses, tltpCourses);
         Tooltip.install(imgAddCourses, tltpCoursesManager);
         Tooltip.install(imgMyAcademicBody, tltpAcademicBody);
         Tooltip.install(imgAddUsers, tltpAddUsers);
+    }
+    
+    private void setStudentToolTips(){
+        Tooltip tltpAllProjects = new Tooltip("Anteproyectos");
+        Tooltip tltpReceptionalWork = new Tooltip("Mi trabajo recepcional");
+        Tooltip tltpHome = new Tooltip("Página principal");
+        
+        Tooltip.install(imgAllProjects, tltpAllProjects);
+        Tooltip.install(imgMyReceptionalWork, tltpReceptionalWork);
+        Tooltip.install(imgHomeStudent, tltpHome);
+    }
+
+    @FXML
+    private void myProjectsClicked(MouseEvent event) {
+    }
+
+    @FXML
+    private void receptionalWorksViewClicked(MouseEvent event) {
+    }
+
+    @FXML
+    private void homeStudentClicked(MouseEvent event) {
+        SPGER.setRoot("HomeStudent.fxml");
+    }
+
+    @FXML
+    private void myReceptionalWorkClicked(MouseEvent event) {
+    }
+
+    @FXML
+    private void exitClicked(MouseEvent event) {
+        UserSession.getInstance().cleanUserSession();
+        SPGER.setRoot("Login.fxml");
     }
 }

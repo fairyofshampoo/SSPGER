@@ -15,7 +15,7 @@ public interface IProject {
     List<Project> getProjectsByStatus(String status) throws SQLException;
     int applyToProject(int idProject, int idStudent) throws SQLException;
     List<Project> getAvailableProjectsPerDirectorCard(int idProfessor) throws SQLException;
-    List<Project> getProjectsPerDirectorCard(int idProfessor) throws SQLException;
+    List<Project> getProjectsPerDirectorCard(int idProfessor, String role) throws SQLException;
     int getProjectsCountByStatus(String projectStatus) throws SQLException;
     Lgac getLgacMostUsed() throws SQLException;
     Lgac getLgacLeastUsed() throws SQLException;
@@ -32,4 +32,5 @@ public interface IProject {
     List<Lgac> getLgacByProject(int idProject) throws SQLException;
     AcademicBody getAcademicBodyByProject(int idProject) throws SQLException;
     int changeProjectStatus(String status, int idAnteproyecto) throws SQLException;
+    List<Project> getProjectsByStatusPerDirectorCard(int idProfessor, String role, String status) throws SQLException;
 }

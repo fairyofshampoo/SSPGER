@@ -19,14 +19,15 @@ import mx.uv.fei.sspger.logic.Student;
 
 
 public class ProjectDAO implements IProject{
-    private final String DIRECTOR_ROLE = "Director";
+    
     private final String GET_PROJECT = "SELECT * FROM anteproyecto WHERE idAnteproyecto = ?";
     private final String ADD_PROJECT_QUERY = "insert into anteproyecto(idLGAC, idCuerpoAcademico, nombreProyecto, descripcion, resultadosEsperados, duracionAproximada, notas, requisitos, bibliografiaRecomendada) values(?,?,?,?,?,?,?,?,?)";
     private final String GET_ALL_PROJECTS_QUERY = "SELECT * FROM anteproyecto";
     private final String GET_STUDENT_PROJECT = "SELECT idTrabajo_Recepcional, nombre FROM estudiante_trabajo_recepcional NATURAL JOIN trabajo_recepcional WHERE idEstudiante = ?";
     private final String GET_PROJECT_BY_STATUS = "SELECT * FROM anteproyecto WHERE estadoAnteproyecto = ?";
     private final String GET_AVAILABLE_PROJECTS_CARD = "SELECT a.idAnteproyecto, a.nombreProyecto, a.duracionAproximada, a.cupo, a.modalidad FROM anteproyecto a INNER JOIN profesor_anteproyecto pa ON a.idAnteproyecto = pa.idAnteproyecto WHERE a.estadoAnteproyecto = ? AND pa.idUsuarioProfesor = ? AND pa.rol = ?";
-    private final String GET_PROJECTS_PER_DIRECTOR_CARD = "SELECT anteproyecto.idAnteproyecto, nombreProyecto, duracionAproximada, cupo, modalidad, estadoAnteproyecto FROM anteproyecto INNER JOIN profesor_anteproyecto ON profesor_anteproyecto.idAnteproyecto = anteproyecto.idAnteproyecto WHERE profesor_anteproyecto.idUsuarioProfesor = ? AND profesor_anteproyecto.rol = ?";
+    private final String GET_PROJECTS_PER_ROLE_CARD = "SELECT anteproyecto.idAnteproyecto, nombreProyecto, duracionAproximada, cupo, modalidad, estadoAnteproyecto FROM anteproyecto INNER JOIN profesor_anteproyecto ON profesor_anteproyecto.idAnteproyecto = anteproyecto.idAnteproyecto WHERE profesor_anteproyecto.idUsuarioProfesor = ? AND profesor_anteproyecto.rol = ?";
+    private final String GET_PROJECTS_BY_STATUS_PER_ROLE_FILTER = "SELECT anteproyecto.idAnteproyecto, nombreProyecto, duracionAproximada, cupo, modalidad, estadoAnteproyecto FROM anteproyecto INNER JOIN profesor_anteproyecto ON profesor_anteproyecto.idAnteproyecto = anteproyecto.idAnteproyecto WHERE profesor_anteproyecto.idUsuarioProfesor = ? AND profesor_anteproyecto.rol = ? AND anteproyecto.estadoAnteproyecto = ?";
     private final String APPLY_TO_PROJECT = "INSERT INTO estudiante_anteproyecto(idEstudiante, idAnteproyecto, estadoEstudiante) values (?,?,?)";
     private final String COUNT_TOTAL_STUDENTS_SELECTED_BY_PROJECT = "SELECT COUNT(*) FROM estudiante_anteproyecto WHERE estadoEstudiante = ? AND idStudent = ?";
     private final String COUNT_PROJECTS_BY_STATUS = "SELECT COUNT(*) FROM anteproyecto WHERE estadoAnteproyecto = ?";
@@ -34,6 +35,8 @@ public class ProjectDAO implements IProject{
     private final String LEAST_LGAC_USED = "SELECT lgac.idLGAC, lgac.nombre FROM lgac INNER JOIN lgac_anteproyecto ON lgac.idLGAC = lgac_anteproyecto.idlgac GROUP BY lgac.idLGAC, lgac.nombre ORDER BY COUNT(*) ASC LIMIT 1";
     private final String MOST_MODALITY_USED = "SELECT modalidad, COUNT(*) AS count FROM anteproyecto GROUP BY modalidad ORDER BY count DESC LIMIT 1";
     private final String LEAST_MODALITY_USED = "SELECT modalidad, COUNT(*) AS count FROM anteproyecto GROUP BY modalidad ORDER BY count ASC LIMIT 1";
+    private final String DIRECTOR_WITH_MOST_PROJECTS = "SELECT profesor.nombre, profesor.apellido FROM profesor INNER JOIN profesor_anteproyecto ON profesor.idUsuarioProfesor = profesor_anteproyecto.idUsuarioProfesor WHERE profesor_anteproyecto.rol = ? GROUP BY professor.nombre, professor apellido ORDER BY COUNT(*) DESC LIMIT 1";
+    private final String DIRECTOR_WITH_LEAST_PROJECTS = "SELECT profesor.nombre, profesor.apellido FROM profesor INNER JOIN profesor_anteproyecto ON profesor.idUsuarioProfesor = profesor_anteproyecto.idUsuarioProfesor WHERE profesor_anteproyecto.rol = ? GROUP BY professor.nombre, professor apellido ORDER BY COUNT(*) ASC LIMIT 1";
     private final String AVAILABLE_SPACES_BY_PROJECT = "SELECT (anteproyecto.cupo - (SELECT COUNT(*) FROM estudiante_anteproyecto WHERE estadoEstudiante = ? AND idAnteproyecto = ?))"
             + " AS cupo_disponible FROM anteproyecto WHERE anteproyecto.idAnteproyecto = ?";
     private final String GET_LGAC_BY_PROJECT = "SELECT lgac.idLGAC, lgac.nombre FROM lgac INNER JOIN lgac_anteproyecto ON lgac_anteproyecto.idlgac = lgac.idLGAC"
@@ -47,13 +50,14 @@ public class ProjectDAO implements IProject{
     private final String STATUS_VALIDATION = "VALIDADO";
     private final String STATUS_STUDENT_ACCEPTED = "ACEPTADO";
     private final String STATUS_STUDENT_POSTULED = "POSTULANTE";
-    private final int ERROR_NOT_FOUND = -1;
+    private final String DIRECTOR_ROLE = "Director";
+    private final int NOT_FOUND_INT = -1;
+    private final String NOT_FOUND_STRING = "-1";
     private final int VALUE_BY_DEFAULT = 0;
-    private final String NOT_FOUND = "-1";
     
     private Project setProjectData(ResultSet projectResult) throws SQLException{
         Project project = new Project();
-        project.setIdProject(ERROR_NOT_FOUND);
+        project.setIdProject(NOT_FOUND_INT);
         
         if(projectResult.next()){
             project.setIdProject(projectResult.getInt("idAnteproyecto"));
@@ -73,6 +77,31 @@ public class ProjectDAO implements IProject{
         
         return project;
     }
+    
+    private List<Project> setProjectListData(ResultSet projectResult) throws SQLException{
+        List<Project> projectList = new ArrayList<>();
+        
+        while(projectResult.next()){
+            Project project = new Project();
+            project.setIdProject(projectResult.getInt("idAnteproyecto"));
+            project.setName(projectResult.getString("nombreProyecto"));
+            project.setDescription(projectResult.getString("descripcion"));
+            project.setExpectedResults(projectResult.getString("resultadosEsperados"));
+            project.setDuration(projectResult.getInt("duracionAproximada"));
+            project.setNotes(projectResult.getString("notas"));
+            project.setRequeriments(projectResult.getString("requisitos"));
+            project.setBibliography(projectResult.getString("bibliografiaRecomendada"));
+            project.setStatus(projectResult.getString("estadoAnteproyecto"));
+            project.setSpaces(projectResult.getInt("cupo"));
+            project.setModality(projectResult.getString("modalidad"));
+            project.setReceptionalWorkDescription(projectResult.getString("descripcionTrabajoRecepcional"));
+            project.setPladeaFeiName(projectResult.getString("nombrePladea_Fei"));
+            projectList.add(project);
+        }
+        
+        return projectList;
+    }
+    
     @Override
     public int addProject(Project project, String idCuerpoAcademico, String idLgac) throws SQLException {
         int result = VALUE_BY_DEFAULT;
@@ -99,27 +128,10 @@ public class ProjectDAO implements IProject{
 
     @Override
     public List<Project> getAllProjects() throws SQLException {
-        DataBaseManager.getConnection();
         Statement statement = DataBaseManager.getConnection().createStatement();
+        
         ResultSet projectResult = statement.executeQuery(GET_ALL_PROJECTS_QUERY);
-        
-        List<Project> projectList = new ArrayList<>();
-        
-        while(projectResult.next()){
-            Project project = new Project();
-            project.setIdProject(projectResult.getInt("idAnteproyecto"));
-            project.setStatus(projectResult.getString("estadoAnteproyecto"));
-            project.setName(projectResult.getString("nombreProyecto"));
-            project.setDescription(projectResult.getString("descripcion"));
-            project.setExpectedResults(projectResult.getString("resultadosEsperados"));
-            project.setDuration(projectResult.getInt("duracionAproximada"));
-            project.setNotes(projectResult.getString("notas"));
-            project.setRequeriments(projectResult.getString("requisitos"));
-            project.setBibliography(projectResult.getString("bibliografiaRecomendada"));
-            
-            
-            projectList.add(project);
-        }
+        List<Project> projectList = setProjectListData(projectResult);
         
         DataBaseManager.closeConnection();
         
@@ -134,7 +146,7 @@ public class ProjectDAO implements IProject{
         statement.setInt(1, studentId);
         
         Project project = new Project();
-        project.setIdProject(ERROR_NOT_FOUND);
+        project.setIdProject(NOT_FOUND_INT);
         
         ResultSet projectResult = statement.executeQuery();
 
@@ -150,35 +162,13 @@ public class ProjectDAO implements IProject{
 
     @Override
     public List<Project> getProjectsByStatus(String status) throws SQLException {
-        DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_PROJECT_BY_STATUS);
         
         statement.setString(1, status);
         
-        ResultSet projectResult = statement.executeQuery(); 
+        ResultSet projectResult = statement.executeQuery();
+        List<Project> projectAvailableList = setProjectListData(projectResult);
         
-        List<Project> projectAvailableList = new ArrayList<>();
-        
-        while(projectResult.next()){
-            Project project = new Project();
-            project.setIdProject(projectResult.getInt("idAnteproyecto"));
-            project.setName(projectResult.getString("nombreProyecto"));
-            project.setDescription(projectResult.getString("descripcion"));
-            project.setExpectedResults(projectResult.getString("resultadosEsperados"));
-            project.setDuration(projectResult.getInt("duracionAproximada"));
-            project.setNotes(projectResult.getString("notas"));
-            project.setRequeriments(projectResult.getString("requisitos"));
-            project.setBibliography(projectResult.getString("bibliografiaRecomendada"));
-            project.setStatus(projectResult.getString("estadoAnteproyecto"));
-            project.setSpaces(projectResult.getInt("cupo"));
-            project.setModality(projectResult.getString("modalidad"));
-            project.setReceptionalWorkDescription(projectResult.getString("descripcionTrabajoRecepcional"));
-            project.setPladeaFeiName(projectResult.getString("nombrePladea_Fei"));
- 
-            projectAvailableList.add(project);
-        }
-        
-        statement.close();
         DataBaseManager.closeConnection();
         
         return projectAvailableList;
@@ -208,45 +198,71 @@ public class ProjectDAO implements IProject{
             projectAvailableList.add(project);
         }
         
-        statement.close();
         DataBaseManager.closeConnection();
         
         return projectAvailableList;
     }
     
     @Override
-    public List<Project> getProjectsPerDirectorCard(int idProfessor) throws SQLException{
-        DataBaseManager.getConnection();
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_PROJECTS_PER_DIRECTOR_CARD);
+    public List<Project> getProjectsPerDirectorCard(int idProfessor, String role) throws SQLException{
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_PROJECTS_PER_ROLE_CARD);
         
         statement.setInt(1, idProfessor);
-        statement.setString(2, DIRECTOR_ROLE);
+        statement.setString(2, role);
         
-        ResultSet projectAvailableResult = statement.executeQuery(); 
+        ResultSet projectListResult = statement.executeQuery(); 
         
-        List<Project> projectAvailableList = new ArrayList<>();
+        List<Project> projectList = new ArrayList<>();
         
-        while(projectAvailableResult.next()){
+        while(projectListResult.next()){
             Project project = new Project();
             
-            project.setIdProject(projectAvailableResult.getInt("idAnteproyecto"));
-            project.setName(projectAvailableResult.getString("nombreProyecto"));
-            project.setDuration(projectAvailableResult.getInt("duracionAproximada"));
-            project.setSpaces(projectAvailableResult.getInt("cupo"));
-            project.setModality(projectAvailableResult.getString("modalidad"));
-            project.setStatus(projectAvailableResult.getString("estadoAnteproyecto"));
-            projectAvailableList.add(project);
+            project.setIdProject(projectListResult.getInt("idAnteproyecto"));
+            project.setName(projectListResult.getString("nombreProyecto"));
+            project.setDuration(projectListResult.getInt("duracionAproximada"));
+            project.setSpaces(projectListResult.getInt("cupo"));
+            project.setModality(projectListResult.getString("modalidad"));
+            project.setStatus(projectListResult.getString("estadoAnteproyecto"));
+            projectList.add(project);
         }
         
-        statement.close();
         DataBaseManager.closeConnection();
         
-        return projectAvailableList;
+        return projectList;
+    }
+    
+    @Override
+    public List<Project> getProjectsByStatusPerDirectorCard(int idProfessor, String role, String status) throws SQLException{
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_PROJECTS_BY_STATUS_PER_ROLE_FILTER);
+        
+        statement.setInt(1, idProfessor);
+        statement.setString(2, role);
+        statement.setString(3, status);
+        
+        ResultSet projectListResult = statement.executeQuery(); 
+        
+        List<Project> projectList = new ArrayList<>();
+        
+        while(projectListResult.next()){
+            Project project = new Project();
+            
+            project.setIdProject(projectListResult.getInt("idAnteproyecto"));
+            project.setName(projectListResult.getString("nombreProyecto"));
+            project.setDuration(projectListResult.getInt("duracionAproximada"));
+            project.setSpaces(projectListResult.getInt("cupo"));
+            project.setModality(projectListResult.getString("modalidad"));
+            project.setStatus(projectListResult.getString("estadoAnteproyecto"));
+            projectList.add(project);
+        }
+        
+        DataBaseManager.closeConnection();
+        
+        return projectList;
     }
     
     @Override
     public int applyToProject(int idProject, int idStudent) throws SQLException{
-        int response = ERROR_NOT_FOUND;
+        int response = NOT_FOUND_INT;
         
         try {
             DataBaseManager.getConnection().setAutoCommit(false);
@@ -287,7 +303,6 @@ public class ProjectDAO implements IProject{
             projectsCount = resultSet.getInt(1);
         }
 
-        statement.close();
         DataBaseManager.closeConnection();
 
         return projectsCount;
@@ -295,20 +310,18 @@ public class ProjectDAO implements IProject{
 
     @Override
     public Lgac getLgacMostUsed() throws SQLException {
-        DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(MOST_LGAC_USED);
 
         ResultSet lgacResult = statement.executeQuery();
         
         Lgac lgac = new Lgac();
-        lgac.setId(NOT_FOUND);
+        lgac.setId(NOT_FOUND_STRING);
         
         if(lgacResult.next()){
             lgac.setId(lgacResult.getString("idLGAC"));
             lgac.setName(lgacResult.getString("nombre"));
         }
         
-        statement.close();
         DataBaseManager.closeConnection();
 
         return lgac;
@@ -316,20 +329,18 @@ public class ProjectDAO implements IProject{
 
     @Override
     public Lgac getLgacLeastUsed() throws SQLException {
-        DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(LEAST_LGAC_USED);
 
         ResultSet lgacResult = statement.executeQuery();
         
         Lgac lgac = new Lgac();
-        lgac.setId(NOT_FOUND);
+        lgac.setId(NOT_FOUND_STRING);
         
         if(lgacResult.next()){
             lgac.setId(lgacResult.getString("idLGAC"));
             lgac.setName(lgacResult.getString("nombre"));
         }
         
-        statement.close();
         DataBaseManager.closeConnection();
 
         return lgac;
@@ -337,7 +348,7 @@ public class ProjectDAO implements IProject{
 
     @Override
     public String getModalityMostUsed() throws SQLException {
-        String modality = " ";
+        String modality = NOT_FOUND_STRING;
 
         PreparedStatement modalityStatement = DataBaseManager.getConnection().prepareStatement(MOST_MODALITY_USED);
         ResultSet resultSet = modalityStatement.executeQuery();
@@ -346,7 +357,6 @@ public class ProjectDAO implements IProject{
             modality = resultSet.getString("modalidad");
         }
         
-        modalityStatement.close();
         DataBaseManager.closeConnection();
 
         return modality;
@@ -354,7 +364,7 @@ public class ProjectDAO implements IProject{
 
     @Override
     public String getModalityLeastUsed() throws SQLException {
-        String modality = " ";
+        String modality = NOT_FOUND_STRING;
     
         PreparedStatement modalityStatement = DataBaseManager.getConnection().prepareStatement(LEAST_MODALITY_USED);
         ResultSet resultSet = modalityStatement.executeQuery();
@@ -363,7 +373,6 @@ public class ProjectDAO implements IProject{
             modality = resultSet.getString("modalidad");
         }
         
-        modalityStatement.close();
         DataBaseManager.closeConnection();
     
         return modality;
@@ -371,38 +380,18 @@ public class ProjectDAO implements IProject{
     
     @Override
     public Project getProject(int idProject) throws SQLException{
-        DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_PROJECT);
         
         statement.setInt(1, idProject);
         
         ResultSet projectResult = statement.executeQuery();
-        
-        Project project = new Project();
-        project.setIdProject(ERROR_NOT_FOUND);
-        
-        if(projectResult.next()){
-            project.setName(projectResult.getString("nombreProyecto"));
-            project.setDescription(projectResult.getString("descripcion"));
-            project.setExpectedResults(projectResult.getString("resultadosEsperados"));
-            project.setDuration(projectResult.getInt("duracionAproximada"));
-            project.setNotes(projectResult.getString("notas"));
-            project.setRequeriments(projectResult.getString("requisitos"));
-            project.setBibliography(projectResult.getString("bibliografiaRecomendada"));
-            project.setStatus(projectResult.getString("estadoAnteproyecto"));
-            project.setSpaces(projectResult.getInt("cupo"));
-            project.setModality(projectResult.getString("modalidad"));
-            project.setReceptionalWorkDescription(projectResult.getString("descripcionTrabajoRecepcional"));
-            project.setPladeaFeiName(projectResult.getString("nombrePladea_Fei"));
-            
-        }
+        Project project = setProjectData(projectResult);
         
         return project;
     }
     
     @Override
     public List<Lgac> getLgacByProject(int idProject) throws SQLException{
-        DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_LGAC_BY_PROJECT);
         
         statement.setInt(1, idProject);
@@ -421,14 +410,13 @@ public class ProjectDAO implements IProject{
     
     @Override
     public AcademicBody getAcademicBodyByProject(int idProject) throws SQLException{
-        DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(GET_ACADEMIC_BODY_BY_PROJECT);
         
         statement.setInt(1, idProject);
         
         ResultSet academicBodyResult = statement.executeQuery();
         AcademicBody academicBody = new AcademicBody();
-        academicBody.setKey(NOT_FOUND);
+        academicBody.setKey(NOT_FOUND_STRING);
         
         if(academicBodyResult.next()){
             academicBody.setKey(academicBodyResult.getString("idCuerpoAcademico"));
@@ -442,19 +430,19 @@ public class ProjectDAO implements IProject{
     public int acceptToProject(int idProject, List<Student> studentList) throws SQLException{
         int result = VALUE_BY_DEFAULT;
         
-            try{
-                DataBaseManager.getConnection().setAutoCommit(false);
-                
-                for(int i = 0; i < studentList.size(); i++){
-                    result += updateStudentStatusToAccepted(studentList.get(i).getId(), idProject);
-                    result += deleteStudentPostuledToProject(studentList.get(i).getId());
-                }
-                DataBaseManager.getConnection().commit();
-            }catch (SQLException ex) {
-                DataBaseManager.getConnection().rollback();
-            } finally {
-                DataBaseManager.getConnection().close();
+        try{
+            DataBaseManager.getConnection().setAutoCommit(false);
+
+            for(int i = 0; i < studentList.size(); i++){
+                result += updateStudentStatusToAccepted(studentList.get(i).getId(), idProject);
+                result += deleteStudentPostuledToProject(studentList.get(i).getId());
             }
+            DataBaseManager.getConnection().commit();
+        }catch (SQLException ex) {
+            DataBaseManager.getConnection().rollback();
+        } finally {
+            DataBaseManager.getConnection().close();
+        }
         
         return result;
     }
@@ -489,7 +477,6 @@ public class ProjectDAO implements IProject{
     
     @Override
     public int getTotalProjectSelectedByStudent(int idStudent) throws SQLException{
-        DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(COUNT_TOTAL_STUDENTS_SELECTED_BY_PROJECT);
         
         statement.setString(1, STATUS_STUDENT_POSTULED);
@@ -502,7 +489,6 @@ public class ProjectDAO implements IProject{
             totalStudentsChoices = totalStudentsChoicesResult.getInt(1);
         }
 
-        statement.close();
         DataBaseManager.closeConnection();
         
         return totalStudentsChoices;
@@ -523,7 +509,6 @@ public class ProjectDAO implements IProject{
             availableSpaces = totalStudentsChoicesResult.getInt(1);
         }
 
-        statement.close();
         DataBaseManager.closeConnection();
         
         return availableSpaces;
@@ -531,7 +516,6 @@ public class ProjectDAO implements IProject{
     
     @Override
     public int getExistenceApplicationToProject(int idStudent, int idProject) throws SQLException{
-        DataBaseManager.getConnection();
         PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(EXISTENCE_APPLICATION_TO_PROJECT);
         
         statement.setInt(1, idStudent);
@@ -539,13 +523,12 @@ public class ProjectDAO implements IProject{
         statement.setString(3, STATUS_STUDENT_POSTULED);
         
         ResultSet existenceApplicationToProjectResult = statement.executeQuery();
-        int existenceApplicationToProject = ERROR_NOT_FOUND;
+        int existenceApplicationToProject = NOT_FOUND_INT;
         
         if(existenceApplicationToProjectResult.next()){
             existenceApplicationToProject = existenceApplicationToProjectResult.getInt(1);
         }
         
-        statement.close();
         DataBaseManager.closeConnection();
         
         return existenceApplicationToProject;

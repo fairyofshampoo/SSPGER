@@ -1,7 +1,6 @@
 package mx.uv.fei.sspger.GUI.controllers;
 
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,9 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import mx.uv.fei.sspger.GUI.SPGER;
-import mx.uv.fei.sspger.GUI.controllers.AcademicBodyModifierController;
-import mx.uv.fei.sspger.GUI.controllers.AlertMessage;
-import mx.uv.fei.sspger.GUI.controllers.DialogGenerator;
 import mx.uv.fei.sspger.logic.AcademicBody;
 import mx.uv.fei.sspger.logic.AcademicBodyMember;
 import mx.uv.fei.sspger.logic.DAO.AcademicBodyDAO;
@@ -31,7 +27,7 @@ import mx.uv.fei.sspger.logic.Status;
 
 public class AcademicBodyRegisterSavedController implements Initializable {
     @FXML
-    private Button btnDelete;
+    private Button btnUpdateStatus;
 
     @FXML
     private ImageView btnGoBack;
@@ -49,34 +45,40 @@ public class AcademicBodyRegisterSavedController implements Initializable {
     private Label lblAcademicBodyResponsible;
     
     @FXML
+    private Label lblStatus;
+    
+    @FXML
     private VBox vboxAcademicBodyMembersContent;
     
     private static String academicBodyKey;
-    private final String RESPONSIBLE_ROLE = "Responsable";
     private final int VALUE_BY_DEFAULT = 0;
+    private final int NOT_FOUND_INT = -1;
+    private final int ACTIVE_STATUS = 1;
+    
     
     @FXML
-    void goBackAction(MouseEvent event) {
-        SPGER.setRoot("/mx/uv/fei/sspger/GUI/AcademicBodyManager.fxml");
+    void goBackClicked(MouseEvent event) {
+        goToAcademicBodyManager();
     }
     
     @FXML
-    void deleteAcademicBody(ActionEvent event) {
-        if(deleteClicked()){
-            delete();
+    void updateStatusClicked(ActionEvent event) {
+        if(confirmUpdateMessage()){
+            changeStatus();
         }
     }
 
     @FXML
-    void modifyAcademicBody(ActionEvent event) {
+    void modifyClicked(ActionEvent event) {
         AcademicBodyModifierController.setAcademicBodyKey(academicBodyKey);
-        
-        SPGER.setRoot("/mx/uv/fei/sspger/GUI/AcademicBodyModifier.fxml");
+        goToAcademicBodyModifier();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setButtonStatusMessage();
         setAcademicBodyData();
+        setAcademicBodyMembersData();
     }
     
     public static void setAcademicBodyKey(String key){
@@ -84,74 +86,113 @@ public class AcademicBodyRegisterSavedController implements Initializable {
     }
     
     private void setAcademicBodyData(){
-        AcademicBodyDAO academicBodyDao = new AcademicBodyDAO();
+        AcademicBody academicBody = getAcademicBody();
         
-        try {
-            AcademicBody academicBody = academicBodyDao.getAcademicBody(academicBodyKey);
-            lblAcademicBodyKeyData.setText(academicBodyKey);
-            lblAcademicBodyNameData.setText(academicBody.getName());
-        } catch (SQLException ex) {
-            Logger.getLogger(AcademicBodyRegisterSavedController.class.getName()).log(Level.SEVERE, null, ex);
+        lblAcademicBodyKeyData.setText(academicBodyKey);
+        lblAcademicBodyNameData.setText(academicBody.getName());
+        
+        if(academicBody.getStatus() == ACTIVE_STATUS){
+            lblStatus.setText("ACTIVO");
+        }else{
+            lblStatus.setText("INACTIVO");
         }
-        
-        setAcademicBodyMembersData();
     }
     
-   private void setAcademicBodyMembersData(){
-        /*AcademicBodyDAO academicBodyDao = new AcademicBodyDAO();
+    private void setAcademicBodyMembersData(){
+        AcademicBodyDAO academicBodyDao = new AcademicBodyDAO();
         List<AcademicBodyMember> memberList = new ArrayList<>();
+        AcademicBodyMember responsible = new AcademicBodyMember();
         
         try {
-            memberList = academicBodyDao.getAllAcademicBodyMember(academicBodyKey);
-            
+            memberList = academicBodyDao.getAcademicBodyMembers(academicBodyKey);
+            responsible = academicBodyDao.getAcademicBodyResponsible(academicBodyKey);
         } catch (SQLException ex) {
             Logger.getLogger(AcademicBodyRegisterSavedController.class.getName()).log(Level.SEVERE, null, ex);
+            showFailedConnectionAlert();
         }
-        
-        boolean responsibleExistence = false;
         
         for(int i = VALUE_BY_DEFAULT; i < memberList.size(); i++){
-            if(memberList.get(i).getRole().equals(RESPONSIBLE_ROLE)){
-                lblAcademicBodyResponsible.setText(memberList.get(i).getHonorificTitle() + " " + memberList.get(i).getName() + " " + memberList.get(i).getLastName());
-                responsibleExistence = true;
-            }else{
-                Label lblMember = new Label();
-                lblMember.setText(memberList.get(i).getHonorificTitle() + " " + memberList.get(i).getName() + " " + memberList.get(i).getLastName());
-                vboxAcademicBodyMembersContent.getChildren().add(lblMember);
-            }
+            Label lblMember = new Label();
+            lblMember.setText(" - " + memberList.get(i).getHonorificTitle() + " " + memberList.get(i).getName() + " " + memberList.get(i).getLastName());
+            vboxAcademicBodyMembersContent.getChildren().add(lblMember);
         }
         
-        if(!responsibleExistence){
-            lblAcademicBodyResponsible.setText("No hay un responsable registrado");
-        }
-        
-        if(memberList.isEmpty() || responsibleExistence){
+        if(memberList.isEmpty()){
             Label lblMember = new Label();
             lblMember.setText("No hay miembros registrados");
             vboxAcademicBodyMembersContent.getChildren().add(lblMember);
-        }*/
+        }
+        
+        if(responsible.getIdAcademicBodyMember() == NOT_FOUND_INT){
+            lblAcademicBodyResponsible.setText("No hay un responsable registrado");
+        }else{
+            lblAcademicBodyResponsible.setText(responsible.getHonorificTitle() + " " + responsible.getName() + " " + responsible.getLastName());
+        }
     }
     
-    private boolean deleteClicked(){
-        Optional<ButtonType> response = DialogGenerator.getConfirmationDialog("¿Deseas eliminar el Cuerpo Académico?");
+    private AcademicBody getAcademicBody(){
+        AcademicBodyDAO academicBodyDao = new AcademicBodyDAO();
+        AcademicBody academicBody = new AcademicBody();
+        
+        try {
+            academicBody = academicBodyDao.getAcademicBody(academicBodyKey);
+        } catch (SQLException ex) {
+            Logger.getLogger(AcademicBodyRegisterSavedController.class.getName()).log(Level.SEVERE, null, ex);
+            showFailedConnectionAlert();
+        }
+        
+        return academicBody;
+    }
+    
+    private void setButtonStatusMessage(){
+        AcademicBody academicBody = getAcademicBody();
+        if(academicBody.getStatus() == ACTIVE_STATUS){
+            btnUpdateStatus.setText("Desactivar");
+        }else{
+            btnUpdateStatus.setText("Activar");
+        }
+    }
+    
+    private boolean confirmUpdateMessage(){
+        Optional<ButtonType> response = DialogGenerator.getConfirmationDialog("¿Deseas " + btnUpdateStatus.getText() + " el Cuerpo Académico?");
         return (response.get() == DialogGenerator.BUTTON_YES);
     }
     
-    private void delete(){
+    private void changeStatus(){
         AcademicBodyDAO academicBodyDao = new AcademicBodyDAO();
+        AcademicBody academicBody = getAcademicBody();
         int result = VALUE_BY_DEFAULT;
         
+        if(academicBody.getStatus() == ACTIVE_STATUS){
+            academicBody.setStatus(VALUE_BY_DEFAULT);
+        }else{
+            academicBody.setStatus(ACTIVE_STATUS);
+        }
+        
         try {
-            result = academicBodyDao.deleteAcademicBody(academicBodyKey);
+            result = academicBodyDao.updateAcademicBodyStatus(academicBody.getStatus(), academicBodyKey);
         } catch (SQLException ex) {
             Logger.getLogger(AcademicBodyRegisterSavedController.class.getName()).log(Level.SEVERE, null, ex);
+            showFailedConnectionAlert();
         }
         
         if(result > VALUE_BY_DEFAULT){
-            DialogGenerator.getDialog(new AlertMessage ("Cuerpo Académico eliminado correctamente",Status.SUCCESS));
-            SPGER.setRoot("/mx/uv/fei/sspger/GUI/AcademicBodyManager.fxml");
+            DialogGenerator.getDialog(new AlertMessage ("Cuerpo Académico actualizado correctamente",Status.SUCCESS));
+            goToAcademicBodyManager();
         }else{
-            DialogGenerator.getDialog(new AlertMessage ("No se pudo eliminar el Cuerpo Académico",Status.ERROR));
+            DialogGenerator.getDialog(new AlertMessage ("No se pudo actualizar el estado del Cuerpo Académico",Status.ERROR));
         }
+    }
+    
+    private void goToAcademicBodyManager(){
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/AcademicBodyManager.fxml");
+    }
+    
+    private void goToAcademicBodyModifier(){
+        SPGER.setRoot("/mx/uv/fei/sspger/GUI/AcademicBodyModifier.fxml");
+    }
+    
+    private void showFailedConnectionAlert(){
+        DialogGenerator.getDialog(new AlertMessage ("Error de conexión con la base de datos. Intente nuevamente o regrese más tarde.",Status.FATAL));
     }
 }

@@ -1,80 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.DirectorProjectsCatalogController">
    <children>
-      <Pane prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #c2c4c4;">
+      <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #c2c4c4;">
          <children>
-            <Label layoutX="200.0" layoutY="12.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+            <Label layoutX="134.0" layoutY="10.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <VBox alignment="TOP_CENTER" layoutY="40.0" prefHeight="560.0" prefWidth="84.0" style="-fx-background-color: #a6a6a6;">
-         <children>
-            <Pane prefHeight="70.0" prefWidth="100.0">
-               <children>
-                  <ImageView fx:id="imgHome" fitHeight="45.0" fitWidth="45.0" layoutX="20.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@resources/25694.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane prefHeight="70.0" prefWidth="100.0">
-               <children>
-                  <ImageView fx:id="imgCourses" fitHeight="45.0" fitWidth="45.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@resources/course_icon.png" />
-                     </image></ImageView>
-               </children>
-            </Pane>
-            <Pane prefHeight="70.0" prefWidth="100.0">
-               <children>
-                  <ImageView fx:id="imgMyProjects" fitHeight="45.0" fitWidth="45.0" layoutX="20.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@resources/btnMyProject.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane prefHeight="70.0" prefWidth="100.0">
-               <children>
-                  <ImageView fx:id="imgReceptionalWork" fitHeight="45.0" fitWidth="45.0" layoutX="19.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@resources/btnReceptionalWork.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane prefHeight="70.0" prefWidth="100.0">
-               <children>
-                  <ImageView fx:id="imgMyAcademicBody" fitHeight="45.0" fitWidth="45.0" layoutX="20.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@resources/myAcademicBody.png" />
-                     </image></ImageView>
-               </children>
-            </Pane>
-         </children>
-      </VBox>
-      <VBox layoutX="95.0" layoutY="38.0" prefHeight="560.0" prefWidth="697.0">
+      <VBox layoutX="103.0" layoutY="38.0" prefHeight="560.0" prefWidth="672.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="683.0">
                <children>
@@ -84,31 +31,24 @@
                      </font>
                   </Label>
                   <Pane prefHeight="91.0" prefWidth="16.0" />
-                  <ComboBox prefHeight="25.0" prefWidth="127.0" />
+                  <ChoiceBox fx:id="cbxProjectFilter" prefHeight="25.0" prefWidth="181.0" />
                   <Pane prefHeight="91.0" prefWidth="12.0" />
                   <Pane prefHeight="91.0" prefWidth="18.0" />
-                  <TextField />
-                  <Pane prefHeight="91.0" prefWidth="28.0" />
-                  <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" text="Agregar&#10;anteproyecto" textAlignment="CENTER">
+                  <Pane prefHeight="91.0" prefWidth="121.0" />
+                  <Button fx:id="btnAddProject" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-radius: 10;" text="Agregar&#10;anteproyecto" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="11.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <ScrollPane prefHeight="436.0" prefWidth="694.0">
+            <ScrollPane prefHeight="436.0" prefWidth="660.0">
                <content>
-                  <GridPane fx:id="gpProjectCardSpaces" prefHeight="416.0" prefWidth="701.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                  </GridPane>
+                  <VBox fx:id="vboxDirectorProjects" prefHeight="432.0" prefWidth="667.0" />
                </content>
             </ScrollPane>
          </children>
       </VBox>
+      <Pane fx:id="pnNavigationBar" layoutX="-1.0" layoutY="45.0" prefHeight="560.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" />
    </children>
 </AnchorPane>

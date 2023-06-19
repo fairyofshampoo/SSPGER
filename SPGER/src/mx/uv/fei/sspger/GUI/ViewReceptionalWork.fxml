@@ -52,7 +52,6 @@
       <Button layoutX="507.0" layoutY="158.0" mnemonicParsing="false" onAction="#createReport" prefHeight="25.0" prefWidth="123.0" style="-fx-background-radius: 10px;" text="Generar reporte" />
       <Button layoutX="663.0" layoutY="122.0" mnemonicParsing="false" onAction="#addSinodal" prefHeight="25.0" prefWidth="123.0" style="-fx-background-radius: 10px;" text="Agregar sinodal" />
       <Button layoutX="663.0" layoutY="158.0" mnemonicParsing="false" onAction="#modifyReceptionalWork" prefHeight="25.0" prefWidth="123.0" style="-fx-background-radius: 10px;" text="Modificar T.R." />
-      <Button layoutX="575.0" layoutY="85.0" mnemonicParsing="false" onAction="#modifyStudents" prefHeight="25.0" prefWidth="137.0" style="-fx-background-radius: 10px;" text="Modificar estudiantes" />
       <Label layoutX="22.0" layoutY="255.0" prefHeight="27.0" prefWidth="117.0" text="Asignaciones">
          <font>
             <Font name="System Bold" size="18.0" />

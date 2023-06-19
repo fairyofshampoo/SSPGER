@@ -62,25 +62,27 @@ public class UsersManagerController implements Initializable {
     private TextField txtSearchBar;
     
     private final int ACTIVE_STATUS = 1;
-    private int column = 0;
-    private int row = 1;
+    private final int COLUMN_START = 0;
+    private final int ROW_START = 1;
+    private int column = COLUMN_START;
+    private int row = ROW_START;
     
     @FXML
     void addUserButtonClicked(ActionEvent event){
-        SPGER.setRoot("/mx/uv/fei/sspger/GUI/UserRegister.fxml");
+        SPGER.setRoot("UserRegister.fxml");
     }
     
     @FXML
     void homeClicked(MouseEvent mouseEvent){
-        SPGER.setRoot("/mx/uv/fei/sspger/GUI/HomeProfessor.fxml");
+        SPGER.setRoot("HomeProfessor.fxml");
     }
     
     @FXML
     void searchUser(MouseEvent event) {
         gpUsers.getChildren().clear();
-        column = 0;
-        row = 1;
-        if(FieldValidation.isNullOrEmptyTxtField(txtSearchBar)){
+        column = COLUMN_START;
+        row = ROW_START;
+        if(txtSearchBar.getText().isEmpty()){
             setStudentCards(getAllStudents());
             setProfessorCards(getAllProfessors());
         }else{
@@ -106,11 +108,7 @@ public class UsersManagerController implements Initializable {
         StudentDAO studentDao = new StudentDAO();
         
         try {
-            Student studentSearched = studentDao.searchStudentbyRegistrationTag(txtSearchBar.getText());
-            
-            if (studentSearched != null) {
-                studentsList.add(studentSearched);
-            }
+            studentsList = studentDao.searchStudentbyName(txtSearchBar.getText());
         } catch (SQLException sqlException) {
             Logger.getLogger(UsersManagerController.class.getName()).log(Level.SEVERE, null, sqlException);
         }
@@ -120,13 +118,8 @@ public class UsersManagerController implements Initializable {
     List<Professor> createProfessorSearchList(){
         List<Professor> professorsList = new ArrayList<>();
         ProfessorDAO professorDao = new ProfessorDAO();
-        
         try {
-            Professor professorSearched = professorDao.getProfessorByPersonalNumber(txtSearchBar.getText());
-            
-            if (professorSearched != null) {
-                professorsList.add(professorSearched);
-            }
+            professorsList = professorDao.searchProfessorsbyName(txtSearchBar.getText());
         } catch (SQLException sqlException) {
             Logger.getLogger(UsersManagerController.class.getName()).log(Level.SEVERE, null, sqlException);
         }
@@ -181,7 +174,7 @@ public class UsersManagerController implements Initializable {
         ProfessorDAO professorDao = new ProfessorDAO();
         
         try{
-            professorsList = professorDao.getProfessorsByStatus(ACTIVE_STATUS);
+            professorsList = professorDao.getAllProfessors();
         } catch (SQLException sqlException){
             Logger.getLogger(UsersManagerController.class.getName()).log(Level.SEVERE, null, sqlException);
         }

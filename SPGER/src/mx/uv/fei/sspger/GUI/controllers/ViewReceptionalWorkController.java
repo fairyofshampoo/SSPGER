@@ -142,27 +142,22 @@ public class ViewReceptionalWorkController implements Initializable {
     
     @FXML
     void addAssignment(ActionEvent event) {
-        
+        SPGER.setRoot("AddAssignment.fxml");
     }
 
     @FXML
     void addSinodal(ActionEvent event) {
-        
+        //TODO
     }
 
     @FXML
     void createReport(ActionEvent event) {
-        
+        //TODO NARAYANI
     }
 
     @FXML
     void modifyReceptionalWork(ActionEvent event) {
-        
-    }
-    
-    @FXML
-    void modifyStudents(ActionEvent event) {
-
+        //TODO NARAYANI
     }
     
     @FXML
@@ -177,7 +172,7 @@ public class ViewReceptionalWorkController implements Initializable {
     
     @FXML
     void goBack(MouseEvent event) {
-        SPGER.setRoot("/mx/uv/fei/sspger/GUI/DirectorReceptionalWork");
+        SPGER.setRoot("DirectorReceptionalWork.fxml");
     }
     
 }

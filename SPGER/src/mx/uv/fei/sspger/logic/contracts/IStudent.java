@@ -13,7 +13,7 @@ public interface IStudent {
     List <Student> getAvailableStudentsNotInCourse(String courseId) throws SQLException;
     List <Student> getStudentPerReceptionalWork(int idRedceptionalWork) throws SQLException;
     int addStudentTransaction(Student student) throws SQLException;
-    Student searchStudentbyRegistrationTag(String registrationTag) throws SQLException;
+    List <Student> searchStudentbyName(String name) throws SQLException;
     List <Student> getAllStudents() throws SQLException;
     List <Student> getStudentsByStatus(int status) throws SQLException;
     int updateStudentTransaction (String email, Student student) throws SQLException;

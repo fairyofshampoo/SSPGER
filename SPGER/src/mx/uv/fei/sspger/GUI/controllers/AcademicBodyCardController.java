@@ -1,19 +1,14 @@
 package mx.uv.fei.sspger.GUI.controllers;
 
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import mx.uv.fei.sspger.GUI.SPGER;
 import mx.uv.fei.sspger.logic.AcademicBody;
 
 
-public class AcademicBodyCardController implements Initializable {
+public class AcademicBodyCardController{
     @FXML
     private Label lblKeyData;
     
@@ -21,16 +16,21 @@ public class AcademicBodyCardController implements Initializable {
     private Label lblAcademicBodyName;
     
     @FXML
-    private VBox vBoxAcademicBodyCard;
-    
-    @FXML
-    private AnchorPane apAcademicBodyCard;
+    private Label lblStatus;
     
     private String AcademicBodyKey;
+    private final int ACTIVE_STATUS = 1;
     
     public void setAcademicBody(AcademicBody academicBody){
         lblAcademicBodyName.setText(academicBody.getName());
         lblKeyData.setText(academicBody.getKey());
+        
+        if(academicBody.getStatus() == ACTIVE_STATUS){
+            lblStatus.setText("ACTIVO");
+        }else{
+            lblStatus.setText("INACTIVO");
+        }
+        
         AcademicBodyKey = academicBody.getKey();
     }
     
@@ -39,10 +39,4 @@ public class AcademicBodyCardController implements Initializable {
         AcademicBodyRegisterSavedController.setAcademicBodyKey(AcademicBodyKey);
         SPGER.setRoot("/mx/uv/fei/sspger/GUI/AcademicBodyRegisterSaved.fxml");
     }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
 }

@@ -9,32 +9,31 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="mx.uv.fei.sspger.GUI.controllers.AcademicBodyModifierController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.AcademicBodyModifierController">
    <children>
-      <Pane prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
+      <Pane prefHeight="45.0" prefWidth="814.0" style="-fx-background-color: #C4C2C2;">
          <children>
-            <Label layoutX="200.0" layoutY="12.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+            <Label layoutX="141.0" layoutY="10.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
          </children>
       </Pane>
       <Pane layoutX="14.0" layoutY="65.0" prefHeight="550.0" prefWidth="800.0">
          <children>
-            <Label layoutX="71.0" layoutY="42.0" text="Modificar Cuerpo Académico">
+            <Label layoutX="71.0" text="Modificar Cuerpo Académico">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="71.0" layoutY="79.0" text="Ingresa la información del Cuerpo Académico" />
-            <Label layoutX="74.0" layoutY="119.0" text="Clave">
+            <Label layoutX="71.0" layoutY="37.0" text="Ingresa la información del Cuerpo Académico" />
+            <Label layoutX="71.0" layoutY="74.0" text="Clave">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="388.0" layoutY="119.0" text="Nombre">
+            <Label layoutX="385.0" layoutY="74.0" text="Nombre">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -44,8 +43,8 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtKey" layoutX="74.0" layoutY="147.0" promptText="UV-CA-127" />
-            <TextField fx:id="txtName" layoutX="388.0" layoutY="147.0" prefHeight="25.0" prefWidth="309.0" promptText="Ingeniería y Tecnología de Software" />
+            <TextField fx:id="txtKey" layoutX="71.0" layoutY="102.0" onKeyPressed="#disableInvalidKey" promptText="UV-CA-127" />
+            <TextField fx:id="txtName" layoutX="385.0" layoutY="102.0" onKeyTyped="#disableInvalidName" prefHeight="25.0" prefWidth="309.0" promptText="Ingeniería y Tecnología de Software" />
             <TableView fx:id="tblAcademicBodyMembers" layoutX="74.0" layoutY="234.0" prefHeight="200.0" prefWidth="628.0">
               <columns>
                 <TableColumn fx:id="tblCMembers" prefWidth="75.0" text="Miembros" />
@@ -54,16 +53,26 @@
                   <TableColumn fx:id="tblCName" prefWidth="300.0" text="Nombre" />
               </columns>
             </TableView>
-            <Button fx:id="btnSave" layoutX="71.0" layoutY="501.0" mnemonicParsing="false" onAction="#saveData" prefHeight="25.0" prefWidth="101.0" style="-fx-background-radius: 10;" text="Guardar">
+            <Button fx:id="btnSave" layoutX="71.0" layoutY="501.0" mnemonicParsing="false" onAction="#saveClicked" prefHeight="25.0" prefWidth="101.0" style="-fx-background-radius: 10;" text="Guardar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btnCancel" layoutX="212.0" layoutY="501.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="101.0" style="-fx-background-radius: 10;" text="Cancelar">
+            <Label fx:id="lblInvalidKey" layoutX="71.0" layoutY="127.0" prefHeight="72.0" prefWidth="298.0" text="Label" textFill="RED" visible="false" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnCancel" layoutX="212.0" layoutY="501.0" mnemonicParsing="false" onAction="#cancelClicked" prefHeight="25.0" prefWidth="101.0" style="-fx-background-radius: 10;" text="Cancelar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
+            <Label fx:id="lblInvalidName" layoutX="385.0" layoutY="127.0" prefHeight="87.0" prefWidth="337.0" text="Label" textFill="RED" visible="false" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

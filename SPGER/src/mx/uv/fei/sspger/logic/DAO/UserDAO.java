@@ -16,7 +16,6 @@ public class UserDAO implements IUser{
     private final String ANY_AVAILABLE_ACCOUNT_QUERY = "SELECT * FROM cuenta_acceso WHERE estado = ?";
     private final int ACTIVE_STATUS = 1;
     private final String SEARCH_EMAIL_QUERY = "SELECT COUNT(*) FROM cuenta_acceso where correo = ?";
-    
     @Override
     public int login(String email, String password) throws SQLException {
         int response = ERROR_ADDITION;

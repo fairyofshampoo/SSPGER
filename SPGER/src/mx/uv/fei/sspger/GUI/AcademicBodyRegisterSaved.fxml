@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,23 +13,23 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.AcademicBodyRegisterSavedController">
    <children>
-      <Pane layoutY="-2.0" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
+      <Pane layoutY="-2.0" prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
          <children>
-            <Label layoutX="213.0" layoutY="12.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+            <Label layoutX="134.0" layoutY="10.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
             <HBox layoutX="14.0" layoutY="44.0" prefHeight="35.0" prefWidth="399.0" />
          </children>
       </Pane>
-      <HBox layoutY="128.0" prefHeight="473.0" prefWidth="800.0">
+      <HBox layoutY="128.0" prefHeight="473.0" prefWidth="383.0">
          <children>
             <VBox prefHeight="513.0" prefWidth="785.0">
                <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="1.0" prefWidth="405.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="383.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="405.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="383.0">
                            <children>
                               <Pane prefHeight="50.0" prefWidth="30.0" />
                               <Label text="Clave: ">
@@ -41,7 +42,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="405.0">
+                  <HBox prefHeight="111.0" prefWidth="383.0">
                      <children>
                         <Pane prefHeight="50.0" prefWidth="30.0" />
                         <Label text="Nombre: ">
@@ -49,10 +50,21 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblAcademicBodyNameData" />
+                        <Label fx:id="lblAcademicBodyNameData" alignment="TOP_LEFT" prefHeight="83.0" prefWidth="295.0" wrapText="true" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="152.0" prefWidth="405.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="383.0">
+                     <children>
+                        <Pane prefHeight="50.0" prefWidth="30.0" />
+                        <Label text="Estado: ">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblStatus" text="Label" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="383.0">
                      <children>
                         <Pane prefHeight="50.0" prefWidth="30.0" />
                         <Label text="Responsable: ">
@@ -63,16 +75,16 @@
                         <Label fx:id="lblAcademicBodyResponsible" />
                      </children>
                   </HBox>
-                  <Pane prefHeight="423.0" prefWidth="405.0">
+                  <Pane prefHeight="351.0" prefWidth="383.0">
                      <children>
-                        <HBox alignment="CENTER" layoutX="15.0" layoutY="251.0" prefHeight="63.0" prefWidth="375.0">
+                        <HBox alignment="CENTER" layoutX="22.0" layoutY="220.0" prefHeight="63.0" prefWidth="340.0">
                            <children>
-                              <Button fx:id="btnModify" mnemonicParsing="false" onAction="#modifyAcademicBody" prefHeight="25.0" prefWidth="110.0" text="Modificar">
+                              <Button fx:id="btnModify" mnemonicParsing="false" onAction="#modifyClicked" prefHeight="25.0" prefWidth="110.0" style="-fx-background-radius: 10;" text="Modificar">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Button>
-                              <Pane prefHeight="100.0" prefWidth="100.0" />
-                              <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteAcademicBody" prefHeight="25.0" prefWidth="110.0" text="Eliminar">
+                              <Pane prefHeight="63.0" prefWidth="51.0" />
+                              <Button fx:id="btnUpdateStatus" mnemonicParsing="false" onAction="#updateStatusClicked" prefHeight="25.0" prefWidth="110.0" style="-fx-background-radius: 10;" text="Desactivar">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Button>
@@ -82,21 +94,12 @@
                   </Pane>
                </children>
             </VBox>
-            <VBox fx:id="vboxAcademicBodyMembersContent" prefHeight="473.0" prefWidth="777.0">
-               <children>
-                  <Label text="Miembros:">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutY="37.0" prefHeight="63.0" prefWidth="800.0">
+      <HBox alignment="CENTER_LEFT" layoutY="37.0" prefHeight="77.0" prefWidth="800.0">
          <children>
             <Pane prefHeight="63.0" prefWidth="71.0" />
-            <ImageView fx:id="btnGoBack" fitHeight="45.0" fitWidth="45.0" onMouseClicked="#goBackAction" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnGoBack" fitHeight="45.0" fitWidth="45.0" onMouseClicked="#goBackClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@resources/btnBack.png" />
                </image>
@@ -109,5 +112,18 @@
             </Label>
          </children>
       </HBox>
+      <ScrollPane layoutX="384.0" layoutY="126.0" prefHeight="473.0" prefWidth="415.0">
+         <content>
+            <VBox fx:id="vboxAcademicBodyMembersContent" prefHeight="466.0" prefWidth="410.0">
+               <children>
+                  <Label text="Miembros:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

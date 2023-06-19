@@ -13,77 +13,162 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import mx.uv.fei.sspger.logic.Project;
 import mx.uv.fei.sspger.logic.DAO.ProjectDAO;
+import mx.uv.fei.sspger.logic.ProjectStatus;
+import mx.uv.fei.sspger.logic.Status;
+import mx.uv.fei.sspger.logic.UserSession;
 
 
 public class DirectorProjectsCatalogController implements Initializable {
     @FXML
-    private GridPane gpProjectCardSpaces;
-
-    @FXML
-    private ImageView imgCourses;
-
-    @FXML
-    private ImageView imgHome;
-
-    @FXML
-    private ImageView imgMyAcademicBody;
-
-    @FXML
-    private ImageView imgMyProjects;
-
-    @FXML
-    private ImageView imgReceptionalWork;
+    private VBox vboxDirectorProjects;
     
+    @FXML
+    private Pane pnNavigationBar;
     
+    @FXML
+    private Button btnAddProject;
     
-    public void displayDirectorProjectCard(){
+    @FXML
+    private ChoiceBox<String> cbxProjectFilter;
+    
+    private final int VALUE_BY_DEFAULT = 0;
+    private final int UPPER_LIMIT_COLUMN = 2;
+    private final int ID_PROFESSOR = UserSession.getInstance().getUserId();
+    private final String DIRECTOR_ROLE = "Director";
+    private final String CODIRECTOR_ROLE = "Codirector";
+    private final String STATUS_ALL_PROJECTS = "TODOS";
+    
+    public void displayDirectorProjectCards(List<Project> projectList, String role){
+        Label lblDirector = new Label(role);
+        lblDirector.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        vboxDirectorProjects.getChildren().add(lblDirector);
+        
+        if(projectList.isEmpty()){
+            Label lblNotFound = new Label("No existen anteproyectos como " + role);
+            lblNotFound.setStyle("-fx-font-size: 14px");
+            vboxDirectorProjects.getChildren().add(lblNotFound);
+        }else{
+            GridPane gpProjectCardSpaces = new GridPane();
+            int columnCardSpaces = VALUE_BY_DEFAULT;
+            int row = VALUE_BY_DEFAULT;
+            
+            try {
+                for(int i = 0; i < projectList.size(); i++){
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/mx/uv/fei/sspger/GUI/DirectorProjectCard.fxml"));
+                    AnchorPane apDirectorProjectsCard = loader.load();
+                    DirectorProjectCardController cardController = loader.getController();
+                    cardController.setDirectorProjectData(projectList.get(i));
+
+                    if(columnCardSpaces == UPPER_LIMIT_COLUMN){
+                        columnCardSpaces = VALUE_BY_DEFAULT;
+                        row++;
+                    }
+                    
+                    gpProjectCardSpaces.add(apDirectorProjectsCard, columnCardSpaces++, row);
+                    GridPane.setMargin(apDirectorProjectsCard, new Insets(10));
+                    vboxDirectorProjects.getChildren().add(gpProjectCardSpaces);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(AcademicBodyManagerController.class.getName()).log(Level.SEVERE, null, ex);
+                showFXMLFileFailedAlert();
+            }
+        }
+    }
+    
+    private List<Project> getProjectsByRole(String role){
         List<Project> projectList = new ArrayList<>();
         ProjectDAO projectDAO = new ProjectDAO();
-        int columnCardSpaces = 0;
-        int row = 0;
         
         try {
-            projectList = projectDAO.getProjectsPerDirectorCard(23);
+            projectList = projectDAO.getProjectsPerDirectorCard(ID_PROFESSOR, role);
         } catch (SQLException ex) {
             Logger.getLogger(AcademicBodyManagerController.class.getName()).log(Level.SEVERE, null, ex);
+            showFailedConnectionAlert();
         }
         
-        try {
-            for(int i = 0; i < projectList.size(); i++){
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/mx/uv/fei/sspger/GUI/DirectorProjectCard.fxml"));
-                AnchorPane apDirectorProjectsCard = loader.load();
-                DirectorProjectCardController cardController = loader.getController();
-                cardController.setDirectorProjectData(projectList.get(i));
-                
-                if(columnCardSpaces == 2){
-                    columnCardSpaces = 0;
-                    row++;
-                }
-                gpProjectCardSpaces.add(apDirectorProjectsCard, columnCardSpaces++, row);
-                GridPane.setMargin(apDirectorProjectsCard, new Insets(15));
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(AcademicBodyManagerController.class.getName()).log(Level.SEVERE, null, ex);
+        return projectList;
+    }
+    
+    private void setChoiceBoxProject(){
+        for (ProjectStatus status : ProjectStatus.values()) {
+            cbxProjectFilter.getItems().add(status.getDisplayName());
         }
+        cbxProjectFilter.getItems().add(STATUS_ALL_PROJECTS);
+        cbxProjectFilter.setValue(STATUS_ALL_PROJECTS);
+    }
+    
+    private List<Project> getProjectsByStatusPerRole(String role, String status){
+        List<Project> projectList = new ArrayList<>();
+        ProjectDAO projectDao = new ProjectDAO();
+        
+        try {
+            projectList = projectDao.getProjectsByStatusPerDirectorCard(ID_PROFESSOR, role, status);
+        } catch (SQLException ex) {
+            Logger.getLogger(DirectorProjectsCatalogController.class.getName()).log(Level.SEVERE, null, ex);
+            showFailedConnectionAlert();
+        }
+        
+        return projectList;
+    }
+    
+    private void filterStatus(){
+        String selection = cbxProjectFilter.getValue();
+        
+        if(selection.equals(STATUS_ALL_PROJECTS)){
+            displayDirectorProjectCards(getProjectsByRole(DIRECTOR_ROLE), DIRECTOR_ROLE);
+            displayDirectorProjectCards(getProjectsByRole(CODIRECTOR_ROLE), CODIRECTOR_ROLE);
+        }else{
+            displayDirectorProjectCards(getProjectsByStatusPerRole(DIRECTOR_ROLE, selection), DIRECTOR_ROLE);
+            displayDirectorProjectCards(getProjectsByStatusPerRole(CODIRECTOR_ROLE, selection), CODIRECTOR_ROLE);
+        }
+    }
+    
+    private void setNavigationBar() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/mx/uv/fei/sspger/GUI/NavigationBar.fxml"));
+            Pane pnNavigationBarParent = fxmlLoader.load();
+            NavigationBarController navigationBarController = fxmlLoader.getController();
+            navigationBarController.setNavigationBar();
+        
+            pnNavigationBar.getChildren().add(pnNavigationBarParent);
+        } catch (IOException ex) {
+            Logger.getLogger(UsersManagerController.class.getName()).log(Level.SEVERE, null, ex);
+            showFXMLFileFailedAlert();
+        }
+    }
+    
+    private void setProjectFilter(){
+        cbxProjectFilter.setOnAction(event -> {
+            vboxDirectorProjects.getChildren().clear();
+            filterStatus();
+        });
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        displayDirectorProjectCard();
-        displayImages();
+        displayDirectorProjectCards(getProjectsByRole(DIRECTOR_ROLE), DIRECTOR_ROLE);
+        displayDirectorProjectCards(getProjectsByRole(CODIRECTOR_ROLE), CODIRECTOR_ROLE);
+        setNavigationBar();
+        setChoiceBoxProject();
+        setProjectFilter();
     }
     
-    public void displayImages(){
-        imgHome.setImage(ImagesSetter.getHomeImage());
-        imgCourses.setImage(ImagesSetter.getCoursesImage());
-        imgMyAcademicBody.setImage(ImagesSetter.getAcademicBodyImage());
-        imgMyProjects.setImage(ImagesSetter.getMyProjectImage());
-        imgReceptionalWork.setImage(ImagesSetter.getReceptionalWorkImage());
+    private void showFXMLFileFailedAlert(){
+        DialogGenerator.getDialog(new AlertMessage ("Archivo FXML corrupto.",Status.FATAL));
+    }
+    
+    private void showFailedConnectionAlert(){
+        DialogGenerator.getDialog(new AlertMessage ("Error de conexión con la base de datos. Intente nuevamente o regrese más tarde.",Status.FATAL));
     }
 }

@@ -11,8 +11,8 @@ public interface IProfessor {
     Professor getProfessor(int idUser) throws SQLException;
     List<Professor> getProfessorsByStatus(int status) throws SQLException;
     int updateProfessorTransaction(String email, Professor professor) throws SQLException;
-    int changeProfessorStatus(String email, int status) throws SQLException;
-    Professor getProfessorByPersonalNumber(String personalNumber) throws SQLException;
+    int updateProfessorWithPasswordTransaction(String email, Professor professor) throws SQLException;
+    List<Professor> searchProfessorsbyName(String name) throws SQLException;
     Professor getProfessor(String email) throws SQLException;
     Professor getProfessorByCourse (String courseId) throws SQLException;
     Professor getDirectorByProject (int proyectId) throws SQLException;

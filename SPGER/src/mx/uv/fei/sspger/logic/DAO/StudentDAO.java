@@ -24,7 +24,7 @@ public class StudentDAO implements IStudent{
     private final String UPDATE_STUDENT_COMMAND = "UPDATE estudiante SET nombre = ?, apellido = ?, matricula = ? WHERE correo_institucional = ?";
     private final String CHANGE_STUDENT_STATUS_QUERY = "UPDATE cuenta_acceso SET estado = ? WHERE correo = ?";
     private final String GET_STUDENTS_BY_RECEPTIONAL_WORK = "SELECT nombre, apellido, idEstudiante FROM estudiante_trabajo_recepcional INNER JOIN estudiante ON estudiante.idUsuarioEstudiante = estudiante_trabajo_recepcional.idEstudiante WHERE idTrabajoRecepcional = ?";
-    private final String SEARCH_STUDENT_BY_REGISTRATION_TAG = "SELECT * FROM cuenta_acceso INNER JOIN estudiante ON cuenta_acceso.correo = estudiante.correo_institucional WHERE estudiante.matricula = ?";
+    private final String SEARCH_STUDENT_BY_NAME = "SELECT * FROM cuenta_acceso INNER JOIN estudiante ON cuenta_acceso.correo = estudiante.correo_institucional WHERE CONCAT(estudiante.nombre, ?, estudiante.apellido) LIKE ?";
     private final String GET_STUDENT_BY_ID = "SELECT * FROM estudiante WHERE idUsuarioEstudiante = ?";
 
     @Override
@@ -312,30 +312,34 @@ public class StudentDAO implements IStudent{
         
         return studentList;
     }
-
-    @Override
-    public Student searchStudentbyRegistrationTag(String registrationTag) throws SQLException {
-        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(SEARCH_STUDENT_BY_REGISTRATION_TAG);
-
-        statement.setString(1,registrationTag);
-
-        ResultSet studentResult = statement.executeQuery();
-        Student student = new Student();
-        
-        if(studentResult.next()){
-        
-        student.setEMail(studentResult.getString("correo"));
-        student.setName(studentResult.getString("nombre"));
-        student.setLastName(studentResult.getString("apellido"));
-        student.setRegistrationTag(studentResult.getString("matricula"));
-        student.setId(studentResult.getInt("idUsuarioEstudiante"));
-        student.setStatus(studentResult.getInt("estado"));
-        } else {
-            student.setId(ERROR);
+    private List<Student> setStudentList(ResultSet studentResult) throws SQLException{
+        List<Student> studentList = new ArrayList<>();
+        while(studentResult.next()){
+            Student student = new Student();
+            student.setEMail(studentResult.getString("correo"));
+            student.setName(studentResult.getString("nombre"));
+            student.setLastName(studentResult.getString("apellido"));
+            student.setRegistrationTag(studentResult.getString("matricula"));
+            student.setId(studentResult.getInt("idUsuarioEstudiante"));
+            student.setStatus(studentResult.getInt("estado"));
+            studentList.add(student);
         }
+        return studentList;
+    }
+    @Override
+    public List <Student> searchStudentbyName(String name) throws SQLException {
+        PreparedStatement statement = DataBaseManager.getConnection().prepareStatement(SEARCH_STUDENT_BY_NAME);
+        String blankSpace = " ";
+        String searchName = name + "%";
+        
+        statement.setString(1, blankSpace);
+        statement.setString(2, searchName);
+        
+        List<Student> studentList = new ArrayList<>();
+        ResultSet studentResult = statement.executeQuery();
+        studentList = setStudentList(studentResult);
         DataBaseManager.closeConnection();
-
-        return student;
+        return studentList;
     }
     
     @Override
