@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.CourseManagementController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.CourseManagementController">
    <children>
       <Label layoutX="128.0" layoutY="75.0" text="Cursos">
          <font>
@@ -20,37 +25,28 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Pane layoutX="-13.0" layoutY="29.0" prefHeight="567.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;">
+      <Pane layoutX="-4.0" prefHeight="50.0" prefWidth="807.0" style="-fx-background-color: #A6A6A6;">
          <children>
-            <ImageView fitHeight="52.0" fitWidth="46.0" layoutX="24.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@resources/25694.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="52.0" fitWidth="52.0" layoutX="25.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@resources/addCourse.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="52.0" fitWidth="52.0" layoutX="25.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@resources/addUsers.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="52.0" layoutX="25.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@resources/academicBody.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
-      <Pane layoutX="-4.0" prefHeight="50.0" prefWidth="807.0" style="-fx-background-color: #C4C2C2;">
-         <children>
-            <ImageView fitHeight="35.0" fitWidth="36.0" layoutX="751.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="35.0" fitWidth="36.0" layoutX="758.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@resources/userIcon.png" />
                </image>
             </ImageView>
          </children></Pane>
+      <ScrollPane layoutX="116.0" layoutY="143.0" prefHeight="437.0" prefWidth="656.0">
+         <content>
+            <GridPane fx:id="gpCourseTable" prefHeight="430.0" prefWidth="648.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
+      <Pane fx:id="pnNavigationBar" layoutY="39.0" prefHeight="563.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" />
+      <ComboBox fx:id="cbxCourseFilter" layoutX="390.0" layoutY="78.0" onAction="#filterCourses" prefHeight="29.0" prefWidth="165.0" promptText="Filtro de curso" />
    </children>
 </AnchorPane>

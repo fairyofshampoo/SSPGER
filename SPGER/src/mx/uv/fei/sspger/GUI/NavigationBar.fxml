@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+
+<Pane fx:id="pnNavigationBar" prefHeight="563.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.NavigationBarController">
+   <children>
+      <ImageView fx:id="imgHome" fitHeight="62.0" fitWidth="37.0" layoutX="23.0" layoutY="31.0" onMouseClicked="#homeClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/25694.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAddCourses" disable="true" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="344.0" onMouseClicked="#coursesManagerClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@resources/addCourse.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAddUsers" disable="true" fitHeight="62.0" fitWidth="37.0" layoutX="22.0" layoutY="402.0" onMouseClicked="#usersManagerClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@resources/addUsers.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAddAcademicBody" disable="true" fitHeight="62.0" fitWidth="37.0" layoutX="21.0" layoutY="466.0" onMouseClicked="#academicBodyManagerClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@resources/academicBody.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgMyCourses" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="97.0" onMouseClicked="#allCoursesClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/course_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgMyProjects" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="149.0" onMouseClicked="#allProjectsClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/btnMyProject.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgReceptionalWork" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="210.0" onMouseClicked="#academicBodyClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/btnReceptionalWork.png" />
+         </image>
+      </ImageView>
+      <Line endX="22.800003051757812" endY="9.1552734375E-5" fill="BLACK" layoutX="46.0" layoutY="329.0" startX="-30.799999237060547" startY="6.103515625E-5" />
+      <ImageView fx:id="imgMyAcademicBody" fitHeight="62.0" fitWidth="37.0" layoutX="23.0" layoutY="272.0" onMouseClicked="#academicBodyClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/myAcademicBody.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>
