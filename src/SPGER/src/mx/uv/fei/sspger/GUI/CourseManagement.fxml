@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.CourseManagementController">
+   <children>
+      <Label layoutX="128.0" layoutY="75.0" text="Cursos">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Pane layoutX="116.0" layoutY="124.0" prefHeight="5.0" prefWidth="680.0" style="-fx-background-color: #C4C2C2;" />
+      <Button layoutX="622.0" layoutY="78.0" mnemonicParsing="false" onAction="#addCourseView" prefHeight="25.0" prefWidth="127.0" style="-fx-background-radius: 20;" text="Agregar Curso">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <ScrollPane layoutX="116.0" layoutY="143.0" prefHeight="437.0" prefWidth="656.0">
+         <content>
+            <GridPane fx:id="gpCourseTable" prefHeight="11.0" prefWidth="655.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
+      <Pane fx:id="pnNavigationBar" layoutY="39.0" prefHeight="563.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" />
+      <ComboBox fx:id="cbxCourseFilter" layoutX="390.0" layoutY="78.0" onAction="#filterCourses" prefHeight="29.0" prefWidth="165.0" promptText="Filtro de curso" style="-fx-background-radius: 20;" />
+      <Pane layoutY="-1.0" prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
+         <children>
+            <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="pnSubmissionParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.SubmissionPaneController">
+   <children>
+      <Label layoutX="61.0" layoutY="10.0" prefHeight="17.0" prefWidth="130.0" text="Entrega">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="518.0" layoutY="31.0" prefHeight="17.0" prefWidth="136.0" text="Fecha de entrega:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDeliveryDate" layoutX="518.0" layoutY="48.0" prefHeight="17.0" prefWidth="114.0" text="28/02/2023 00:00" />
+      <Label layoutX="58.0" layoutY="40.0" prefHeight="17.0" prefWidth="136.0" text="Descripción entrega">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Text fx:id="ntxtDescriptionSubmission" layoutX="58.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ullamcorper massa tortor, ac pretium lectus ornare at. Donec non enim posuere, bibendum sem sed, facilisis dui. In at libero eu nisl interdum venenatis non congue mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ullamcorper massa tortor, ac pretium lectus ornare at. Donec non enim posuere, bibendum sem sed, facilisis dui. In at libero eu nisl interdum venenatis non congue mauris." textAlignment="JUSTIFY" wrappingWidth="414.7558288574219" />
+      <Label layoutX="515.0" layoutY="96.0" prefHeight="17.0" prefWidth="136.0" text="Archivo de entrega:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Line endX="582.199951171875" layoutX="152.0" layoutY="217.0" startX="-100.0" stroke="#a6a6a6" />
+      <Group layoutX="501.0" layoutY="120.0">
+         <children>
+            <ImageView fx:id="imgPdfFile" fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/pdf_file.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgDownload" fitHeight="22.0" fitWidth="16.0" layoutX="176.0" layoutY="6.0" onMouseClicked="#downloadImageClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/download.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblFileTitle" alignment="TOP_LEFT" layoutX="25.0" layoutY="4.0" onMouseClicked="#downloadImageClicked" prefHeight="23.0" prefWidth="146.0" text="Título del archivo prueba" underline="true" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </Group>
+   </children>
+</Pane>

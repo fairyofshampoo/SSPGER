@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.ProjectModifierController">
+   <children>
+      <ScrollPane prefHeight="600.0" prefWidth="800.0">
+         <content>
+            <Pane prefHeight="2678.0" prefWidth="800.0">
+               <children>
+                  <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #ddead1;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Label layoutX="86.0" layoutY="52.0" prefHeight="35.0" prefWidth="292.0" text="Postular Anteproyecto">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="103.0" layoutY="95.0" prefHeight="17.0" prefWidth="234.0" text="Ingrese la información del anteproyecto" />
+                  <TextField fx:id="txtReceptionalWorkName" layoutX="40.0" layoutY="150.0" onKeyTyped="#typingReceptionalWorkName" prefHeight="27.0" prefWidth="702.0" promptText="ej. Recomendaciones de Accesibilidad para el Desarrollo de Software" style="-fx-border-color: #CADEED;" />
+                  <TextField fx:id="txtPladeaProjectTitle" layoutX="40.0" layoutY="241.0" onKeyTyped="#typingPladeaProjectTitle" prefHeight="27.0" prefWidth="717.0" promptText="ej. Hacia un Modelo de Campus Accesible: Facultad de Estadística e Informática" style="-fx-border-color: #CADEED;" />
+                  <TextArea fx:id="txtProjectRequeriments" layoutX="40.0" layoutY="328.0" onKeyTyped="#typingProjectRequeriments" prefHeight="204.0" prefWidth="721.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;" wrapText="true" />
+                  <TextField fx:id="txtParticipantsNumber" layoutX="40.0" layoutY="602.0" onKeyTyped="#typingParticipantsNumber" prefHeight="27.0" prefWidth="208.0" promptText="ej. 2" style="-fx-border-color: #CADEED;" />
+                  <ChoiceBox fx:id="cbxModality" layoutX="286.0" layoutY="607.0" prefWidth="150.0" style="-fx-background-color: #ddead1;" />
+                  <ChoiceBox fx:id="cbxAcademicBody" layoutX="532.0" layoutY="607.0" prefWidth="150.0" style="-fx-background-color: #ddead1;" />
+                  <TextField fx:id="txtInvestigationLine" layoutX="40.0" layoutY="725.0" onKeyTyped="#typingInvestigationLine" prefHeight="117.0" prefWidth="735.0" style="-fx-border-color: #CADEED;" />
+                  <TextArea fx:id="txtProyectDescription" layoutX="40.0" layoutY="909.0" onKeyTyped="#typingProyectDescription" prefHeight="360.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;" wrapText="true" />
+                  <ChoiceBox fx:id="cbxDuration" layoutX="535.0" layoutY="909.0" prefWidth="150.0" style="-fx-background-color: #ddead1;" />
+                  <TableView fx:id="tblLgac" layoutX="512.0" layoutY="1052.0" prefHeight="124.0" prefWidth="263.0" style="-fx-border-color: #5F84A2;">
+                    <columns>
+                      <TableColumn fx:id="tblCIdLgac" prefWidth="44.0" style="-fx-background-color: #CADEED;" text="LGAC" />
+                      <TableColumn fx:id="tblCNameLgac" prefWidth="310.93328857421875" style="-fx-background-color: #CADEED;" text="Nombre" />
+                    </columns>
+                  </TableView>
+                  <TextArea fx:id="txtReceptionalWorkDescription" layoutX="40.0" layoutY="1365.0" onKeyTyped="#typingReceptionalWorkDescription" prefHeight="360.0" prefWidth="447.0" style="-fx-background-color: #FFFFFF;" wrapText="true" />
+                  <TextArea fx:id="txtExpectedResults" layoutX="535.0" layoutY="1266.0" onKeyTyped="#typingExpectedResults" prefHeight="427.0" prefWidth="239.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;" wrapText="true" />
+                  <TextArea fx:id="txtBibliography" layoutX="37.0" layoutY="1815.0" onKeyTyped="#typingBibliography" prefHeight="394.0" prefWidth="459.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;" wrapText="true" />
+                  <TextArea fx:id="txtNotes" layoutX="535.0" layoutY="1786.0" onKeyTyped="#typingNotes" prefHeight="415.0" prefWidth="232.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #CADEED;" wrapText="true" />
+                  <ChoiceBox fx:id="cbxDirector" layoutX="75.0" layoutY="2337.0" prefHeight="25.0" prefWidth="421.0" />
+                  <ChoiceBox fx:id="cbxCodirector" layoutX="75.0" layoutY="2423.0" prefHeight="25.0" prefWidth="421.0" />
+                  <Button fx:id="btnModify" layoutX="218.0" layoutY="2488.0" mnemonicParsing="false" onAction="#modifyButtonClicked" prefHeight="25.0" prefWidth="104.0" text="Postular" />
+                  <Button fx:id="btnCancel" layoutX="400.0" layoutY="2488.0" mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="25.0" prefWidth="104.0" text="Cancelar" />
+                  <Label layoutX="512.0" layoutY="994.0" prefHeight="43.0" prefWidth="231.0" text="LGAC que alimenta" textFill="#666666" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="532.0" layoutY="579.0" prefHeight="17.0" prefWidth="150.0" text="Cuerpo académico" textFill="#666666">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="535.0" layoutY="886.0" prefHeight="17.0" prefWidth="172.0" text="Duración aproximada en meses" textFill="#666666">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="24.0" layoutY="2273.0" prefHeight="35.0" prefWidth="691.0" text="Selecciona un director responsable del anteproyecto y sus correspondientes codirectores colaboradores" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="286.0" layoutY="579.0" prefHeight="24.0" prefWidth="209.0" text="Modalidad de trabajo recepcional" textFill="#666666" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="126.0" prefHeight="23.0" prefWidth="412.0" text="Título del trabajo recepcional" textFill="#666666" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="216.0" prefHeight="23.0" prefWidth="412.0" text="Título del proyecto de investigación VINCULACIÓN/PLADEA-FEI" textFill="#666666" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="301.0" prefHeight="23.0" prefWidth="412.0" text="Requisitos del proyecto" textFill="#666666" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="886.0" prefHeight="23.0" prefWidth="412.0" text="Descripción de proyecto de investigación" textFill="#666666" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="579.0" prefHeight="23.0" prefWidth="244.0" text="Número de Alumnos Participantes" textFill="#666666" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="693.0" prefHeight="23.0" prefWidth="244.0" text="Línea de Investigación" textFill="#666666" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="1345.0" prefHeight="17.0" prefWidth="228.0" text="Descripción de trabajo recepcional" textFill="#666666">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="1786.0" prefHeight="17.0" prefWidth="228.0" text="Bibliografía recomendada" textFill="#666666">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="535.0" layoutY="1237.0" prefHeight="17.0" prefWidth="195.0" text="Inserte resultados esperados" textFill="#666666">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="75.0" layoutY="2320.0" prefHeight="17.0" prefWidth="228.0" text="Director *" textFill="#666666">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="75.0" layoutY="2406.0" prefHeight="17.0" prefWidth="228.0" text="Codirector 1" textFill="#666666">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="537.0" layoutY="1760.0" prefHeight="17.0" prefWidth="228.0" text="Notas" textFill="#666666">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblReceptionalWorkNameInvalid" layoutX="40.0" layoutY="178.0" prefHeight="23.0" prefWidth="412.0" text="Título del trabajo recepcional inválido (1-300 caracteres alfanuméricos y símbolos)" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPladeaNameInvalid" layoutX="40.0" layoutY="268.0" prefHeight="23.0" prefWidth="698.0" text="Título del proyecto de investigación VINCULACIÓN/PLADEA-FEI inválido (1-300 caracteres alfanuméricos y símbolos)" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRequerimentsInvalid" layoutX="42.0" layoutY="532.0" prefHeight="27.0" prefWidth="713.0" text="Requisitos del proyecto inválido (1-1000 caracteres alfanuméricos y símbolos)" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblParticipantsNumberInvalid" layoutX="40.0" layoutY="637.0" prefHeight="40.0" prefWidth="230.0" text="Número de alumnos participantes inválido (1 dígito)" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblInvestigationLineInvalid" layoutX="40.0" layoutY="842.0" prefHeight="27.0" prefWidth="418.0" text="Línea de investigación inválida (1 - 1000 caracteres alfanuméricos y símbolos)" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblModalityInvalid" layoutX="286.0" layoutY="637.0" prefHeight="39.0" prefWidth="157.0" text="Selecciona una modalidad de trabajo recepcional" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblInvalidAcademicBody" layoutX="535.0" layoutY="638.0" prefHeight="39.0" prefWidth="157.0" text="Selecciona un cuerpo académico" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblDurationInvalid" layoutX="535.0" layoutY="934.0" prefHeight="39.0" prefWidth="157.0" text="Selecciona una duración aproximada en meses" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblProyectDescriptionInvalid" layoutX="40.0" layoutY="1273.0" prefHeight="53.0" prefWidth="458.0" text="Descripción de proyecto de investigación inválida (1 - 5000 caracteres alfanuméricos y símbolos)" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblLgacInvalid" layoutX="510.0" layoutY="1179.0" prefHeight="22.0" prefWidth="264.0" text="Selecciona un LGAC que alimenta" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblReceptionalWorkDescriptionInvalid" layoutX="40.0" layoutY="1734.0" prefHeight="48.0" prefWidth="458.0" text="Descripción de trabajo recepcional inválida (1 - 5000 caracteres alfanuméricos y símbolos)" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblResultsInvalid" layoutX="537.0" layoutY="1696.0" prefHeight="32.0" prefWidth="215.0" text="Resultados esperados inválidos (1 - 1000 caracteres alfanuméricos y símbolos)" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblNotesInvalid" layoutX="535.0" layoutY="2201.0" prefHeight="35.0" prefWidth="215.0" text="Notas inválidas (1 - 1000 caracteres alfanuméricos y símbolos)" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblBibliographyInvalid" layoutX="40.0" layoutY="2223.0" prefHeight="26.0" prefWidth="458.0" text="Bibliografía recomendada inválida (1 - 5000 caracteres alfanuméricos y símbolos)" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblDirectorInvalid" layoutX="74.0" layoutY="2362.0" prefHeight="26.0" prefWidth="458.0" text="Seleccione un director" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblCodirector1Invalid" layoutX="75.0" layoutY="2448.0" prefHeight="26.0" prefWidth="458.0" text="Seleccione un codirector diferente" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="imgGoBack" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="51.0" onMouseClicked="#goBackButtonClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/btnBack.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

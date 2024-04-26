@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="236.0" prefWidth="175.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.StudentReportCardController">
+   <children>
+      <Pane layoutY="-7.0" prefHeight="213.0" prefWidth="158.0">
+         <children>
+            <GridPane fx:id="gpLabels" layoutY="32.0" prefHeight="181.0" prefWidth="158.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="91.00001017252605" minHeight="10.0" prefHeight="86.6666768391927" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="43.0" minHeight="0.0" prefHeight="21.333323160807296" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="44.00001017252603" minHeight="0.0" prefHeight="23.000010172526032" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="46.666656494140625" minHeight="10.0" prefHeight="26.000020345052093" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="26.666656494140625" minHeight="10.0" prefHeight="24.000010172526032" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="lblAssignmentCount" prefHeight="17.0" prefWidth="182.0" text="Label" wrapText="true" GridPane.rowIndex="3" />
+                  <Label fx:id="lblSubmissionAssignmentCount" prefHeight="17.0" prefWidth="196.0" text="Label" wrapText="true" GridPane.rowIndex="4" />
+                  <Text fx:id="ntxtStudentName" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="153.47003173828125" GridPane.rowIndex="1" />
+                  <Text fx:id="ntxtReceptionalWork" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="153.47003173828125" GridPane.rowIndex="2" />
+                  <ImageView fx:id="imgStudent" fitHeight="81.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/userIcon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="25.0" />
+                     </GridPane.margin>
+                  </ImageView>
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="608.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.ProfessorCourseManagerController">
+   <children>
+      <ScrollPane layoutX="124.0" layoutY="129.0" prefHeight="463.0" prefWidth="669.0">
+         <content>
+            <GridPane fx:id="gpCourseTable" prefHeight="29.0" prefWidth="659.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
+      <Pane fx:id="pnNavigationBar" layoutX="-3.0" layoutY="42.0" prefHeight="567.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" />
+      <Label layoutX="126.0" layoutY="65.0" text="Cursos">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Pane layoutX="126.0" layoutY="112.0" prefHeight="5.0" prefWidth="680.0" style="-fx-background-color: #C4C2C2;" />
+      <ComboBox fx:id="cbxCourseFilter" layoutX="592.0" layoutY="70.0" onAction="#filterCourses" prefWidth="150.0" promptText="Filtro de curso" />
+      <Pane layoutX="-2.0" prefHeight="45.0" prefWidth="813.0" style="-fx-background-color: #C4C2C2;">
+         <children>
+            <Label fx:id="lblTitleSystem" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

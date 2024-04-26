@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.AvailableProjectsCatalogController">
+   <children>
+      <Pane layoutY="40.0" prefHeight="678.0" prefWidth="800.0">
+         <children>
+            <BorderPane prefHeight="678.0" prefWidth="800.0">
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Pane prefHeight="98.0" prefWidth="665.0">
+                           <children>
+                              <HBox alignment="CENTER" layoutX="403.0" layoutY="21.0" prefHeight="28.0" prefWidth="289.0" style="-fx-border-radius: 50; -fx-border-color: #a6a6a6;">
+                                 <children>
+                                    <TextField fx:id="txtSearchProject" prefHeight="15.0" prefWidth="222.0" promptText="Buscar por nombre" style="-fx-border-color: #F4F4F4; -fx-background-color: #F4F4F4;">
+                                       <opaqueInsets>
+                                          <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                       </opaqueInsets>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                    <ImageView fx:id="imgSearch" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#searchProject" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@resources/searchIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <effect>
+                                    <Blend />
+                                 </effect>
+                              </HBox>
+                              <Label layoutX="37.0" layoutY="19.0" text="Anteproyectos">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="535.0" prefWidth="713.0">
+                           <children>
+                              <ScrollPane layoutX="27.0" layoutY="-4.0" prefHeight="541.0" prefWidth="664.0">
+                                 <content>
+                                    <VBox fx:id="vboxAvailableProjectsContent" prefHeight="533.0" prefWidth="655.0" />
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </center>
+               <left>
+                  <Pane fx:id="pnNavigationBar" prefHeight="678.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" BorderPane.alignment="CENTER" />
+               </left>
+            </BorderPane>
+         </children>
+      </Pane>
+      <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
+         <children>
+            <Label layoutX="134.0" layoutY="10.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

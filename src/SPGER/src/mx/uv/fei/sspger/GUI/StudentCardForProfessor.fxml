@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="135.0" prefWidth="170.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.StudentCardForProfessorController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c8e4ff" height="166.0" stroke="BLACK" strokeType="INSIDE" width="170.0" />
+      <ImageView fx:id="imgStudent" fitHeight="90.0" fitWidth="99.0" layoutX="38.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/userIcon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblStudentName" alignment="CENTER" layoutX="4.0" layoutY="95.0" prefHeight="17.0" prefWidth="158.0" text="Ana Luisa Gabriela de los angeles arguelles" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="lblStudentEMail" alignment="CENTER" layoutX="7.0" layoutY="112.0" prefHeight="17.0" prefWidth="151.0" text="zs20013869@estudiantes.uv.mx">
+         <font>
+            <Font name="System Italic" size="10.0" />
+         </font>
+      </Label>
+      <Button layoutX="23.0" layoutY="130.0" mnemonicParsing="false" onAction="#seeStudentDetails" prefHeight="25.0" prefWidth="123.0" text="Ver detalles" />
+   </children>
+</AnchorPane>

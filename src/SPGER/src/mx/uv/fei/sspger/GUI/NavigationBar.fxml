@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="pnNavigationBarParent" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.NavigationBarController">
+   <children>
+      <Pane fx:id="pnNavigationBarStudent" prefHeight="563.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" visible="false">
+         <children>
+            <ImageView fx:id="imgHomeStudent" fitHeight="62.0" fitWidth="37.0" layoutX="23.0" layoutY="31.0" onMouseClicked="#homeStudentClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/25694.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgMyReceptionalWork" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="85.0" onMouseClicked="#myReceptionalWorkClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/btnMyProject.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgAllProjects" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="146.0" onMouseClicked="#allProjectsClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/btnProjects.png" />
+               </image>
+            </ImageView>
+            <Line endX="22.800003051757812" endY="9.1552734375E-5" fill="BLACK" layoutX="46.0" layoutY="492.0" startX="-30.799999237060547" startY="6.103515625E-5" />
+         </children>
+      </Pane>
+      <Pane fx:id="pnNavigationBarProfessor" prefHeight="563.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" visible="false">
+         <children>
+            <ImageView fx:id="imgHomeProfessor" fitHeight="62.0" fitWidth="37.0" layoutX="23.0" layoutY="11.0" onMouseClicked="#homeClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/25694.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgAddCourses" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="324.0" onMouseClicked="#coursesManagerClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@resources/addCourse.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgAddUsers" fitHeight="62.0" fitWidth="37.0" layoutX="22.0" layoutY="382.0" onMouseClicked="#usersManagerClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@resources/addUsers.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgAddAcademicBody" fitHeight="62.0" fitWidth="37.0" layoutX="21.0" layoutY="446.0" onMouseClicked="#academicBodyManagerClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@resources/academicBody.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgMyCourses" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="77.0" onMouseClicked="#allCoursesClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/course_icon.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgMyProjects" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="129.0" onMouseClicked="#myProjectsClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/btnMyProject.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgReceptionalWork" fitHeight="62.0" fitWidth="37.0" layoutX="24.0" layoutY="190.0" onMouseClicked="#receptionalWorksViewClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/btnReceptionalWork.png" />
+               </image>
+            </ImageView>
+            <Line endX="22.800003051757812" endY="9.1552734375E-5" fill="BLACK" layoutX="46.0" layoutY="309.0" startX="-30.799999237060547" startY="6.103515625E-5" />
+            <ImageView fx:id="imgMyAcademicBody" fitHeight="62.0" fitWidth="37.0" layoutX="23.0" layoutY="252.0" onMouseClicked="#academicBodyClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/myAcademicBody.png" />
+               </image>
+            </ImageView>
+            <Line endX="22.800003051757812" endY="9.1552734375E-5" fill="BLACK" layoutX="46.0" layoutY="495.0" startX="-30.799999237060547" startY="6.103515625E-5" />
+         </children>
+      </Pane>
+      <Group fx:id="groupCloseSession" layoutX="4.0" layoutY="500.0" onMouseClicked="#exitClicked" onMouseEntered="#mouseEnteredArea" onMouseExited="#mouseExitedArea">
+         <children>
+            <ImageView fx:id="imgExit" fitHeight="24.0" fitWidth="43.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/exit_icon.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" prefHeight="37.0" prefWidth="55.0" text="Cerrar sesión" textAlignment="CENTER" underline="true" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+   </children>
+</Pane>

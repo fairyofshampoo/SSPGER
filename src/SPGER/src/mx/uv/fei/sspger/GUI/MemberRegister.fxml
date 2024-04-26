@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="mx.uv.fei.sspger.GUI.controllers.MemberRegisterController">
+   <children>
+      <Pane layoutY="-1.0" prefHeight="45.0" prefWidth="600.0" style="-fx-background-color: #C4C2C2;" />
+      <ScrollPane layoutX="30.0" layoutY="101.0" prefHeight="260.0" prefWidth="536.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="257.0" prefWidth="529.0">
+               <children>
+                  <TableView fx:id="tblAcademicBodyMembers" layoutX="1.0" layoutY="-2.0" prefHeight="260.0" prefWidth="536.0">
+                    <columns>
+                      <TableColumn fx:id="tblCMember" prefWidth="75.0" text="Miembros" />
+                      <TableColumn fx:id="tblCResponsible" prefWidth="75.0" text="Responsable" />
+                        <TableColumn fx:id="tblCEmail" prefWidth="171.3332977294922" text="Correo" />
+                        <TableColumn fx:id="tblCName" prefWidth="212.66665649414062" text="Nombre" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Label layoutX="30.0" layoutY="59.0" text="Participantes">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="115.0" layoutY="390.0" mnemonicParsing="false" onAction="#addMembersClicked" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 10;" text="Aceptar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="272.0" layoutY="390.0" mnemonicParsing="false" onAction="#cancelClicked" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 10;" text="Cancelar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

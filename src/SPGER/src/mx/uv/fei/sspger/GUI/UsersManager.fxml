@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.UsersManagerController">
+   <children>
+      <Pane prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <TextField fx:id="txtSearchBar" layoutX="271.0" layoutY="68.0" prefHeight="25.0" prefWidth="339.0" promptText="Buscar usuario por nombre" />
+            <Label layoutX="120.0" layoutY="64.0" prefHeight="35.0" prefWidth="135.0" text="Usuarios">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnAddUser" layoutX="661.0" layoutY="68.0" mnemonicParsing="false" onAction="#addUserButtonClicked" style="-fx-background-radius: 20;" text="Añadir Usuario">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Pane fx:id="pnNavigationBar" layoutY="43.0" prefHeight="562.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" />
+            <ImageView fx:id="imgSearchBar" fitHeight="19.0" fitWidth="14.0" layoutX="585.0" layoutY="74.0" onMouseClicked="#searchUser" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/searchIcon.png" />
+               </image>
+            </ImageView>
+            <ScrollPane layoutX="99.0" layoutY="110.0" prefHeight="452.0" prefWidth="675.0">
+               <content>
+                  <GridPane fx:id="gpUsers">
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
+      <Pane layoutY="-2.0" prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

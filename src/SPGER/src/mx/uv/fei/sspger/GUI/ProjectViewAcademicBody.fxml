@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.ProjectViewAcademicBodyController">
+   <children>
+      <Pane prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #8EB39D;">
+         <children>
+            <Label layoutX="134.0" layoutY="8.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <VBox layoutX="-3.0" layoutY="40.0" prefHeight="557.0" prefWidth="800.0">
+         <children>
+            <Pane prefHeight="119.0" prefWidth="800.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" layoutY="-2.0" prefHeight="99.0" prefWidth="800.0">
+                     <children>
+                        <ImageView fx:id="imgGoBack" fitHeight="45.0" fitWidth="45.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@resources/btnBack.png" />
+                           </image>
+                        </ImageView>
+                        <Pane prefHeight="79.0" prefWidth="46.0" />
+                        <Pane prefHeight="79.0" prefWidth="476.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="79.0" prefWidth="476.0">
+                                 <children>
+                                    <Label fx:id="lblProjectTitle" alignment="CENTER" prefHeight="96.0" prefWidth="476.0" textAlignment="CENTER" textFill="#437f80" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bfbfbf" height="2.0" stroke="#8a8686" strokeType="INSIDE" width="475.0" />
+                                 </children>
+                              </VBox>
+                           </children></Pane>
+                        <VBox alignment="CENTER" prefHeight="79.0" prefWidth="168.0" spacing="18.0">
+                           <children>
+                              <Button fx:id="btnValidate" disable="true" mnemonicParsing="false" onAction="#validateClicked" prefHeight="25.0" prefWidth="104.0" style="-fx-background-radius: 10;" text="Validar">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnRejected" disable="true" mnemonicParsing="false" onAction="#rejectClicked" prefHeight="25.0" prefWidth="102.0" style="-fx-background-radius: 10;" text="Rechazar">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+            <ScrollPane prefHeight="459.0" prefWidth="800.0">
+               <content>
+                  <VBox prefHeight="468.0" prefWidth="801.0" spacing="12.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="470.0">
+                           <children>
+                              <Pane prefHeight="27.0" prefWidth="26.0" />
+                              <Label text="Cuerpo Académico: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblAcademicBodyData">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="23.0" prefWidth="814.0">
+                           <children>
+                              <Pane prefHeight="30.0" prefWidth="30.0" />
+                              <Label prefHeight="20.0" prefWidth="137.0" text="LGAC que alimenta: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <VBox fx:id="vboxLgacDataContent" prefHeight="80.0" prefWidth="643.0" spacing="4.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="814.0">
+                           <children>
+                              <Pane prefHeight="36.0" prefWidth="27.0" />
+                              <VBox prefHeight="36.0" prefWidth="771.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="350.0" text="Nombre del proyecto de investigación PLADEA-FEI: ">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="ntxtPladeaFeiName" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="771.470112323761">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="21.0" prefWidth="814.0">
+                           <children>
+                              <Pane prefHeight="36.0" prefWidth="29.0" />
+                              <VBox prefHeight="21.0" prefWidth="759.0">
+                                 <children>
+                                    <Label text="Línea de investigación:">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="ntextInvestigationLine" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="756.8034362792969">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+                           <children>
+                              <Pane prefHeight="26.0" prefWidth="29.0" />
+                              <Label text="Duración aproximada: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblDurationData">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+                           <children>
+                              <Pane prefHeight="26.0" prefWidth="29.0" />
+                              <Label text="Modalidad de Trabajo Recepcional: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblModalityData">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="13.0" prefWidth="801.0">
+                           <children>
+                              <Pane prefHeight="30.0" prefWidth="30.0" />
+                              <VBox prefHeight="27.0" prefWidth="764.0">
+                                 <children>
+                                    <Label text="Requisitos: ">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="ntxtRequirementsData" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="758.0000305175781">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="814.0">
+                           <children>
+                              <Pane prefHeight="30.0" prefWidth="30.0" />
+                              <Label text="Director: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblDirectorData">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="20.0" prefWidth="793.0">
+                           <children>
+                              <Pane prefHeight="30.0" prefWidth="30.0" />
+                              <Label fx:id="lblCodirector" prefHeight="20.0" prefWidth="115.0" text="Codirector: " visible="false">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <VBox fx:id="vboxCodirectorDataContent" prefHeight="20.0" prefWidth="658.0" spacing="3.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+                           <children>
+                              <Pane prefHeight="30.0" prefWidth="30.0" />
+                              <Label text="Alumnos Participantes: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblParticipantsData">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="25.0" prefWidth="814.0">
+                           <children>
+                              <Pane prefHeight="39.0" prefWidth="41.0" />
+                              <VBox prefHeight="15.0" prefWidth="781.0">
+                                 <children>
+                                    <Label text="Descripción del proyecto de investigación: " wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="ntxtProjectDescriptionData" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="760.8033752441406">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="5.0" prefWidth="814.0">
+                           <children>
+                              <Pane prefHeight="39.0" prefWidth="43.0" />
+                              <VBox prefHeight="51.0" prefWidth="785.0">
+                                 <children>
+                                    <Label text="Descripción del trabajo recepcional: ">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="ntxtReceptionalWorkDescription" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="763.33336353302">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="793.0">
+                           <children>
+                              <Pane prefHeight="39.0" prefWidth="40.0" />
+                              <VBox prefHeight="81.0" prefWidth="783.0">
+                                 <children>
+                                    <Label text="Resultados esperados: ">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="ntxtExpectedResultsData" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="763.4700927734375">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="789.0">
+                           <children>
+                              <Pane prefHeight="39.0" prefWidth="54.0" />
+                              <VBox prefHeight="300.0" prefWidth="793.0">
+                                 <children>
+                                    <Label text="Bibliografía recomendada: ">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="ntxtBibliographyData" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="762.1367282867432">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="19.0" prefWidth="814.0">
+                           <children>
+                              <Pane prefHeight="39.0" prefWidth="53.0" />
+                              <VBox prefHeight="200.0" prefWidth="794.0">
+                                 <children>
+                                    <Label text="Notas: ">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="ntxtNotesData" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="769.3333435058594">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

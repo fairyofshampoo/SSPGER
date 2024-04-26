@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.MyReceptionalWorkController">
+   <children>
+      <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #8EB39D;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="773.0" text="Sistema de Gestión de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="104.0" layoutY="69.0" prefHeight="35.0" prefWidth="362.0" text="Mi trabajo recepcional" textFill="#437f80">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Pane fx:id="pnNavigationBarStudent" layoutY="43.0" prefHeight="558.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" />
+      <Label fx:id="lblReceptionalWorkTitle" alignment="TOP_LEFT" layoutX="104.0" layoutY="105.0" prefHeight="46.0" prefWidth="688.0" text="Título del trabajo recepcional" textFill="#2d5264" wrapText="true">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDirectorTitle" layoutX="104.0" layoutY="160.0" prefHeight="18.0" prefWidth="68.0" text="Director">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblCodirectorTitle" layoutX="104.0" layoutY="180.0" prefHeight="18.0" prefWidth="84.0" text="Codirector">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDirector" layoutX="195.0" layoutY="160.0" prefHeight="18.0" prefWidth="548.0" text="Director" />
+      <Label fx:id="lblCodirector" layoutX="195.0" layoutY="180.0" prefHeight="18.0" prefWidth="576.0" text="Codirector" />
+      <Line endX="497.800048828125" endY="7.62939453125E-6" layoutX="213.0" layoutY="213.0" startX="-100.0" stroke="#a6a6a6" />
+      <Label layoutX="104.0" layoutY="230.0" text="Asignaciones" textFill="#666666">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="104.0" layoutY="266.0" prefHeight="303.0" prefWidth="667.0">
+         <content>
+            <GridPane fx:id="gpAssignments" prefHeight="569.0" prefWidth="778.0">
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

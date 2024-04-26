@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.DirectorProjectsCatalogController">
+   <children>
+      <Pane prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: #c2c4c4;">
+         <children>
+            <Label layoutX="134.0" layoutY="10.0" text="Sistema de Seguimiento de Proyecto Guiado y Experiencia Recepcional" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <VBox layoutX="103.0" layoutY="38.0" prefHeight="560.0" prefWidth="672.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="683.0">
+               <children>
+                  <Label prefHeight="35.0" prefWidth="267.0" text="Mis anteproyectos">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="98.0" prefWidth="74.0" />
+                  <ChoiceBox fx:id="cbxProjectFilter" prefHeight="26.0" prefWidth="187.0" />
+                  <Pane prefHeight="91.0" prefWidth="12.0" />
+                  <Pane prefHeight="91.0" prefWidth="18.0" />
+                  <Pane prefHeight="91.0" prefWidth="82.0" />
+                  <Button fx:id="btnAddProject" mnemonicParsing="false" onAction="#addProjectClicked" prefHeight="32.0" prefWidth="159.0" style="-fx-background-radius: 10;" text="Agregar anteproyecto" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <ScrollPane prefHeight="436.0" prefWidth="660.0">
+               <content>
+                  <VBox fx:id="vboxDirectorProjects" prefHeight="432.0" prefWidth="667.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+      <Pane fx:id="pnNavigationBar" layoutX="-1.0" layoutY="45.0" prefHeight="560.0" prefWidth="84.0" style="-fx-background-color: #A6A6A6;" />
+   </children>
+</AnchorPane>

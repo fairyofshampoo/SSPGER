@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="578.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.AddAssignmentController">
+    <children>
+      <Label layoutX="76.0" layoutY="64.0" prefHeight="71.0" prefWidth="461.0" text="Asignación de avances">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
+      <Pane prefHeight="55.0" prefWidth="800.0" style="-fx-background-color: #C4C2C2;" />
+      <Label fx:id="lblReceptionalWorkName" alignment="TOP_LEFT" layoutX="75.0" layoutY="136.0" prefHeight="48.0" prefWidth="605.0" text="A: anteproyecto" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtAssignmentTitle" layoutX="76.0" layoutY="204.0" onKeyTyped="#setMissingAssignmentTitleInvisible" prefHeight="25.0" prefWidth="403.0" promptText="Ingrese un titulo">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <DatePicker fx:id="dtpStartDate" layoutX="548.0" layoutY="202.0" onAction="#setMissingStartDateInvisible" prefHeight="29.0" prefWidth="175.0" promptText="Fecha de inicio" />
+      <DatePicker fx:id="dtpDeadline" layoutX="548.0" layoutY="339.0" onAction="#setMissingDeadlineInvisible" prefHeight="29.0" prefWidth="175.0" promptText="Fecha de fin" />
+      <Button layoutX="55.0" layoutY="529.0" mnemonicParsing="false" onAction="#registerAssignment" prefHeight="35.0" prefWidth="137.0" style="-fx-background-radius: 20px;" text="Añadir">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="596.0" layoutY="529.0" mnemonicParsing="false" onAction="#cancelAssignmentCreation" prefHeight="35.0" prefWidth="137.0" style="-fx-background-radius: 20px;" text="Cancelar">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblRemainingCharacters" layoutX="76.0" layoutY="507.0" text="Caracteres disponibles: " textFill="#aaa9a9" />
+      <TextArea fx:id="txtAssignmentDescription" layoutX="76.0" layoutY="253.0" onKeyTyped="#remainingCharactersInDescription" prefHeight="249.0" prefWidth="403.0" promptText="Ingrese una descripcion..." wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextArea>
+      <Label fx:id="lblMissingAssignmentTitle" layoutX="76.0" layoutY="184.0" text="Campo obligatorio" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMissingStartDate" layoutX="548.0" layoutY="184.0" text="Campo obligatorio" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMissingDeadline" layoutX="548.0" layoutY="319.0" text="Campo obligatorio" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Spinner fx:id="spnStartHour" layoutX="573.0" layoutY="263.0" prefHeight="25.0" prefWidth="75.0" />
+      <Spinner fx:id="spnEndHour" layoutX="573.0" layoutY="402.0" prefHeight="25.0" prefWidth="75.0" />
+      <Label layoutX="582.0" layoutY="245.0" text="Hora inicio" textFill="#807b7b" />
+      <Label layoutX="585.0" layoutY="384.0" text="Hora fin" textFill="#807b7b" />
+      <Spinner fx:id="spnStartMinute" layoutX="665.0" layoutY="263.0" prefHeight="25.0" prefWidth="75.0" />
+      <Label layoutX="674.0" layoutY="245.0" text="Minutos" textFill="#807b7b" />
+      <Spinner fx:id="spnEndMinute" layoutX="665.0" layoutY="402.0" prefHeight="25.0" prefWidth="75.0" />
+      <Label layoutX="674.0" layoutY="384.0" text="Minutos" textFill="#807b7b" />
+      <Label layoutX="653.0" layoutY="257.0" text=":">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="654.0" layoutY="396.0" text=":">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

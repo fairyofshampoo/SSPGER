@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" onMouseClicked="#goToAvailableProject" prefHeight="150.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uv.fei.sspger.GUI.controllers.AvailableProjectCardController">
+   <children>
+      <Pane prefHeight="150.0" prefWidth="330.0" style="-fx-background-color: #8EB39D; -fx-background-radius: 10;">
+         <children>
+            <VBox layoutX="8.0" layoutY="6.0" prefHeight="138.0" prefWidth="314.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="53.0" prefWidth="307.0">
+                     <children>
+                        <Label fx:id="lblProjectName" text="nombre" textFill="#437f80">
+                           <font>
+                              <Font name="Arial Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="13.0" prefWidth="321.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="1.0" stroke="#908e8e" strokeType="INSIDE" width="278.0" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="324.0">
+                     <children>
+                        <Pane prefHeight="18.0" prefWidth="19.0" />
+                        <Label text="Modalidad: ">
+                           <font>
+                              <Font name="Arial Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblModality" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="330.0">
+                     <children>
+                        <Pane prefHeight="26.0" prefWidth="19.0" />
+                        <Label text="Cupo: ">
+                           <font>
+                              <Font name="Arial Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblSpaces" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="21.0" prefWidth="330.0">
+                     <children>
+                        <Pane prefHeight="21.0" prefWidth="20.0" />
+                        <Label text="Duración: ">
+                           <font>
+                              <Font name="Arial Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblDuration" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
