@@ -1,0 +1,6 @@
+mx.uv.fei.sspger.dataaccess
+mx.uv.fei.sspger.GUI
+mx.uv.fei.sspger.GUI.controllers
+mx.uv.fei.sspger.logic
+mx.uv.fei.sspger.logic.contracts
+mx.uv.fei.sspger.logic.DAO

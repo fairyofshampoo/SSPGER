@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"mx.uv.fei.sspger.dataaccess"},{"l":"mx.uv.fei.sspger.GUI"},{"l":"mx.uv.fei.sspger.GUI.controllers"},{"l":"mx.uv.fei.sspger.logic"},{"l":"mx.uv.fei.sspger.logic.contracts"},{"l":"mx.uv.fei.sspger.logic.DAO"}];updateSearchResults();
