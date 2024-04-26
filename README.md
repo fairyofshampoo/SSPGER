@@ -1,7 +1,5 @@
 ## SSPGER - Desktop Version
 
-Welcome to the SSPGER (Desktop Version) repository!
-
 ### Overview
 
 SSPGER (Desktop Version) is a desktop application developed as part of the Principles of Construction experience. It aims to streamline the management of reception experiences at the Faculty of Statistics and Informatics. This application provides an efficient and user-friendly solution for both faculty and students to manage projects, track progress, and generate reports.
